@@ -1,23 +1,23 @@
 # vogue-valley-music-festival
 ## Levantamento de Requisitos:
 1. Gerenciamento de Artistas:
-  - Adicionar, editar e remover informações de artistas (nome, biografia, foto).
-  - Associar artistas a palcos e horários específicos.
+   - Adicionar, editar e remover informações de artistas (nome, biografia, foto).
+   - Associar artistas a palcos e horários específicos.
 2. Gerenciamento de Palcos:
-  - Adicionar, editar e remover palcos.
-  - Definir capacidade e localização dos palcos no evento.
+   - Adicionar, editar e remover palcos.
+   - Definir capacidade e localização dos palcos no evento.
 3. Gerenciamento de Horários:
-  - Criar e modificar a agenda do evento.
-  - Alocar artistas em horários específicos em diferentes palcos.
-  - Permitir visualizações por dia e palco.
+   - Criar e modificar a agenda do evento.
+   - Alocar artistas em horários específicos em diferentes palcos.
+   - Permitir visualizações por dia e palco.
 4. Autenticação e Autorização:
-  - Sistema de login para administradores.
-  - Diferentes níveis de acesso para diferentes tipos de usuários (por exemplo, administradores, assistentes).
+   - Sistema de login para administradores.
+   - Diferentes níveis de acesso para diferentes tipos de usuários (por exemplo, administradores, assistentes).
 5. Interface de Usuário:
-  - Interface intuitiva para fácil navegação e gerenciamento.
-  - Dashboards para visualização rápida de informações como shows do dia, shows por palco, etc.
+   - Interface intuitiva para fácil navegação e gerenciamento.
+   - Dashboards para visualização rápida de informações como shows do dia, shows por palco, etc.
 6. Notificações:
-  - Sistema de notificações para alertar sobre conflitos de horários, alterações nos palcos ou outros problemas importantes.
+   - Sistema de notificações para alertar sobre conflitos de horários, alterações nos palcos ou outros problemas importantes.
 ## Design Arquitetônico:
 
 ## Banco de Dados:
