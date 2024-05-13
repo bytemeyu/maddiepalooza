@@ -1,4 +1,4 @@
-# Vogue Valley Music Festival
+# Maddiepalooza
 ## Levantamento de Requisitos:
 1. Gerenciamento de Artistas:
    - Adicionar, editar e remover informações de artistas (nome, biografia, foto).
