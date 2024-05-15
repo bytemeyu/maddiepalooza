@@ -39,7 +39,7 @@ Software em três camadas:
 - Dados: 'Models' e Database em si.
 
 ## Banco de Dados:
-Link do Modelo de Dados desenvolvido no DB Designer: https://dbdesigner.page.link/EiRZWofkNSRyrn1DA
+Link do modelo do Banco de Dados desenvolvido no DB Designer: https://dbdesigner.page.link/EiRZWofkNSRyrn1DA
 
 ## API Rest:
 
