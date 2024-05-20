@@ -3,8 +3,8 @@ export const artistModel = {
     columns: {
         artist_id: { type: 'integer', allowNull: false, default: 'nextval(\'artists_artist_id_seq\'::regclass)' },
         name: { type: 'character varying(50)', allowNull: false },
-        biography: { type: 'character varying(400)', allowNull: false },
-        photo_url: { type: 'character varying(400)', allowNull: false },
+        biography: { type: 'character varying(400)', allowNull: true },
+        photo_url: { type: 'character varying(400)', allowNull: true },
     },
     primaryKey: 'artist_id',
     indexes: [
@@ -14,4 +14,4 @@ export const artistModel = {
     referencedBy: [
         { tableName: 'performance', foreignKey: 'artist_id', referencingTable: 'artist', referencingKey: 'artist_id' },
     ],
-  };
+};
