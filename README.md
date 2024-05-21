@@ -44,30 +44,30 @@ Representações estruturadas das tabelas do banco de dados, com entidades, atri
 ## API Rest:
 A API vai permitir gerenciar artistas (artist: name, biography, photo_url), palcos (stage: name, location, capacity) e performances (performance: artist_id, stage_id, start_time, end_time, date) de um festival de música. Além de permitir o gerenciamento de usuários (users: email, username, password_hash, role) desse sistema.
 ### Métodos HTTP, Endpoints e Funcionalidades:
-   **artist**
-      - GET /api/artist: Recupera todos os artistas e suas respectivas informações.
-      - GET /api/artist/:id: Recupera um artista específico e suas informações.
-      - POST /api/artist: Cria um novo artista, com todas suas informações.
-      - PUT /api/artist/:id: Atualiza as informações de um artista existente.
-      - DELETE /api/artist/:id: Deleta o artista especificado.
-   **stage**
-      - GET /api/stage: Recupera todos os stages e suas respectivas informações.
-      - GET /api/stage/:id: Recupera um stage específico e suas informações.
-      - POST /api/stage: Cria um novo stage, com todas suas informações.
-      - PUT /api/stage/:id: Atualiza as informações de um stage existente.
-      - DELETE /api/stage/:id: Deleta o stage especificado.
-   **performance**
-      - GET /api/performance: Recupera todas as performances e suas respectivas informações.
-      - GET /api/performance/:id: Recupera uma performance específica e suas informações.
-      - POST /api/performance: Cria uma nova performance, com todas suas informações.
-      - PUT /api/performance/:id: Atualiza as informações de uma performance existente.
-      - DELETE /api/performance/:id: Deleta a performance especificada.
-   **users**
-      - GET /api/users: Recupera todos os usuários e suas respectivas informações.
-      - GET /api/users/:id: Recupera um usuário específico e suas informações.
-      - POST /api/users: Cria um novo usuário, com todas suas informações.
-      - PUT /api/users/:id: Atualiza as informações de um usuário existente.
-      - DELETE /api/users/:id: Deleta o usuário especificado.
+**artist**  
+- GET /api/artist: Recupera todos os artistas e suas respectivas informações.
+- GET /api/artist/:id: Recupera um artista específico e suas informações.
+- POST /api/artist: Cria um novo artista, com todas suas informações.
+- PUT /api/artist/:id: Atualiza as informações de um artista existente.
+- DELETE /api/artist/:id: Deleta o artista especificado.
+**stage**  
+- GET /api/stage: Recupera todos os stages e suas respectivas informações.
+- GET /api/stage/:id: Recupera um stage específico e suas informações.
+- POST /api/stage: Cria um novo stage, com todas suas informações.
+- PUT /api/stage/:id: Atualiza as informações de um stage existente.
+- DELETE /api/stage/:id: Deleta o stage especificado.
+**performance**  
+- GET /api/performance: Recupera todas as performances e suas respectivas informações.
+- GET /api/performance/:id: Recupera uma performance específica e suas informações.
+- POST /api/performance: Cria uma nova performance, com todas suas informações.
+- PUT /api/performance/:id: Atualiza as informações de uma performance existente.
+- DELETE /api/performance/:id: Deleta a performance especificada.
+**users**  
+- GET /api/users: Recupera todos os usuários e suas respectivas informações.
+- GET /api/users/:id: Recupera um usuário específico e suas informações.
+- POST /api/users: Cria um novo usuário, com todas suas informações.
+- PUT /api/users/:id: Atualiza as informações de um usuário existente.
+- DELETE /api/users/:id: Deleta o usuário especificado.
 
 ### Entrada e Saída de Payloads: 
 Formato JSON.
