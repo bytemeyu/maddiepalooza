@@ -44,12 +44,12 @@ Representações estruturadas das tabelas do banco de dados, com entidades, atri
 ## API Rest:
 A API vai permitir gerenciar artistas (artist: name, biography, photo_url), palcos (stage: name, location, capacity) e performances (performance: artist_id, stage_id, start_time, end_time, date) de um festival de música. Além de permitir o gerenciamento de usuários (users: email, username, password_hash, role) desse sistema.
 ### Métodos HTTP, Endpoints e Funcionalidades:
-**artist**  
-- GET /api/artist: Recupera todos os artistas e suas respectivas informações.
-- GET /api/artist/:id: Recupera um artista específico e suas informações.
-- POST /api/artist: Cria um novo artista, com todas suas informações.
-- PUT /api/artist/:id: Atualiza as informações de um artista existente.
-- DELETE /api/artist/:id: Deleta o artista especificado.  
+**artist** 
+   - GET /api/artist: Recupera todos os artistas e suas respectivas informações.
+   - GET /api/artist/:id: Recupera um artista específico e suas informações.
+   - POST /api/artist: Cria um novo artista, com todas suas informações.
+   - PUT /api/artist/:id: Atualiza as informações de um artista existente.
+   - DELETE /api/artist/:id: Deleta o artista especificado.  
 **stage**  
 - GET /api/stage: Recupera todos os stages e suas respectivas informações.
 - GET /api/stage/:id: Recupera um stage específico e suas informações.
