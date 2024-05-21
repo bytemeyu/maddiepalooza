@@ -37,12 +37,13 @@ Software em três camadas:
 - Dados: 'Models' e Database em si.
 
 ## Banco de Dados:
-Link do modelo do Banco de Dados desenvolvido no DB Designer: https://dbdesigner.page.link/EiRZWofkNSRyrn1DA
+Link do modelo do banco de dados desenvolvido no DB Designer: https://dbdesigner.page.link/EiRZWofkNSRyrn1DA
+
+Representações estruturadas das tabelas do banco de dados, com entidades, atributos, relações, índices, restrições, etc, assim como das vistas implementadas, nos arquivos da pasta src > models. 
 
 ## API Rest:
 A API vai permitir gerenciar artistas (artist: name, biography, photo_url), palcos (stage: name, location, capacity) e performances (performance: artist_id, stage_id, start_time, end_time, date) de um festival de música. Além de permitir o gerenciamento de usuários (users: email, username, password_hash, role) desse sistema.
-
-# Métodos HTTP, Endpoints e Funcionalidades:
+### Métodos HTTP, Endpoints e Funcionalidades:
 **artist**
 GET /api/artist: Recupera todos os artistas e suas respectivas informações.
 GET /api/artist/:id: Recupera um artista específico e suas informações.
@@ -67,6 +68,27 @@ GET /api/users/:id: Recupera um usuário específico e suas informações.
 POST /api/users: Cria um novo usuário, com todas suas informações.
 PUT /api/users/:id: Atualiza as informações de um usuário existente.
 DELETE /api/users/:id: Deleta o usuário especificado.
+
+### Entrada e Saída de Payloads: 
+Formato JSON.
+
+**Exemplo de entrada:**
+{
+   "name": "Madonna", 
+	"biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	"photo_url": "https://images.app.goo.gl/ " 
+}
+
+**Exemplo de saída:**
+{ 
+   "success": true, 
+	"data": {
+      "id": 1, 
+      "name": "Madonna", 
+	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	   "photo_url": "https://images.app.goo.gl/ "
+	}
+}
 
 ## Front-end:
 
