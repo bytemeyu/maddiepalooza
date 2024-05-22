@@ -21,11 +21,11 @@
    - Dashboards para visualização rápida de informações como: artistas e suas informações, shows por palco, shows do dia, etc.
 
 ### Não-Funcionais:
-**Tecnologias Utilizadas:**
+**Tecnologias Utilizadas:**  
 Apoio:  
 - Visual Studio Code;
 - GitHub;
-- DB Designer;
+- DB Designer;  
 Back-end:  
 - Node.js;
 - Express;
