@@ -98,8 +98,7 @@ Formato JSON.
 ```
 
 ### Regras de Negócio:
-**Validações na camada de controle:**  
-
+**Validações na camada de controle:**
 **artist (name, biography, photo_url)**  
 - O nome do artista deve ser único e válido (string não vazia).
 - A biografia do artista deve ser válida.
