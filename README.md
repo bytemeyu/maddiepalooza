@@ -22,11 +22,11 @@
 
 ### Não-Funcionais:
 **Tecnologias Utilizadas:**
-Apoio:
+Apoio:  
 - Visual Studio Code;
 - GitHub;
 - DB Designer;
-Back-end:
+Back-end:  
 - Node.js;
 - Express;
 - PostgreSQL;
