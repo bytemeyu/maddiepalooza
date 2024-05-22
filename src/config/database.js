@@ -9,7 +9,8 @@ export const pool = new Pool({
 });
 
 pool.on('error', (err, client) => {
-    console.error('Erro inesperado no cliente da pool', err);
+    console.error(`Erro inesperado no cliente da pool: ${err}`);
     process.exit(-1);
 });
-  
+
+export const query = (text, params) => pool.query(text, params);
