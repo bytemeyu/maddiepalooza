@@ -25,7 +25,8 @@
 Apoio:  
 - Visual Studio Code;
 - GitHub;
-- DB Designer;  
+- DB Designer;
+
 Back-end:  
 - Node.js;
 - Express;
