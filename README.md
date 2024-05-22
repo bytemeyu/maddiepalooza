@@ -29,6 +29,7 @@ Apoio:
 Back-end:
 - Node.js;
 - Express;
+- PostgreSQL;
 
 ## Design Arquitetônico:
 Software em três camadas:
