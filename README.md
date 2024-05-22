@@ -102,18 +102,18 @@ Formato JSON.
 **artist (name, biography, photo_url)**  
 - O nome do artista deve ser único e válido (string não vazia).
 - A biografia do artista deve ser válida.
-- A url da foto do artista deve ser única e válida (formato url - regex).
+- A url da foto do artista deve ser única e válida (formato url - regex).  
 
-**stage (name, location, capacity)**   
+**stage (name, location, capacity)**  
 - O nome do palco deve ser único e válido.
 - A localização do palco deve ser única e válida (formato de coordenadas - regex).
-- A capacidade do palco deve ser válida (number).
+- A capacidade do palco deve ser válida (number).  
 
 **performance: (artist_id, stage_id, start_time, end_time, date)**  
 - O id do artista deve ser o id de um artista existente e com todas suas informações fornecidas.
 - O id do palco deve ser o id de um palco existente e com todas suas informações fornecidas.
 - As horas de início e de término devem ser válidas (timestamp with zone) e não deve haver duas performances ao mesmo tempo no mesmo palco. A hora de início deve ser antes (menor) do que a hora de término. A duração mínima da performance tem de ser de 1 hora (a diferença entre end_time e start_time deve ser de no mínimo 60 minutos).
-- A data tem que ser válida (date) e deve ser uma das três datas em que ocorrerão o festival.
+- A data tem que ser válida (date) e deve ser uma das três datas em que ocorrerão o festival.  
 
 **users (email, username, password_hash, role)**  
 - O e-mail do usuário deve ser único e válido (formato de e-mail - regex).
