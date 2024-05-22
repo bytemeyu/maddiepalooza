@@ -14,7 +14,7 @@
    - Permitir visualizações por dia e palco.
 4. Autenticação e Autorização:
    - Sistema de login para usuários.
-   - Diferentes níveis de acesso para diferentes tipos de usuários (por exemplo, administradores, assistentes).
+   - Diferentes níveis de acesso para diferentes tipos de usuários (por exemplo, administradores-web, produtores, assistentes).
    - Adicionar, editar, remover e visualizar usuários.
 5. Interface de Usuário:
    - Interface intuitiva para fácil navegação e gerenciamento.
@@ -96,6 +96,39 @@ Formato JSON.
 	}
 }
 ```
+
+### Regras de Negócio:
+**Validações na camada de controle:**  
+
+
+**artist (name, biography, photo_url)**  
+- O nome do artista deve ser único e válido (string não vazia).
+- A biografia do artista deve ser válida.
+- A url da foto do artista deve ser única e válida (formato url - regex).
+
+
+**stage (name, location, capacity)**  
+- O nome do palco deve ser único e válido.
+- A localização do palco deve ser única e válida (formato de coordenadas - regex).
+- A capacidade do palco deve ser válida (number).
+
+
+**performance: (artist_id, stage_id, start_time, end_time, date)**  
+- O id do artista deve ser o id de um artista existente e com todas suas informações fornecidas.
+- O id do palco deve ser o id de um palco existente e com todas suas informações fornecidas.
+- As horas de início e de término devem ser válidas (timestamp with zone) e não deve haver duas performances ao mesmo tempo no mesmo palco. A hora de início deve ser antes (menor) do que a hora de término. A duração mínima da performance tem de ser de 1 hora (a diferença entre end_time e start_time deve ser de no mínimo 60 minutos).
+- A data tem que ser válida (date) e deve ser uma das três datas em que ocorrerão o festival.
+
+
+**users (email, username, password_hash, role)**  
+- O e-mail do usuário deve ser único e válido (formato de e-mail - regex).
+- O username do usuário deve ser único e válido.
+- A senha deve ter no mínimo 8 e no máximo 20 caracteres, além de ter ao menos um número, uma letra maiúscula e uma letra minúscula e um caractere especial desses: */._¨-,.[]^%$#@&.
+- Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
+- O único tipo de usuário que pode criar, atualizar e deletar usuários do tipo 'producer' e 'assistant' é o 'webadmin'. O 'producer' pode criar, atualizar e deletar somente usuários do tipo 'assistant'. Todos os tipos de usuários podem visualizar todos os usuários e suas respectivas informações ou um usuário específico e suas informações.
+- Somente o 'producer' pode criar, atualizar ou deletar um artista; criar, atualizar ou deletar um palco.
+- Tanto o 'producer' quanto o 'assistant' podem criar, atualizar ou deletar uma performance.
+- As visualizações de artistas, palcos e performances, tanto geral, quanto específicas, não requerem autenticação de nenhum usuário.  
 
 ## Front-end:
 
