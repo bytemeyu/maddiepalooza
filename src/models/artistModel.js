@@ -1,4 +1,4 @@
-export const artistModel = {
+const artistModel = {
     tableName: 'artist',
     columns: {
         artist_id: { type: 'integer', allowNull: false, default: 'nextval(\'artists_artist_id_seq\'::regclass)' },

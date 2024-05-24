@@ -1,4 +1,4 @@
-export const performanceModel = {
+const performanceModel = {
     tableName: 'performance',
     columns: {
         performance_id: { type: 'integer', allowNull: false, default: 'nextval(\'performance_performance_id_seq\'::regclass)' },

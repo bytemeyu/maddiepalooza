@@ -1,4 +1,4 @@
-export const artistPerformancesModel = {
+const artistPerformancesModel = {
     viewName: 'artist_performances',
     columns: {
         performance_id: 'integer',

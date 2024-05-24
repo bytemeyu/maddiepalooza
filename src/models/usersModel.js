@@ -1,4 +1,4 @@
-export const usersModel = {
+const usersModel = {
     tableName: 'users',
     columns: {
         user_id: { type: 'integer', allowNull: false, default: 'nextval(\'users_user_id_seq\'::regclass)' },

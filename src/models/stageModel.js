@@ -1,4 +1,4 @@
-export const stageModel = {
+const stageModel = {
     tableName: 'stage',
     columns: {
         stage_id: { type: 'integer', allowNull: false, default: 'nextval(\'stage_stage_id_seq\'::regclass)' },
