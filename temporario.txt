@@ -35,7 +35,7 @@
 - Importa o ‘service’ do ‘service.js’;
 - Importa os middlewares apropriados para essa camada;
 - Aplica os middlewares importados;
-- Define (e já exporta) o objeto ‘controller’ que contém métodos (cada método encapsula uma função do controlador (que recebe os objetos ‘req’ e ‘res’ como parâmetros), que lida com uma rota específica e seu processamento, que é executada de maneira assíncrona) que lidam com requisições e respostas http.
+- Define (e já exporta) o objeto ‘controller’ que contém métodos (cada método encapsula uma função do controlador (que recebe os objetos ‘req’ e ‘res’ como parâmetros), que lida com uma rota específica e seu processamento (inclusive as validações), que é executada de maneira assíncrona) que lidam com requisições e respostas http.
 
 - ROUTES.JS [3º]: É onde são definidas as rotas da aplicação.
 - Importa o Express;

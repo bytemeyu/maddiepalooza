@@ -50,28 +50,28 @@ A API vai permitir gerenciar artistas (artist: name, biography, photo_url), palc
 GET /api/artist: Recupera todos os artistas e suas respectivas informações.  
 GET /api/artist/:id: Recupera um artista específico e suas informações.  
 POST /api/artist: Cria um novo artista, com todas suas informações.  
-PUT /api/artist/:id: Atualiza as informações de um artista existente.  
+PUT /api/artist/:id: Atualiza as informações de um artista existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/artist/:id: Deleta o artista especificado.  
 
 **stage**  
 GET /api/stage: Recupera todos os palcos e suas respectivas informações.  
 GET /api/stage/:id: Recupera um palco específico e suas informações.  
 POST /api/stage: Cria um novo palco, com todas suas informações.  
-PUT /api/stage/:id: Atualiza as informações de um palco existente.  
+PUT /api/stage/:id: Atualiza as informações de um palco existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/stage/:id: Deleta o palco especificado.  
 
 **performance**  
 GET /api/performance: Recupera todas as performances e suas respectivas informações.  
 GET /api/performance/:id: Recupera uma performance específica e suas informações.  
 POST /api/performance: Cria uma nova performance, com todas suas informações.  
-PUT /api/performance/:id: Atualiza as informações de uma performance existente.  
+PUT /api/performance/:id: Atualiza as informações de uma performance existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/performance/:id: Deleta a performance especificada.  
 
 **users**  
 GET /api/users: Recupera todos os usuários e suas respectivas informações.  
 GET /api/users/:id: Recupera um usuário específico e suas informações.  
 POST /api/users: Cria um novo usuário, com todas suas informações.  
-PUT /api/users/:id: Atualiza as informações de um usuário existente.  
+PUT /api/users/:id: Atualiza as informações de um usuário existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/users/:id: Deleta o usuário especificado.  
 
 ### Entrada e Saída de Payloads: 
@@ -90,12 +90,12 @@ Formato JSON.
 ```javascript
 { 
    "success": true, 
-	"data": {
+	"data": [{
       "id": 1, 
       "name": "Madonna", 
 	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
 	   "photo_url": "https://images.app.goo.gl/ "
-	}
+	}]
 }
 ```
 
