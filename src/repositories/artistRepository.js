@@ -37,5 +37,18 @@ export const artistRepository = {
             console.error(`Erro ao criar novo artista no banco de dados: ${err.message}`);
             throw err;
         }
-    }
+    },
+
+    updateArtist: async(artist_id, name, biography, photo_url) => {
+        const text = 'UPDATE artist SET name = $1, biography = $2, photo_url = $3 WHERE artist_id = $4 RETURNING *';
+        const params = [name, biography, photo_url, artist_id];
+
+        try {
+            const { rows } = await query(text, params);
+            return rows;
+        } catch(err) {
+            console.error(`Erro ao atualizar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
 };

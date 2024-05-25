@@ -27,4 +27,13 @@ export const artistService = {
             throw err;
         }  
     },
+
+    updateArtist: async(artist_id, name, biography, photo_url) => {
+        try {
+            return await artistRepository.updateArtist(artist_id, name, biography, photo_url);
+        } catch(err) {
+            console.error(`Erro ao atualizar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
 };

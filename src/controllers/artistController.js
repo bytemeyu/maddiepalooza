@@ -92,4 +92,41 @@ export const artistController = {
     //"biography": "Biografia da Madonna",
     //"photo_url": "http://exemplo.com/foto.jpg"
     //}'
+
+    updateArtist: async(req, res) => {
+        const { id } = req.params;
+
+        const outdatedArtist = await artistService.getArtistById(id);
+        const { name } = req.body;
+        const nameToUse = name || outdatedArtist[0].name;
+        const { biography } = req.body;
+        const biographyToUse = biography || outdatedArtist[0].biography;
+        const { photo_url } = req.body;
+        const photo_urlToUse = photo_url || outdatedArtist[0].photo_url;
+
+        try {
+            const updatedArtist = await artistService.updateArtist(id, nameToUse, biographyToUse, photo_urlToUse);
+            res.status(200).json(
+                {
+                    'success': true,
+                    'data': updatedArtist,
+                }
+            );
+        } catch(err) {
+            console.error(`Erro ao atualizar artista com id ${id} no banco de dados: ${err.message}`);
+            res.status(500).json(
+                {
+                    'success': false,
+                    'error': 'Erro ao atualizar artista no banco de dados',
+                }
+            );
+        }
+    },
+    //curl -X PUT http://localhost:3000/api/artist/1 \
+    //-H "Content-Type: application/json" \
+    //-d '{
+    //"name": "Madonna",
+    //"biography": "Biografia da Madonna",
+    //"photo_url": "http://exemplo.com/foto.jpg"
+    //}'
 };
