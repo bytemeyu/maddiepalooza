@@ -1,0 +1,47 @@
+- APP.JS [2º]: É o módulo central para configurar a aplicação Express. 
+- Importa o Express;
+- Importa os middlewares apropriados para essa camada;
+- Importa as várias rotas dos vários ‘routes.js’;
+- Inicializa uma nova aplicação Express;
+- Aplica os middlewares importados;
+- Aplica as rotas (mais específicas);
+- Exporta a aplicação Express como default.
+
+- SERVER.JS [1º]: É onde a aplicação Express é inicializada (onde o servidor é configurado e iniciado), é o ponto de entrada da aplicação Express.
+- Importa a biblioteca dotenv (e quaisquer outras utilizadas nessa camada);
+- Configura o dotenv;
+- Importa o ‘app’ do ‘app.js’;
+- Define a porta na qual o servidor irá rodar;
+- Inicia o servidor na porta especificada.
+
+- DATABASE.JS [7º]: É o módulo central para a configuração da conexão com o banco de dados.
+- Importa a biblioteca dotenv [se a distribuição de variáveis não está chegando até aqui (?)];
+- Configura o dotenv [se a distribuição de variáveis não está chegando até aqui (?)];
+- Importa a biblioteca pg (especificamente o Pool);
+- Configura o pool de conexões (com detalhes como usuário, host, nome do banco de dados, senha e porta);
+- Captura e trata os erros que ocorrem nas conexões do pool;
+- Cria função para executar consultas ao banco de dados usando o pool de conexões (função aceita uma string de consulta SQL ‘text’ e um array de parâmetros ‘params’);
+- Exporta a função de consulta ao banco de dados.
+
+- REPOSITORY.JS [6º]: É onde acontecem as operações do banco de dados.
+- Importa a função de consulta do ‘database.js’;
+- Define (e já exporta) o objeto ‘repository’ que contém métodos (cada método encapsula uma consulta SQL parametrizada específica que é executada de maneira assíncrona) para interagir com a tabela em questão no banco de dados.
+
+- SERVICE.JS [5º]: É onde são implementadas as regras de negócios.
+- Importa o ‘repository’ do ‘repository.js’;
+- Define (e já exporta) o objeto ‘service’ que contém métodos (encapsulam funções de serviços que são executadas de maneira assíncrona) que implementam a lógica de negócios.
+
+- CONTROLLER.JS [4º]: É onde acontece a lida direta com as requisições e respostas HTTP.
+- Importa o ‘service’ do ‘service.js’;
+- Importa os middlewares apropriados para essa camada;
+- Aplica os middlewares importados;
+- Define (e já exporta) o objeto ‘controller’ que contém métodos (cada método encapsula uma função do controlador (que recebe os objetos ‘req’ e ‘res’ como parâmetros), que lida com uma rota específica e seu processamento, que é executada de maneira assíncrona) que lidam com requisições e respostas http.
+
+- ROUTES.JS [3º]: É onde são definidas as rotas da aplicação.
+- Importa o Express;
+- Importa os middlewares apropriados para essa camada (como o de autenticação, por exemplo);
+- Importa o ‘controller’ do ‘controller.js’;
+- Cria o roteador Express;
+- Aplica os middlewares importados;
+- Define as rotas (menos específicas);
+- Exporta o roteador como default.
