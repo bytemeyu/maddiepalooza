@@ -28,11 +28,11 @@ export const artistService = {
         }  
     },
 
-    updateArtist: async(artist_id, name, biography, photo_url) => {
+    updateArtist: async(id, name, biography, photo_url) => {
         try {
-            return await artistRepository.updateArtist(artist_id, name, biography, photo_url);
+            return await artistRepository.updateArtist(id, name, biography, photo_url);
         } catch(err) {
-            console.error(`Erro ao atualizar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            console.error(`Erro ao atualizar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
     },
@@ -41,7 +41,7 @@ export const artistService = {
         try {
             return await artistRepository.deleteArtist(id);
         } catch(err) {
-            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            console.error(`Erro ao deletar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
     }

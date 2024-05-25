@@ -39,15 +39,15 @@ export const artistRepository = {
         }
     },
 
-    updateArtist: async(artist_id, name, biography, photo_url) => {
+    updateArtist: async(id, name, biography, photo_url) => {
         const text = 'UPDATE artist SET name = $1, biography = $2, photo_url = $3 WHERE artist_id = $4 RETURNING *';
-        const params = [name, biography, photo_url, artist_id];
+        const params = [name, biography, photo_url, id];
 
         try {
             const { rows } = await query(text, params);
             return rows;
         } catch(err) {
-            console.error(`Erro ao atualizar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            console.error(`Erro ao atualizar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
     },
@@ -60,7 +60,7 @@ export const artistRepository = {
             const { rows } = await query(text, params);
             return rows;
         } catch(err) {
-            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            console.error(`Erro ao deletar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
     }
