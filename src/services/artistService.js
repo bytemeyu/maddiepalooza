@@ -18,4 +18,13 @@ export const artistService = {
             throw err;
         }
     },
+
+    createArtist: async(name, biography, photo_url) => {
+        try {
+            return await artistRepository.createArtist(name, biography, photo_url);
+        } catch(err) {
+            console.error(`Erro ao criar novo artista no banco de dados: ${err.message}`);
+            throw err;
+        }  
+    },
 };

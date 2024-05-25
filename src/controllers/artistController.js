@@ -4,8 +4,7 @@ export const artistController = {
     getAllArtists: async(req, res) => {
         try {
             const allArtists = await artistService.getAllArtists();
-            console.log(`tipo de allArtists: ${typeof allArtists}`);
-            console.log(`allArtists é um objeto do tipo array? ${Array.isArray(allArtists)}`);
+
             if(allArtists.length === 0) {
                 res.status(200).json(
                     {
@@ -31,10 +30,11 @@ export const artistController = {
             );
         }
     },
+    //curl -X GET http://localhost:3000/api/artist
 
     getArtistById: async(req, res) => {
         const { id } = req.params;
-        console.log(`id extraído da requisição: ${id}`);
+
         try {
             const artistById = await artistService.getArtistById(id);
             if(artistById.length === 0){
@@ -62,4 +62,34 @@ export const artistController = {
             );
         }
     },
+    //curl -X GET http://localhost:3000/api/artist/1
+    
+    createArtist: async(req, res) => {
+        const { name, biography, photo_url } = req.body;
+
+        try {
+            const createdArtist = await artistService.createArtist(name, biography, photo_url);
+            res.status(200).json(
+                {
+                    'sucess': true,
+                    'data': createdArtist,
+                }
+            );
+        } catch(err) {
+            console.error(`Erro ao criar novo artista no banco de dados: ${err.message}`);
+            res.status(500).json(
+                {
+                    'success': false,
+                    'error': 'Erro ao criar novo artista no banco de dados',
+                }
+            );
+        }
+    },
+    //curl -X POST http://localhost:3000/api/artist \
+    //-H "Content-Type: application/json" \
+    //-d '{
+    //"name": "Madonna",
+    //"biography": "Biografia da Madonna",
+    //"photo_url": "http://exemplo.com/foto.jpg"
+    //}'
 };

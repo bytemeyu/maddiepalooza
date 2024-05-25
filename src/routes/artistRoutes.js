@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/', artistController.getAllArtists);
 router.get('/:id', artistController.getArtistById);
+router.post('/', artistController.createArtist);
 
 export default router;
