@@ -129,4 +129,27 @@ export const artistController = {
     //"biography": "Biografia da Madonna",
     //"photo_url": "http://exemplo.com/foto.jpg"
     //}'
+
+    deleteArtist: async(req, res) => {
+        const { id } = req.params;
+
+        try {
+            const deletedArtist = await artistService.deleteArtist(id);
+            res.status(200).json(
+                {
+                    'success': true,
+                    'data': deletedArtist,
+                }
+            );
+        } catch(err) {
+            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            res.status(500).json(
+                {
+                    'success': false,
+                    'error': 'Erro ao deletar artista do banco de dados',
+                }
+            );
+        }
+    }
+    //curl -X DELETE http://localhost:3000/api/artist/2
 };

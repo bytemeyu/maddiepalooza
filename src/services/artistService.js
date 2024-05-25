@@ -36,4 +36,13 @@ export const artistService = {
             throw err;
         }
     },
+
+    deleteArtist: async(id) => {
+        try {
+            return await artistRepository.deleteArtist(id);
+        } catch(err) {
+            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
+    }
 };

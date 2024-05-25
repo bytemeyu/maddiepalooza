@@ -51,4 +51,17 @@ export const artistRepository = {
             throw err;
         }
     },
+
+    deleteArtist: async(id) => {
+        const text = 'DELETE FROM artist WHERE artist_id = $1 RETURNING *';
+        const params = [id];
+
+        try {
+            const { rows } = await query(text, params);
+            return rows;
+        } catch(err) {
+            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
+    }
 };
