@@ -142,7 +142,7 @@ export const artistController = {
                 }
             );
         } catch(err) {
-            console.error(`Erro ao deletar artista com id ${artist_id} no banco de dados: ${err.message}`);
+            console.error(`Erro ao deletar artista com id ${id} no banco de dados: ${err.message}`);
             res.status(500).json(
                 {
                     'success': false,
