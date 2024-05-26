@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 pool.on('error', (err, client) => {
-    console.error(`Erro inesperado no cliente da pool: ${err}`);
+    console.error(`Erro inesperado no cliente da pool: ${err}. Estado atual do cliente: ${client.readyState}`);
     process.exit(-1);
 });
 
