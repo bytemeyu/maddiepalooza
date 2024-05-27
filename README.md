@@ -74,11 +74,9 @@ POST /api/users: Cria um novo usuário, com todas suas informações.
 PUT /api/users/:id: Atualiza as informações de um usuário existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/users/:id: Deleta o usuário especificado.  
 
-**login**  
-POST /api/login: Loga o usuário, ou seja, autentica sua sessão.  
 
-**logout**  
-DELETE /api/logout: Desloga o usuário.  
+POST /api/users/login: Loga o usuário, ou seja, autentica sua sessão.  
+DELETE /api/users/logout: Desloga o usuário.  
 
 ### Entrada e Saída de Payloads: 
 Formato JSON.
