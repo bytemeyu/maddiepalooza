@@ -67,7 +67,7 @@ POST /api/performance: Cria uma nova performance, com todas suas informações.
 PUT /api/performance/:id: Atualiza as informações de uma performance existente (com a possibilidade de atualizar somente um dos campos).  
 DELETE /api/performance/:id: Deleta a performance especificada.  
 
-**users** 
+**users**  
 GET /api/users: Recupera todos os usuários e suas respectivas informações.  
 GET /api/users/:id: Recupera um usuário específico e suas informações.  
 POST /api/users: Cria um novo usuário, com todas suas informações.  
