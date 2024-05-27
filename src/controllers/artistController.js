@@ -96,15 +96,15 @@ export const artistController = {
     updateArtist: async(req, res) => {
         const { id } = req.params;
 
-        const outdatedArtist = await artistService.getArtistById(id);
-        const { name } = req.body;
-        const nameToUse = name || outdatedArtist[0].name;
-        const { biography } = req.body;
-        const biographyToUse = biography || outdatedArtist[0].biography;
-        const { photo_url } = req.body;
-        const photo_urlToUse = photo_url || outdatedArtist[0].photo_url;
-
         try {
+            const outdatedArtist = await artistService.getArtistById(id);
+            const { name } = req.body;
+            const nameToUse = name || outdatedArtist[0].name;
+            const { biography } = req.body;
+            const biographyToUse = biography || outdatedArtist[0].biography;
+            const { photo_url } = req.body;
+            const photo_urlToUse = photo_url || outdatedArtist[0].photo_url;
+            
             const updatedArtist = await artistService.updateArtist(id, nameToUse, biographyToUse, photo_urlToUse);
             res.status(200).json(
                 {
