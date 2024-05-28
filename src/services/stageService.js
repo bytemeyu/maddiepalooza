@@ -45,4 +45,4 @@ export const stageService = {
             throw err;
         }
     }
-}
+};
