@@ -112,6 +112,7 @@ Formato JSON.
 - Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
 - O único tipo de usuário que pode criar, atualizar e deletar usuários do tipo 'producer' e 'assistant' é o 'webadmin'. 
 - O 'producer' pode criar, atualizar e deletar somente usuários do tipo 'assistant'. 
+- Um 'assistant' só pode atualizar e deletar a si mesmo.
 - Todos os tipos de usuários podem visualizar todos os usuários e suas respectivas informações ou um usuário específico e suas informações.
 - Somente o 'producer' pode criar, atualizar ou deletar um artista; criar, atualizar ou deletar um palco.
 - Tanto o 'producer' quanto o 'assistant' podem criar, atualizar ou deletar uma performance.
