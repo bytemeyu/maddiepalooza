@@ -148,6 +148,9 @@ Formato JSON.
 
 ## Deploy:
 
+## Futuras Melhorias/Implementações:
+- Método HTTP PATCH para atualizações parciais. 
+
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**
 
