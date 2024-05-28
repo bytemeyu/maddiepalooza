@@ -1,6 +1,6 @@
 import { query } from '../config/database.js';
 
-stageRepository = {
+export const stageRepository = {
     getAllStages: async() => {
         const text = 'SELECT * FROM stage';
         try {
