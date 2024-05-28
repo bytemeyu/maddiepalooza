@@ -7,6 +7,6 @@ router.get('/', stageController.getAllStages);
 router.get('/:id', stageController.getStageById);
 router.post('/', stageController.createStage);
 router.put('/:id', stageController.updateStage);
-router.delete(':/id', stageController.deleteStage);
+router.delete('/:id', stageController.deleteStage);
 
 export default router;

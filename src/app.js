@@ -7,6 +7,6 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/artist', artistRoutes);
-app.use('api/stage', stageRoutes);
+app.use('/api/stage', stageRoutes);
 
 export default app;
