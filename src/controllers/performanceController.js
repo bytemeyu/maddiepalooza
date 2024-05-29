@@ -131,8 +131,7 @@ export const performanceController = {
     //curl -X PUT http://localhost:3000/api/performance/1 \
     //-H "Content-Type: application/json" \
     //-d '{
-    //"stage_id": "2",
-    //"start_time": "2025-05-15T19:30:00+00:00"
+    //"start_time": "2025-05-15T19:30:00+00:00",
     //"end_time": "2025-05-15T21:00:00+00:00"
     //}'
 
@@ -157,5 +156,5 @@ export const performanceController = {
             );
         }
     }
-    //curl -X DELETE http://localhost:3000/api/performance/1
+    //curl -X DELETE http://localhost:3000/api/performance/2
 };
