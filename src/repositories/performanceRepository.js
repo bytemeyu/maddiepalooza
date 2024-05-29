@@ -7,7 +7,7 @@ export const performanceRepository = {
             const { rows } = await query(text);
             return rows;
         } catch(err) {
-            console.error(`Erro ao recuperar todos as performances: ${err.message}`);
+            console.error(`Erro ao recuperar todas as performances: ${err.message}`);
             throw err;
         }
     },
