@@ -106,6 +106,7 @@ Formato JSON.
 ### Regras de Negócio na Camada de Serviço:
 **performance (artist_id, stage_id, start_time, end_time, date)**  
 - Não deve haver duas performances ao mesmo tempo no mesmo palco.
+- O mesmo artista não pode estar em duas performance ao mesmo tempo.
 - A data deve ser uma das três datas em que ocorrerá o festival.
 
 **users (email, username, password_hash, role)**  
