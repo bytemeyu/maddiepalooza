@@ -109,7 +109,7 @@ Formato JSON.
 - A data deve ser uma das três datas em que ocorrerá o festival.
 
 **users (email, username, password_hash, role)**  
-- Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
+- Deve haver somente três tipos de usuários (role): administrador-web (webadmin - is_admin(boolean)), produtor (producer - squad(FK)), assistente (assistant - squad(FK)).
 - O único tipo de usuário que pode criar, atualizar e deletar usuários do tipo 'producer' e 'assistant' é o 'webadmin'. 
 - O 'producer' pode criar, atualizar e deletar somente usuários do tipo 'assistant'. 
 - Um 'assistant' só pode atualizar e deletar a si mesmo.
