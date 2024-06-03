@@ -3,6 +3,7 @@ import artistRoutes from './routes/artistRoutes.js';
 import stageRoutes from './routes/stageRoutes.js';
 import performanceRoutes from './routes/performanceRoutes.js';
 import usersRoutes from './routes/usersRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use('/api/artist', artistRoutes);
 app.use('/api/stage', stageRoutes);
 app.use('/api/performance', performanceRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/users', authRoutes);
 
 export default app;
