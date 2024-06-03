@@ -6,20 +6,20 @@ export const performanceController = {
             const allPerformances = await performanceService.getAllPerformances();
 
             if(allPerformances.length === 0) {
-                res.status(200).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhuma performance no banco de dados'
                     }
                 );
-            } else {
-                res.status(200).json(
-                    {
-                        'success': true, 	
-                        'data': allPerformances,
-                    }
-                );
+                return;
             }
+            res.status(200).json(
+                {
+                    'success': true, 	
+                    'data': allPerformances,
+                }
+            );
         } catch(err) {
             console.error(`Erro ao recuperar todas as performances: ${err.message}`);
             res.status(500).json(
@@ -38,20 +38,20 @@ export const performanceController = {
         try {
             const performanceById = await performanceService.getPerformanceById(id);
             if(performanceById.length === 0){
-                res.status(200).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'sucess': false,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );
-            } else {
-                res.status(200).json(
-                    {
-                        'success': true,
-                        'data': performanceById,
-                    }
-                );
+                return;
             }
+            res.status(200).json(
+                {
+                    'success': true,
+                    'data': performanceById,
+                }
+            );
         } catch(err) {
             console.error(`Erro ao recuperar performance com id ${id}: ${err.message}`);
             res.status(500).json(
@@ -100,6 +100,16 @@ export const performanceController = {
 
         try {
             const outdatedPerformance = await performanceService.getPerformanceById(id);
+            if(outdatedPerformance.length === 0 || !outdatedPerformance[0]) {
+                res.status(404).json(
+                    {
+                        'sucess': false,
+                        'data': 'Não há nenhuma performance com o id especificado no banco de dados'
+                    }
+                );
+                return;
+            }
+
             const { artist_id } = req.body;
             const artist_idToUse = artist_id || outdatedPerformance[0].artist_id;
             const { stage_id } = req.body;
@@ -139,6 +149,17 @@ export const performanceController = {
         const { id } = req.params;
 
         try {
+            const performanceById = await performanceService.getPerformanceById(id);
+            if(performanceById.length === 0 || !performanceById[0]) {
+                res.status(404).json(
+                    {
+                        'sucess': false,
+                        'data': 'Não há nenhuma performance com o id especificado no banco de dados'
+                    }
+                );
+                return;
+            }
+
             const deletedPerformance = await performanceService.deletePerformance(id);
             res.status(200).json(
                 {
