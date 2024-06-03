@@ -182,7 +182,3 @@ export const usersController = {
     }
     //curl -X DELETE http://localhost:3000/api/users/1
 };
-
-
-
-//FALTA: fazer o if else, no update e delete, nos outros controllers, caso o usuário não exista!
