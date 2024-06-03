@@ -21,7 +21,7 @@ export const authController = {
                 }); 
                 res.status(200).json({ id, token });
             } else {
-                res.status(401).json({ error: 'Nome de usuário ou senha inválidos' });
+                res.status(401).json({ error: 'Erro ao enviar token' });
             }
         } catch (err) {
             console.error(`Erro no login: ${err.message}`);

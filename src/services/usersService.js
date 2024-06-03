@@ -19,7 +19,7 @@ export const usersService = {
         }
     },
 
-    getUserByUsername: async() => {
+    getUserByUsername: async(username) => {
         try {
             return await usersRepository.getUserByUsername(username);
         } catch(err) {
