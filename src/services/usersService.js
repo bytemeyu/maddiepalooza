@@ -19,6 +19,14 @@ export const usersService = {
         }
     },
 
+    getUserByUsername: async() => {
+        try {
+            return await usersRepository.getUserByUsername(username);
+        } catch(err) {
+            console.error(`Erro ao recuperar usuário com username ${username}: ${err.message}`);
+        }
+    },
+
     createUser: async(email, username, password_hash, role) => {
         try {
             return await usersRepository.createUser(email, username, password_hash, role);

@@ -25,6 +25,19 @@ export const usersRepository = {
         }
     },
 
+    getUserByUsername: async(username) => {
+        const text = 'SELECT * FROM users WHERE username = $1';
+        const params = [username];
+
+        try {
+            const { rows } = await query(text, params);
+            return rows;
+        } catch(err) {
+            console.error(`Erro ao recuperar usuário com username ${username}: ${err.message}`);
+            throw err;
+        }
+    },
+
     createUser: async(email, username, password_hash, role) => {
         const text = 'INSERT INTO users (email, username, password_hash, role) VALUES ($1, $2, $3, $4) RETURNING *;';
         const params = [email, username, password_hash, role];
