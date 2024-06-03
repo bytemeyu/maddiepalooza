@@ -15,7 +15,7 @@ export const authService = {
         }
   
         try {
-            const token = jwt.sign({ id: user.user_id }, process.env.JWT_SECRET_KEY, { expiresIn: '3h' });
+            const token = jwt.sign({ id: user.user_id, role: user.role }, process.env.JWT_SECRET_KEY, { expiresIn: '3h' });
             //A função jwt.sign() combina o payload e a chave secreta para criar um token assinado.
             return { id: user.user_id, token };
         } catch(err) {
