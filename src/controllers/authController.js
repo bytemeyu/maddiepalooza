@@ -28,6 +28,12 @@ export const authController = {
             res.status(401).json({ error: 'Nome de usuário ou senha inválidos' });
         }
     },
+    //curl -X POST http://localhost:3000/api/auth/login \
+    //-H "Content-Type: application/json" \
+    //-d '{
+    //"username": "anitakawasaki",
+    //"password": "asenhasemhash"
+    //}'
 
     logout: (req, res) => {
         if (req.cookies.token) {
@@ -41,4 +47,5 @@ export const authController = {
             res.status(200).json({ message: 'Nenhum token foi encontrado, portanto a sessão já foi encerrada com sucesso' });
         }
     }
+    //curl -X DELETE http://localhost:3000/api/auth/logout
   };
