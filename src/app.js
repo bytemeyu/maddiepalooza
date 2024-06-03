@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import artistRoutes from './routes/artistRoutes.js';
 import stageRoutes from './routes/stageRoutes.js';
 import performanceRoutes from './routes/performanceRoutes.js';
@@ -8,6 +9,7 @@ import authRoutes from './routes/authRoutes.js'
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/artist', artistRoutes);
 app.use('/api/stage', stageRoutes);
