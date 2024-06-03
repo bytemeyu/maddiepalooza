@@ -13,6 +13,6 @@ app.use('/api/artist', artistRoutes);
 app.use('/api/stage', stageRoutes);
 app.use('/api/performance', performanceRoutes);
 app.use('/api/users', usersRoutes);
-app.use('/api/users', authRoutes);
+app.use('/api/auth', authRoutes);
 
 export default app;
