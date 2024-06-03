@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import { usersService } from "../services/usersService.js";
 
 export const usersController = {
@@ -6,20 +7,21 @@ export const usersController = {
             const allUsers = await usersService.getAllUsers();
 
             if(allUsers.length === 0) {
-                res.status(200).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhum usuário no banco de dados'
                     }
                 );
-            } else {
-                res.status(200).json(
-                    {
-                        'success': true, 	
-                        'data': allUsers,
-                    }
-                );
+                return;
             }
+
+            res.status(200).json(
+                {
+                    'success': true, 	
+                    'data': allUsers,
+                }
+            );
         } catch(err) {
             console.error(`Erro ao recuperar todos os usuários: ${err.message}`);
             res.status(500).json(
@@ -38,20 +40,21 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(userById.length === 0){
-                res.status(200).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'sucess': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
-            } else {
-                res.status(200).json(
-                    {
-                        'success': true,
-                        'data': userById,
-                    }
-                );
+                return;
             }
+
+            res.status(200).json(
+                {
+                    'success': true,
+                    'data': userById,
+                }
+            );
         } catch(err) {
             console.error(`Erro ao recuperar usuário com id ${id}: ${err.message}`);
             res.status(500).json(
@@ -65,7 +68,9 @@ export const usersController = {
     //curl -X GET http://localhost:3000/api/users/1
 
     createUser: async(req, res) => {
-        const { email, username, password_hash, role } = req.body;
+        const { email, username, password, role } = req.body;
+
+        const password_hash = await bcrypt.hash(password, 10);
 
         try {
             const createdUser = await usersService.createUser(email, username, password_hash, role);
@@ -90,7 +95,7 @@ export const usersController = {
     //-d '{
     //"email": "anita@mail.com",
     //"username": "anitakawasaki",
-    //"password_hash": "asenhasemhash",
+    //"password": "asenhasemhash",
     //"role": "webadmin"
     //}'
 
@@ -99,13 +104,25 @@ export const usersController = {
 
         try {
             const outdatedUser = await usersService.getUserById(id);
-            const { email } = req.body;
+            if(outdatedUser.length === 0 || !outdatedUser[0]){
+                res.status(404).json(
+                    {
+                        'sucess': false,
+                        'data': 'Não há nenhum usuário com o id especificado no banco de dados'
+                    }
+                );
+                return;
+            }
+
+            const { email, username, password, role } = req.body;
+
             const emailToUse = email || outdatedUser[0].email;
-            const { username } = req.body;
             const usernameToUse = username || outdatedUser[0].username;
-            const { password_hash } = req.body;
-            const password_hashToUse = password_hash || outdatedUser[0].password_hash;
-            const { role } = req.body;
+            let password_hashToUse = outdatedUser[0].password_hash;
+            if(password) {
+                password_hashToUse = await bcrypt.hash(password, 10);
+
+            }            
             const roleToUse = role || outdatedUser[0].role;
 
             const updatedUser = await usersService.updateUser(id, emailToUse, usernameToUse, password_hashToUse, roleToUse);
@@ -114,7 +131,7 @@ export const usersController = {
                     'success': true,
                     'data': updatedUser,
                 }
-            );
+            );   
         } catch(err) {
             console.error(`Erro ao atualizar usuário com id ${id} no banco de dados: ${err.message}`);
             res.status(500).json(
@@ -135,13 +152,24 @@ export const usersController = {
         const { id } = req.params;
 
         try {
+            const userById = await usersService.getUserById(id);
+            if(userById.length === 0){
+                res.status(404).json(
+                    {
+                        'sucess': false,
+                        'data': 'Não há nenhum usuário com o id especificado no banco de dados'
+                    }
+                );
+                return;
+            }
+
             const deletedUser = await usersService.deleteUser(id);
             res.status(200).json(
                 {
                     'success': true,
                     'data': deletedUser,
                 }
-            );
+            ); 
         } catch {
             console.error(`Erro ao deletar usuário com id ${id} no banco de dados: ${err.message}`);
             res.status(500).json(
@@ -157,4 +185,4 @@ export const usersController = {
 
 
 
-//FALTA: fazer o if else, no updateUser e deleteUser, caso o usuário não exista!
+//FALTA: fazer o if else, no update e delete, nos outros controllers, caso o usuário não exista!
