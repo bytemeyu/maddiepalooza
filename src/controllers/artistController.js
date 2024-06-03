@@ -147,7 +147,6 @@ export const artistController = {
 
         try {
             const artistById = await artistService.getArtistById(id);
-
             if(artistById.length === 0 || !artistById[0]) {
                 res.status(404).json(
                     {
