@@ -150,7 +150,8 @@ Formato JSON.
 ## Deploy:
 
 ## Futuras Melhorias/Implementações:
-- Método HTTP PATCH para atualizações parciais. 
+- Método HTTP PATCH para atualizações parciais.
+- Usar UUID para id's (principalmente as de usuários).
 
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**
