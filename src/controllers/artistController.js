@@ -6,9 +6,9 @@ export const artistController = {
             const allArtists = await artistService.getAllArtists();
 
             if(allArtists.length === 0) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'success': false,
+                        'success': true,
                         'data': 'Não há nenhum artista no banco de dados'
                     }
                 );
@@ -39,7 +39,7 @@ export const artistController = {
         try {
             const artistById = await artistService.getArtistById(id);
             if(artistById.length === 0){
-                res.status(404).json(
+                res.status(204).json(
                     {
                         'sucess': true,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
@@ -101,9 +101,9 @@ export const artistController = {
         try {
             const outdatedArtist = await artistService.getArtistById(id);
             if(outdatedArtist.length === 0 || !outdatedArtist[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
                     }
                 );
@@ -148,9 +148,9 @@ export const artistController = {
         try {
             const artistById = await artistService.getArtistById(id);
             if(artistById.length === 0 || !artistById[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
                     }
                 );

@@ -6,9 +6,9 @@ export const performanceController = {
             const allPerformances = await performanceService.getAllPerformances();
 
             if(allPerformances.length === 0) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'success': false,
+                        'success': true,
                         'data': 'Não há nenhuma performance no banco de dados'
                     }
                 );
@@ -38,9 +38,9 @@ export const performanceController = {
         try {
             const performanceById = await performanceService.getPerformanceById(id);
             if(performanceById.length === 0){
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );
@@ -101,9 +101,9 @@ export const performanceController = {
         try {
             const outdatedPerformance = await performanceService.getPerformanceById(id);
             if(outdatedPerformance.length === 0 || !outdatedPerformance[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );
@@ -151,9 +151,9 @@ export const performanceController = {
         try {
             const performanceById = await performanceService.getPerformanceById(id);
             if(performanceById.length === 0 || !performanceById[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );

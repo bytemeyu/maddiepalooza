@@ -7,9 +7,9 @@ export const usersController = {
             const allUsers = await usersService.getAllUsers();
 
             if(allUsers.length === 0) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'success': false,
+                        'success': true,
                         'data': 'Não há nenhum usuário no banco de dados'
                     }
                 );
@@ -40,9 +40,9 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(userById.length === 0){
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
@@ -105,9 +105,9 @@ export const usersController = {
         try {
             const outdatedUser = await usersService.getUserById(id);
             if(outdatedUser.length === 0 || !outdatedUser[0]){
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
@@ -154,9 +154,9 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(userById.length === 0){
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );

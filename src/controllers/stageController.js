@@ -6,9 +6,9 @@ export const stageController = {
             const allStages = await stageService.getAllStages();
 
             if(allStages.length === 0) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'success': false,
+                        'success': true,
                         'data': 'Não há nenhum palco no banco de dados'
                     }
                 );
@@ -39,9 +39,9 @@ export const stageController = {
         try {
             const stageById = await stageService.getStageById(id);
             if(stageById.length === 0){
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );
@@ -100,9 +100,9 @@ export const stageController = {
         try {
             const outdatedStage = await stageService.getStageById(id);
             if(outdatedStage.length === 0 || !outdatedStage[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );
@@ -146,9 +146,9 @@ export const stageController = {
         try {
             const stageById = await stageService.getStageById(id);
             if(stageById.length === 0 || !stageById[0]) {
-                res.status(404).json(
+                res.status(204).json(
                     {
-                        'sucess': false,
+                        'sucess': true,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );
