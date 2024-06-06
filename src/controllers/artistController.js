@@ -31,7 +31,6 @@ export const artistController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/artist
 
     getArtistById: async(req, res) => {
         const { id } = req.params;
@@ -64,7 +63,6 @@ export const artistController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/artist/1
     
     createArtist: async(req, res) => {
         const { name, biography, photo_url } = req.body;
@@ -87,13 +85,6 @@ export const artistController = {
             );
         }
     },
-    //curl -X POST http://localhost:3000/api/artist \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"name": "Madonna",
-    //"biography": "Biografia da Madonna",
-    //"photo_url": "http://exemplo.com/foto.jpg"
-    //}'
 
     updateArtist: async(req, res) => {
         const { id } = req.params;
@@ -134,13 +125,6 @@ export const artistController = {
             );
         }
     },
-    //curl -X PUT http://localhost:3000/api/artist/1 \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"name": "Madonna",
-    //"biography": "Biografia da Madonna",
-    //"photo_url": "http://exemplo.com/foto.jpg"
-    //}'
 
     deleteArtist: async(req, res) => {
         const { id } = req.params;
@@ -174,5 +158,4 @@ export const artistController = {
             );
         }
     }
-    //curl -X DELETE http://localhost:3000/api/artist/2
 };
