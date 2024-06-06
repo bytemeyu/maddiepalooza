@@ -1,4 +1,4 @@
-function authRolesMiddleware(allowedRoles = []) {
+export const authRolesMiddleware = (allowedRoles = []) => {
     if (typeof allowedRoles === 'string') {
         allowedRoles = [allowedRoles];
         // Garante que allowedRoles seja sempre um array.
