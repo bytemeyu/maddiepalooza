@@ -111,28 +111,28 @@ Formato JSON.
 
 | Rotas             | Tipos de usuário autorizados     |
 |:------------------|:---------------------------------|
-| getAllArtists     | (Não requer autenticação)|
-| getArtistById     | (Não requer autenticação)|
-| createArtist      | producer|
-| updateArtist      | producer|
-| deleteArtist      | producer|
-| getAllStages      | (Não requer autenticação)|
-| getStageById      | (Não requer autenticação)|
-| createStage       | producer|
-| updateStage       | producer|
-| deleteStage       | producer|
-| getAllPerformances| (Não requer autenticação)|
-| getPerformanceById| (Não requer autenticação)|
-| createPerformance | producer, assistant|
-| updatePerformance | producer, assistant|
-| deletePerformance | producer, assistant|
-| getAllUsers       | webadmin, producer, assistant|
-| getUserById       | webadmin, producer, assistant|
-| createUser        | webadmin; producer [assistant]|
-| updateUser        | webadmin; producer [producer (email, username, password_hash), assistant], assistant [assistant (email, username, password_hash)]|
-| deleteUser        | webadmin; producer [assistant]|
-| login             | (Não requer autenticação)|
-| logout            | webadmin, producer, assistant|  
+| getAllArtists     | (Não requer autenticação);|
+| getArtistById     | (Não requer autenticação);|
+| createArtist      | producer;|
+| updateArtist      | producer;|
+| deleteArtist      | producer;|
+| getAllStages      | (Não requer autenticação);|
+| getStageById      | (Não requer autenticação);|
+| createStage       | producer;|
+| updateStage       | producer;|
+| deleteStage       | producer;|
+| getAllPerformances| (Não requer autenticação);|
+| getPerformanceById| (Não requer autenticação);|
+| createPerformance | producer; assistant;|
+| updatePerformance | producer; assistant;|
+| deletePerformance | producer; assistant;|
+| getAllUsers       | webadmin; producer; assistant;|
+| getUserById       | webadmin; producer; assistant;|
+| createUser        | webadmin; producer [assistant];|
+| updateUser        | webadmin; producer [producer (email, username, password_hash), assistant]; assistant [assistant (email, username, password_hash)];|
+| deleteUser        | webadmin; producer [assistant];|
+| login             | (Não requer autenticação);|
+| logout            | webadmin; producer; assistant;|  
 
 
 **performance (artist_id, stage_id, start_time, end_time, date)**  
