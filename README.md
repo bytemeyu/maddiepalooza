@@ -103,9 +103,9 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 | deletePerformance | webadmin; producer; assistant;|
 | getAllUsers       | webadmin; producer; assistant;|
 | getUserById       | webadmin; producer; assistant;|
-| createUser        | webadmin; producer [assistant];|
-| updateUser        | webadmin; producer [producer (email, username, password_hash), assistant]; assistant [assistant (email, username, password_hash)];|
-| deleteUser        | webadmin; producer [assistant];|
+| createUser        | webadmin; producer [só pode criar assistant];|
+| updateUser        | webadmin; producer [só pode alterar producer (só pode alterar email, username, password_hash) e assistant]; assistant [só pode alterar assistant (só pode alterar email, username, password_hash)];|
+| deleteUser        | webadmin; producer [só pode deletar assistant];|
 | login             | (Não requer autenticação);|
 | logout            | webadmin; producer; assistant;|  
 
