@@ -10,7 +10,7 @@ router.get('/', performanceController.getAllPerformances);
 router.get('/:id', performanceController.getPerformanceById);
 //curl -X GET http://localhost:3000/api/performance/1
 router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.createPerformance);
-//curl -X POST http://localhost:3000/api/performance \
+//curl -b cookies.txt -X POST http://localhost:3000/api/performance \
 //-H "Content-Type: application/json" \
 //-d '{
 //"artist_id": "1",
@@ -20,13 +20,13 @@ router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'a
 //"date": "2025-05-15"
 //}'
 router.put('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.updatePerformance);
-//curl -X PUT http://localhost:3000/api/performance/1 \
+//curl -b cookies.txt -X PUT http://localhost:3000/api/performance/1 \
 //-H "Content-Type: application/json" \
 //-d '{
 //"start_time": "2025-05-15T19:30:00+00:00",
 //"end_time": "2025-05-15T21:00:00+00:00"
 //}'
 router.delete('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.deletePerformance);
-//curl -X DELETE http://localhost:3000/api/performance/2
+//curl -b cookies.txt -X DELETE http://localhost:3000/api/performance/2
 
 export default router;

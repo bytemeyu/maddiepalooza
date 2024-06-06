@@ -10,7 +10,7 @@ router.get('/', stageController.getAllStages);
 router.get('/:id', stageController.getStageById);
 //curl -X GET http://localhost:3000/api/stage/1
 router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), stageController.createStage);
-//curl -X POST http://localhost:3000/api/stage \
+//curl -b cookies.txt -X POST http://localhost:3000/api/stage \
 //-H "Content-Type: application/json" \
 //-d '{
 //"name": "I have no shame",
@@ -18,13 +18,13 @@ router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), 
 //"capacity": "750"
 //}'
 router.put('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), stageController.updateStage);
-//curl -X PUT http://localhost:3000/api/stage/1 \
+//curl -b cookies.txt -X PUT http://localhost:3000/api/stage/1 \
 //-H "Content-Type: application/json" \
 //-d '{
 //"location": "Michigan/EUA",
 //"capacity": "650"
 //}'
 router.delete('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), stageController.deleteStage);
-//curl -X DELETE http://localhost:3000/api/stage/2
+//curl -b cookies.txt -X DELETE http://localhost:3000/api/stage/2
 
 export default router;
