@@ -38,7 +38,7 @@ export const stageController = {
 
         try {
             const stageById = await stageService.getStageById(id);
-            if(stageById.length === 0){
+            if(!stageById){
                 res.status(404).json(
                     {
                         'success': false,
@@ -99,7 +99,7 @@ export const stageController = {
 
         try {
             const outdatedStage = await stageService.getStageById(id);
-            if(outdatedStage.length === 0 || !outdatedStage[0]) {
+            if(!outdatedStage) {
                 res.status(404).json(
                     {
                         'success': false,
@@ -110,11 +110,11 @@ export const stageController = {
             }
 
             const { name } = req.body;
-            const nameToUse = name || outdatedStage[0].name;
+            const nameToUse = name || outdatedStage.name;
             const { location } = req.body;
-            const locationToUse = location || outdatedStage[0].location;
+            const locationToUse = location || outdatedStage.location;
             const { capacity } = req.body;
-            const capacityToUse = capacity || outdatedStage[0].capacity;
+            const capacityToUse = capacity || outdatedStage.capacity;
             
             const updatedStage = await stageService.updateStage(id, nameToUse, locationToUse, capacityToUse);
             res.status(200).json(
@@ -145,7 +145,7 @@ export const stageController = {
 
         try {
             const stageById = await stageService.getStageById(id);
-            if(stageById.length === 0 || !stageById[0]) {
+            if(!stageById) {
                 res.status(404).json(
                     {
                         'success': false,
