@@ -78,48 +78,6 @@ DELETE /api/users/:id: Deleta o usuário especificado.
 POST /api/auth/login: Loga o usuário, ou seja, autentica sua sessão e fornece um cookie session.  
 DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.  
 
-### Entrada e Saída de Payloads: 
-Formato JSON.
-
-**Exemplo de entrada:**
-```javascript
-{
-   "name": "Madonna", 
-	"biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
-	"photo_url": "https://images.app.goo.gl/ " 
-}
-```
-
-**Exemplos de saída:**
-```javascript
-{ 
-   "success": true, 
-	"data": {
-      "id": 1, 
-      "name": "Madonna", 
-	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
-	   "photo_url": "https://images.app.goo.gl/ "
-	}
-}
-```
-```javascript
-{ 
-   "success": true, 
-	"data": [{
-      "id": 1, 
-      "name": "Madonna", 
-	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
-	   "photo_url": "https://images.app.goo.gl/ "
-	},
-   {
-      "id": 2, 
-      "name": "David Bowie", 
-	   "biography": "David Bowie, nascido David Robert Jones em 8 de janeiro de 1947, em Brixton, Londres, foi um dos músicos mais inovadores e influentes do século 20. Ele começou sua carreira musical na década de 1960, mas alcançou fama mundial na década de 1970 com seu personagem Ziggy Stardust, um alter ego andrógino e alienígena que revolucionou o rock.", 
-	   "photo_url": "https://images.app.goo.gl/ "
-	}]
-}
-```  
-
 ### Regras de Negócio na Camada de Serviço:
 **users (email, username, password_hash, role)**  
 - Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
@@ -180,6 +138,48 @@ Formato JSON.
 - O e-mail do usuário deve ser único e válido (formato de e-mail - regex).
 - O username do usuário deve ser único e válido.
 - A senha (password) deve ter no mínimo 8 e no máximo 20 caracteres, além de ter ao menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial desses: */._¨-,.[]^%$#@&. Lembrando que a password é diferente da password_hash (e seus limites são diferentes - e, inclusive, aplicados em lugares diferentes (a password_hash no Banco de Dados e a password na Camada de Controle)).
+
+### Entrada e Saída de Payloads: 
+Formato JSON.
+
+**Exemplo de entrada:**
+```javascript
+{
+   "name": "Madonna", 
+	"biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	"photo_url": "https://images.app.goo.gl/ " 
+}
+```
+
+**Exemplos de saída:**
+```javascript
+{ 
+   "success": true, 
+	"data": {
+      "id": 1, 
+      "name": "Madonna", 
+	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	   "photo_url": "https://images.app.goo.gl/ "
+	}
+}
+```
+```javascript
+{ 
+   "success": true, 
+	"data": [{
+      "id": 1, 
+      "name": "Madonna", 
+	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	   "photo_url": "https://images.app.goo.gl/ "
+	},
+   {
+      "id": 2, 
+      "name": "David Bowie", 
+	   "biography": "David Bowie, nascido David Robert Jones em 8 de janeiro de 1947, em Brixton, Londres, foi um dos músicos mais inovadores e influentes do século 20. Ele começou sua carreira musical na década de 1960, mas alcançou fama mundial na década de 1970 com seu personagem Ziggy Stardust, um alter ego andrógino e alienígena que revolucionou o rock.", 
+	   "photo_url": "https://images.app.goo.gl/ "
+	}]
+}
+```  
 
 ## Front-end:
 
