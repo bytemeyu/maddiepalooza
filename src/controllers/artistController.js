@@ -6,9 +6,9 @@ export const artistController = {
             const allArtists = await artistService.getAllArtists();
 
             if(allArtists.length === 0) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhum artista no banco de dados'
                     }
                 );
@@ -38,9 +38,9 @@ export const artistController = {
         try {
             const artistById = await artistService.getArtistById(id);
             if(artistById.length === 0){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
                     }
                 );
@@ -71,7 +71,7 @@ export const artistController = {
             const createdArtist = await artistService.createArtist(name, biography, photo_url);
             res.status(200).json(
                 {
-                    'sucess': true,
+                    'success': true,
                     'data': createdArtist,
                 }
             );
@@ -92,9 +92,9 @@ export const artistController = {
         try {
             const outdatedArtist = await artistService.getArtistById(id);
             if(outdatedArtist.length === 0 || !outdatedArtist[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
                     }
                 );
@@ -132,9 +132,9 @@ export const artistController = {
         try {
             const artistById = await artistService.getArtistById(id);
             if(artistById.length === 0 || !artistById[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum artista com o id especificado no banco de dados'
                     }
                 );

@@ -6,9 +6,9 @@ export const performanceController = {
             const allPerformances = await performanceService.getAllPerformances();
 
             if(allPerformances.length === 0) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhuma performance no banco de dados'
                     }
                 );
@@ -38,9 +38,9 @@ export const performanceController = {
         try {
             const performanceById = await performanceService.getPerformanceById(id);
             if(performanceById.length === 0){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );
@@ -71,7 +71,7 @@ export const performanceController = {
             const createdPerformance = await performanceService.createPerformance(artist_id, stage_id, start_time, end_time, date);
             res.status(200).json(
                 {
-                    'sucess': true,
+                    'success': true,
                     'data': createdPerformance,
                 }
             );
@@ -101,9 +101,9 @@ export const performanceController = {
         try {
             const outdatedPerformance = await performanceService.getPerformanceById(id);
             if(outdatedPerformance.length === 0 || !outdatedPerformance[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );
@@ -151,9 +151,9 @@ export const performanceController = {
         try {
             const performanceById = await performanceService.getPerformanceById(id);
             if(performanceById.length === 0 || !performanceById[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhuma performance com o id especificado no banco de dados'
                     }
                 );

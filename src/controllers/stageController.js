@@ -6,9 +6,9 @@ export const stageController = {
             const allStages = await stageService.getAllStages();
 
             if(allStages.length === 0) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhum palco no banco de dados'
                     }
                 );
@@ -39,9 +39,9 @@ export const stageController = {
         try {
             const stageById = await stageService.getStageById(id);
             if(stageById.length === 0){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );
@@ -72,7 +72,7 @@ export const stageController = {
             const createdStage = await stageService.createStage(name, location, capacity);
             res.status(200).json(
                 {
-                    'sucess': true,
+                    'success': true,
                     'data': createdStage,
                 }
             );
@@ -100,9 +100,9 @@ export const stageController = {
         try {
             const outdatedStage = await stageService.getStageById(id);
             if(outdatedStage.length === 0 || !outdatedStage[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );
@@ -146,9 +146,9 @@ export const stageController = {
         try {
             const stageById = await stageService.getStageById(id);
             if(stageById.length === 0 || !stageById[0]) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum palco com o id especificado no banco de dados'
                     }
                 );

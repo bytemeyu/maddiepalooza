@@ -40,7 +40,7 @@ export const authController = {
             });
             res.status(200).json({ message: 'Logout bem-sucedido' });
         } else {
-            res.status(200).json({ message: 'Nenhum token foi encontrado, portanto a sessão já foi encerrada com sucesso' });
+            res.status(200).json({ message: 'Nenhum token foi encontrado, portanto a sessão já foi encerrada com succeso' });
         }
     }
   };

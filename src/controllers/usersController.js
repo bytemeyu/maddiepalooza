@@ -7,9 +7,9 @@ export const usersController = {
             const allUsers = await usersService.getAllUsers();
 
             if(allUsers.length === 0) {
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'success': true,
+                        'success': false,
                         'data': 'Não há nenhum usuário no banco de dados'
                     }
                 );
@@ -40,9 +40,9 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(userById.length === 0){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
@@ -76,7 +76,7 @@ export const usersController = {
             const createdUser = await usersService.createUser(email, username, password_hash, role);
             res.status(200).json(
                 {
-                    'sucess': true,
+                    'success': true,
                     'data': createdUser,
                 }
             );
@@ -105,9 +105,9 @@ export const usersController = {
         try {
             const outdatedUser = await usersService.getUserById(id);
             if(outdatedUser.length === 0 || !outdatedUser[0]){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
@@ -154,9 +154,9 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(userById.length === 0){
-                res.status(204).json(
+                res.status(404).json(
                     {
-                        'sucess': true,
+                        'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
