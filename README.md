@@ -113,19 +113,19 @@ Formato JSON.
 |:------------------|:---------------------------------|
 | getAllArtists     | (Não requer autenticação);|
 | getArtistById     | (Não requer autenticação);|
-| createArtist      | producer;|
-| updateArtist      | producer;|
-| deleteArtist      | producer;|
+| createArtist      | webadmin; producer;|
+| updateArtist      | webadmin; producer;|
+| deleteArtist      | webadmin; producer;|
 | getAllStages      | (Não requer autenticação);|
 | getStageById      | (Não requer autenticação);|
-| createStage       | producer;|
-| updateStage       | producer;|
-| deleteStage       | producer;|
+| createStage       | webadmin; producer;|
+| updateStage       | webadmin; producer;|
+| deleteStage       | webadmin; producer;|
 | getAllPerformances| (Não requer autenticação);|
 | getPerformanceById| (Não requer autenticação);|
-| createPerformance | producer; assistant;|
-| updatePerformance | producer; assistant;|
-| deletePerformance | producer; assistant;|
+| createPerformance | webadmin; producer; assistant;|
+| updatePerformance | webadmin; producer; assistant;|
+| deletePerformance | webadmin; producer; assistant;|
 | getAllUsers       | webadmin; producer; assistant;|
 | getUserById       | webadmin; producer; assistant;|
 | createUser        | webadmin; producer [assistant];|
