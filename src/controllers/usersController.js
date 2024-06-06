@@ -32,7 +32,6 @@ export const usersController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/users
 
     getUserById: async(req, res) => {
         const { id } = req.params;
@@ -65,10 +64,18 @@ export const usersController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/users/1
 
     createUser: async(req, res) => {
         const { email, username, password, role } = req.body;
+
+        if(req.user.role === 'producer' && role !== 'assistant') {
+            return res.status(403).json(
+                {
+                    'success': false,
+                    'error': 'Produtores (producer) só podem criar usuários do tipo assistente (assistant)'
+                }
+            );
+        }
 
         const password_hash = await bcrypt.hash(password, 10);
 
@@ -90,20 +97,15 @@ export const usersController = {
             );
         }
     },
-    //curl -X POST http://localhost:3000/api/users \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"email": "anita@mail.com",
-    //"username": "anitakawasaki",
-    //"password": "asenhasemhash",
-    //"role": "webadmin"
-    //}'
 
     updateUser: async(req, res) => {
         const { id } = req.params;
+        const { email, username, password, role } = req.body;
 
         try {
+            const authenticatedUser = req.user;
             const outdatedUser = await usersService.getUserById(id);
+
             if(!outdatedUser){
                 res.status(404).json(
                     {
@@ -114,7 +116,31 @@ export const usersController = {
                 return;
             }
 
-            const { email, username, password, role } = req.body;
+            if((authenticatedUser.role === 'producer' && outdatedUser.role === 'webadmin') || (authenticatedUser.role === 'assistant' && (outdatedUser.role === 'webadmin' || outdatedUser.role === 'producer'))) {
+                return res.status(403).json(
+                    {
+                        'success': false,
+                        'error': 'Permissão negada para atualizar este usuário'
+                    });
+            }
+            //producer não pode alterar webadmin; assistant não pode alterar webadmin nem producer;
+
+            let roleToUse;
+
+            if(authenticatedUser.role === 'producer' && outdatedUser.role === 'producer') {
+                roleToUse = outdatedUser.role;
+            }
+            //se for um producer alterando um producer, o tipo producer deve se manter (não tem como ele promover a webadmin, nem rebaixar a assistant);
+
+            if(authenticatedUser.role === 'producer' && outdatedUser.role === 'assistant' && role !== 'webadmin') {
+                roleToUse = role || outdatedUser.role;
+            }
+            //se for um producer alterando um assistant, ele pode promover o assistant a producer (nunca a webadmin);
+
+            if(authenticatedUser.role === 'assistant' && outdatedUser.role === 'assistant') {
+                roleToUse = outdatedUser.role;
+            }
+            //se for um assistant alterando um assistant, o tipo assistant deve se manter;
 
             const emailToUse = email || outdatedUser.email;
             const usernameToUse = username || outdatedUser.username;
@@ -123,7 +149,6 @@ export const usersController = {
                 password_hashToUse = await bcrypt.hash(password, 10);
 
             }            
-            const roleToUse = role || outdatedUser.role;
 
             const updatedUser = await usersService.updateUser(id, emailToUse, usernameToUse, password_hashToUse, roleToUse);
             res.status(200).json(
@@ -142,11 +167,6 @@ export const usersController = {
             );
         }
     },
-    //curl -X PUT http://localhost:3000/api/users/1 \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"email": "anita@mail.com.br"
-    //}'
 
     deleteUser: async(req, res) => {
         const { id } = req.params;
@@ -180,5 +200,4 @@ export const usersController = {
             );
         }
     }
-    //curl -X DELETE http://localhost:3000/api/users/1
 };
