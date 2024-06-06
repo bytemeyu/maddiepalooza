@@ -104,20 +104,41 @@ Formato JSON.
 ```
 
 ### Regras de Negócio na Camada de Serviço:
+**users (email, username, password_hash, role)**  
+- Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
+- Nenhum usuário pode ver senha nenhuma, em qualquer situação.  
+
+
+| Rotas             | Tipos de usuário autorizados     |
+|:------------------|:---------------------------------|
+| getAllArtists     | (Não requer autenticação)|
+| getArtistById     | (Não requer autenticação)|
+| createArtist      | producer|
+| updateArtist      | producer|
+| deleteArtist      | producer|
+| getAllStages      | (Não requer autenticação)|
+| getStageById      | (Não requer autenticação)|
+| createStage       | producer|
+| updateStage       | producer|
+| deleteStage       | producer|
+| getAllPerformances| (Não requer autenticação)|
+| getPerformanceById| (Não requer autenticação)|
+| createPerformance | producer, assistant|
+| updatePerformance | producer, assistant|
+| deletePerformance | producer, assistant|
+| getAllUsers       | webadmin, producer, assistant|
+| getUserById       | webadmin, producer, assistant|
+| createUser        | webadmin; producer [assistant]|
+| updateUser        | webadmin; producer [producer (email, username, password_hash), assistant], assistant [assistant (email, username, password_hash)]|
+| deleteUser        | webadmin; producer [assistant]|
+| login             | (Não requer autenticação)|
+| logout            | webadmin, producer, assistant|  
+
+
 **performance (artist_id, stage_id, start_time, end_time, date)**  
 - Não deve haver duas performances ao mesmo tempo no mesmo palco.
 - O mesmo artista não pode estar em duas performances ao mesmo tempo.
-- A data deve ser uma das três datas em que ocorrerá o festival.
-
-**users (email, username, password_hash, role)**  
-- Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
-- O único tipo de usuário que pode criar, atualizar e deletar usuários do tipo 'producer' e 'assistant' é o 'webadmin'. 
-- O 'producer' pode criar, atualizar (ele não pode se promover a 'webadmin' ou se rebaixar a 'assistant', mas pode promover um 'assistant' a 'producer' - ele obviamente não pode promover um 'assistant' a 'webadmin') e deletar somente usuários do tipo 'assistant'. 
-- Um 'assistant' só pode atualizar (só os campos email, username e password_hash - role, não, é vetado) e deletar a si mesmo.
-- Todos os tipos de usuários podem visualizar todos os usuários e suas respectivas informações ou um usuário específico e suas informações.
-- Somente o 'producer' pode criar, atualizar ou deletar um artista; criar, atualizar ou deletar um palco.
-- Tanto o 'producer' quanto o 'assistant' podem criar, atualizar ou deletar uma performance.
-- As visualizações de artistas, palcos e performances, tanto geral, quanto específicas, não requerem autenticação de nenhum usuário.
+- A data deve ser uma das três datas definidas para ocorrer o festival.
 
 ### Validações na Camada de Controle:
 **artist (name, biography, photo_url)**  
