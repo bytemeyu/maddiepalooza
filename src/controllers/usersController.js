@@ -7,13 +7,12 @@ export const usersController = {
             const allUsers = await usersService.getAllUsers();
 
             if(allUsers.length === 0) {
-                res.status(404).json(
+                return res.status(404).json(
                     {
                         'success': false,
                         'data': 'Não há nenhum usuário no banco de dados'
                     }
                 );
-                return;
             }
 
             res.status(200).json(
@@ -39,13 +38,12 @@ export const usersController = {
         try {
             const userById = await usersService.getUserById(id);
             if(!userById){
-                res.status(404).json(
+                return res.status(404).json(
                     {
                         'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
-                return;
             }
 
             res.status(200).json(
@@ -107,13 +105,12 @@ export const usersController = {
             const outdatedUser = await usersService.getUserById(id);
 
             if(!outdatedUser){
-                res.status(404).json(
+                return res.status(404).json(
                     {
                         'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
-                return;
             }
 
             if((authenticatedUser.role === 'producer' && outdatedUser.role === 'webadmin') || (authenticatedUser.role === 'assistant' && (outdatedUser.role === 'webadmin' || outdatedUser.role === 'producer'))) {
@@ -121,26 +118,18 @@ export const usersController = {
                     {
                         'success': false,
                         'error': 'Permissão negada para atualizar este usuário'
-                    });
+                    }
+                );
             }
-            //producer não pode alterar webadmin; assistant não pode alterar webadmin nem producer;
+            //Producer não pode alterar webadmin; assistant não pode alterar webadmin nem producer.
 
-            let roleToUse;
-
-            if(authenticatedUser.role === 'producer' && outdatedUser.role === 'producer') {
-                roleToUse = outdatedUser.role;
-            }
-            //se for um producer alterando um producer, o tipo producer deve se manter (não tem como ele promover a webadmin, nem rebaixar a assistant);
+            let roleToUse = outdatedUser.role;
+            //O default é manter o role atual. Isso faz com que não tenha que especificar casos em que o role deve se manter o mesmo (que é a maioria), como: producer alterando producer; assistant alterando assistant.
 
             if(authenticatedUser.role === 'producer' && outdatedUser.role === 'assistant' && role !== 'webadmin') {
                 roleToUse = role || outdatedUser.role;
             }
-            //se for um producer alterando um assistant, ele pode promover o assistant a producer (nunca a webadmin);
-
-            if(authenticatedUser.role === 'assistant' && outdatedUser.role === 'assistant') {
-                roleToUse = outdatedUser.role;
-            }
-            //se for um assistant alterando um assistant, o tipo assistant deve se manter;
+            //Se for um producer alterando um assistant, ele pode promover o assistant a producer (nunca a webadmin).
 
             const emailToUse = email || outdatedUser.email;
             const usernameToUse = username || outdatedUser.username;
@@ -172,16 +161,26 @@ export const usersController = {
         const { id } = req.params;
 
         try {
+            const authenticatedUser = req.user;
             const userById = await usersService.getUserById(id);
             if(!userById){
-                res.status(404).json(
+                return res.status(404).json(
                     {
                         'success': false,
                         'data': 'Não há nenhum usuário com o id especificado no banco de dados'
                     }
                 );
-                return;
             }
+
+            if(authenticatedUser.role === 'producer' && (userById.role === 'webadmin' || userById.role === 'producer')) {
+                return res.status(403).json(
+                    {
+                        'success': false,
+                        'error': 'Permissão negada para deletar este usuário'
+                    }
+                );
+            }
+            //Producer não pode deletar webadmin nem producer.
 
             const deletedUser = await usersService.deleteUser(id);
             res.status(200).json(
