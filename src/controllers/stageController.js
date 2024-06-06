@@ -31,7 +31,6 @@ export const stageController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/stage
 
     getStageById: async(req, res) => {
         const { id } = req.params;
@@ -63,7 +62,6 @@ export const stageController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/stage/1
 
     createStage: async(req, res) => {
         const { name, location, capacity } = req.body;
@@ -86,13 +84,6 @@ export const stageController = {
             );
         }
     },
-    //curl -X POST http://localhost:3000/api/stage \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"name": "I have no shame",
-    //"location": "Michigan",
-    //"capacity": "750"
-    //}'
 
     updateStage: async(req, res) => {
         const { id } = req.params;
@@ -133,12 +124,6 @@ export const stageController = {
             );
         }
     },
-    //curl -X PUT http://localhost:3000/api/stage/1 \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"location": "Michigan/EUA",
-    //"capacity": "650"
-    //}'
 
     deleteStage: async(req, res) => {
         const { id } = req.params;
@@ -172,5 +157,4 @@ export const stageController = {
             );
         }
     }
-    //curl -X DELETE http://localhost:3000/api/stage/2
 };
