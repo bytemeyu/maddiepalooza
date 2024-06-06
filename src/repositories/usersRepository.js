@@ -18,7 +18,7 @@ export const usersRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao recuperar usuário com id ${id}: ${err.message}`);
             throw err;
@@ -31,7 +31,7 @@ export const usersRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao recuperar usuário com username ${username}: ${err.message}`);
             throw err;
@@ -44,7 +44,7 @@ export const usersRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao criar novo usuário no banco de dados: ${err.message}`);
             throw err;
@@ -57,7 +57,7 @@ export const usersRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao atualizar usuário com id ${id} no banco de dados: ${err.message}`);
             throw err;
@@ -70,7 +70,7 @@ export const usersRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao deletar usuário com id ${id} no banco de dados: ${err.message}`);
             throw err;

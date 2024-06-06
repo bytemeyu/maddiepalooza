@@ -39,7 +39,7 @@ export const usersController = {
 
         try {
             const userById = await usersService.getUserById(id);
-            if(userById.length === 0){
+            if(!userById){
                 res.status(404).json(
                     {
                         'success': false,
@@ -104,7 +104,7 @@ export const usersController = {
 
         try {
             const outdatedUser = await usersService.getUserById(id);
-            if(outdatedUser.length === 0 || !outdatedUser[0]){
+            if(!outdatedUser){
                 res.status(404).json(
                     {
                         'success': false,
@@ -116,14 +116,14 @@ export const usersController = {
 
             const { email, username, password, role } = req.body;
 
-            const emailToUse = email || outdatedUser[0].email;
-            const usernameToUse = username || outdatedUser[0].username;
-            let password_hashToUse = outdatedUser[0].password_hash;
+            const emailToUse = email || outdatedUser.email;
+            const usernameToUse = username || outdatedUser.username;
+            let password_hashToUse = outdatedUser.password_hash;
             if(password) {
                 password_hashToUse = await bcrypt.hash(password, 10);
 
             }            
-            const roleToUse = role || outdatedUser[0].role;
+            const roleToUse = role || outdatedUser.role;
 
             const updatedUser = await usersService.updateUser(id, emailToUse, usernameToUse, password_hashToUse, roleToUse);
             res.status(200).json(
@@ -153,7 +153,7 @@ export const usersController = {
 
         try {
             const userById = await usersService.getUserById(id);
-            if(userById.length === 0){
+            if(!userById){
                 res.status(404).json(
                     {
                         'success': false,
