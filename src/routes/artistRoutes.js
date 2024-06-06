@@ -9,6 +9,6 @@ router.get('/', artistController.getAllArtists);
 router.get('/:id', artistController.getArtistById);
 router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.createArtist);
 router.put('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.updateArtist);
-router.delete('/:id', authMiddleware, authMiddleware(['webadmin', 'producer']), artistController.deleteArtist);
+router.delete('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.deleteArtist);
 
 export default router;
