@@ -12,7 +12,7 @@ export const authController = {
             const loginResult = await authService.login(username, password);
 
             if(loginResult) {
-                const { id, token } = loginResult;
+                const { id, username, role, token } = loginResult;
                 res.cookie('token', token, { 
                     httpOnly: true, 
                     //secure: true,
@@ -20,7 +20,13 @@ export const authController = {
                     //Só reativar as opções acima em contexto de produção.
                     maxAge: 3 * 3600000
                 }); 
-                res.status(200).json({ id, token });
+                res.status(200).json(
+                    { 
+                        id,
+                        username,
+                        role,
+                        token 
+                    });
             } else {
                 res.status(401).json({ error: 'Erro ao enviar token' });
             }
