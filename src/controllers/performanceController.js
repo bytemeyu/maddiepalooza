@@ -37,7 +37,7 @@ export const performanceController = {
 
         try {
             const performanceById = await performanceService.getPerformanceById(id);
-            if(performanceById.length === 0){
+            if(!performanceById){
                 res.status(404).json(
                     {
                         'success': false,
@@ -100,7 +100,7 @@ export const performanceController = {
 
         try {
             const outdatedPerformance = await performanceService.getPerformanceById(id);
-            if(outdatedPerformance.length === 0 || !outdatedPerformance[0]) {
+            if(!outdatedPerformance) {
                 res.status(404).json(
                     {
                         'success': false,
@@ -111,15 +111,15 @@ export const performanceController = {
             }
 
             const { artist_id } = req.body;
-            const artist_idToUse = artist_id || outdatedPerformance[0].artist_id;
+            const artist_idToUse = artist_id || outdatedPerformance.artist_id;
             const { stage_id } = req.body;
-            const stage_idToUse = stage_id || outdatedPerformance[0].stage_id;
+            const stage_idToUse = stage_id || outdatedPerformance.stage_id;
             const { start_time } = req.body;
-            const start_timeToUse = start_time || outdatedPerformance[0].start_time;
+            const start_timeToUse = start_time || outdatedPerformance.start_time;
             const { end_time } = req.body;
-            const end_timeToUse = end_time || outdatedPerformance[0].end_time;
+            const end_timeToUse = end_time || outdatedPerformance.end_time;
             const { date } = req.body;
-            const dateToUse = date || outdatedPerformance[0].date;
+            const dateToUse = date || outdatedPerformance.date;
 
             const updatedPerformance = await performanceService.updatePerformance(id, artist_idToUse, stage_idToUse, start_timeToUse, end_timeToUse, dateToUse);
             res.status(200).json(
@@ -150,7 +150,7 @@ export const performanceController = {
 
         try {
             const performanceById = await performanceService.getPerformanceById(id);
-            if(performanceById.length === 0 || !performanceById[0]) {
+            if(!performanceById) {
                 res.status(404).json(
                     {
                         'success': false,

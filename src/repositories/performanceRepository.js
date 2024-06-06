@@ -18,7 +18,7 @@ export const performanceRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao recuperar performance com id ${id}: ${err.message}`);
             throw err;
@@ -31,7 +31,7 @@ export const performanceRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao criar nova performance no banco de dados: ${err.message}`);
             throw err;
@@ -44,7 +44,7 @@ export const performanceRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao atualizar performance com id ${id} no banco de dados: ${err.message}`);
             throw err;
@@ -57,7 +57,7 @@ export const performanceRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao deletar performance com id ${id} no banco de dados: ${err.message}`);
             throw err;
