@@ -19,7 +19,7 @@ export const artistRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao recuperar artista com id ${id}: ${err.message}`);
             throw err;
@@ -32,7 +32,7 @@ export const artistRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao criar novo artista no banco de dados: ${err.message}`);
             throw err;
@@ -45,7 +45,7 @@ export const artistRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao atualizar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
@@ -58,7 +58,7 @@ export const artistRepository = {
 
         try {
             const { rows } = await query(text, params);
-            return rows;
+            return rows[0];
         } catch(err) {
             console.error(`Erro ao deletar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;

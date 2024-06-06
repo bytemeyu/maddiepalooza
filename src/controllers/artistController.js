@@ -37,7 +37,7 @@ export const artistController = {
 
         try {
             const artistById = await artistService.getArtistById(id);
-            if(artistById.length === 0){
+            if(!artistById){
                 res.status(404).json(
                     {
                         'success': false,
@@ -91,7 +91,7 @@ export const artistController = {
 
         try {
             const outdatedArtist = await artistService.getArtistById(id);
-            if(outdatedArtist.length === 0 || !outdatedArtist[0]) {
+            if(!outdatedArtist) {
                 res.status(404).json(
                     {
                         'success': false,
@@ -102,11 +102,11 @@ export const artistController = {
             }
 
             const { name } = req.body;
-            const nameToUse = name || outdatedArtist[0].name;
+            const nameToUse = name || outdatedArtist.name;
             const { biography } = req.body;
-            const biographyToUse = biography || outdatedArtist[0].biography;
+            const biographyToUse = biography || outdatedArtist.biography;
             const { photo_url } = req.body;
-            const photo_urlToUse = photo_url || outdatedArtist[0].photo_url;
+            const photo_urlToUse = photo_url || outdatedArtist.photo_url;
             
             const updatedArtist = await artistService.updateArtist(id, nameToUse, biographyToUse, photo_urlToUse);
             res.status(200).json(
@@ -131,7 +131,7 @@ export const artistController = {
 
         try {
             const artistById = await artistService.getArtistById(id);
-            if(artistById.length === 0 || !artistById[0]) {
+            if(!artistById) {
                 res.status(404).json(
                     {
                         'success': false,

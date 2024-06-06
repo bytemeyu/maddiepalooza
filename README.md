@@ -90,7 +90,18 @@ Formato JSON.
 }
 ```
 
-**Exemplo de saída:**
+**Exemplos de saída:**
+```javascript
+{ 
+   "success": true, 
+	"data": {
+      "id": 1, 
+      "name": "Madonna", 
+	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
+	   "photo_url": "https://images.app.goo.gl/ "
+	}
+}
+```
 ```javascript
 { 
    "success": true, 
@@ -99,9 +110,15 @@ Formato JSON.
       "name": "Madonna", 
 	   "biography": "Madonna Louise Ciccone, conhecida simplesmente como Madonna, nasceu em 16 de agosto de 1958 em Bay City, Michigan, EUA. Ela é uma cantora, compositora, atriz e empresária americana, frequentemente referida como a 'Rainha do Pop'.", 
 	   "photo_url": "https://images.app.goo.gl/ "
+	},
+   {
+      "id": 2, 
+      "name": "David Bowie", 
+	   "biography": "David Bowie, nascido David Robert Jones em 8 de janeiro de 1947, em Brixton, Londres, foi um dos músicos mais inovadores e influentes do século 20. Ele começou sua carreira musical na década de 1960, mas alcançou fama mundial na década de 1970 com seu personagem Ziggy Stardust, um alter ego andrógino e alienígena que revolucionou o rock.", 
+	   "photo_url": "https://images.app.goo.gl/ "
 	}]
 }
-```
+```  
 
 ### Regras de Negócio na Camada de Serviço:
 **users (email, username, password_hash, role)**  
