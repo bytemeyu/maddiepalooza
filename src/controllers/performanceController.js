@@ -30,7 +30,6 @@ export const performanceController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/performance
 
     getPerformanceById: async(req, res) => {
         const { id } = req.params;
@@ -62,7 +61,6 @@ export const performanceController = {
             );
         }
     },
-    //curl -X GET http://localhost:3000/api/performance/1
 
     createPerformance: async(req, res) => {
         const { artist_id, stage_id, start_time, end_time, date } = req.body;
@@ -85,15 +83,6 @@ export const performanceController = {
             );
         }
     },
-    //curl -X POST http://localhost:3000/api/performance \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"artist_id": "1",
-    //"stage_id": "1",
-    //"start_time": "2025-05-15T19:00:00+00:00",
-    //"end_time": "2025-05-15T20:30:00+00:00",
-    //"date": "2025-05-15"
-    //}'
 
     updatePerformance: async(req, res) => {
         const { id } = req.params;
@@ -138,12 +127,6 @@ export const performanceController = {
             );
         }
     },
-    //curl -X PUT http://localhost:3000/api/performance/1 \
-    //-H "Content-Type: application/json" \
-    //-d '{
-    //"start_time": "2025-05-15T19:30:00+00:00",
-    //"end_time": "2025-05-15T21:00:00+00:00"
-    //}'
 
     deletePerformance: async(req, res) => {
         const { id } = req.params;
@@ -177,5 +160,4 @@ export const performanceController = {
             );
         }
     }
-    //curl -X DELETE http://localhost:3000/api/performance/2
 };
