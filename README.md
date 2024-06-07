@@ -26,6 +26,7 @@ Apoio:
 - Visual Studio Code;
 - GitHub;
 - DB Designer;
+- Postman;
 
 Back-end:  
 - Node.js;
