@@ -131,6 +131,11 @@ export const usersController = {
             }
             //Se for um producer alterando um assistant, ele pode promover o assistant a producer (nunca a webadmin).
 
+            if(authenticatedUser.role === 'webadmin') {
+                roleToUse = role || outdatedUser.role;
+            }
+            //Se for um webadmin alterando um webadmin, um producer ou um assistant, ele pode alterar para o tipo que quiser.
+
             const emailToUse = email || outdatedUser.email;
             const usernameToUse = username || outdatedUser.username;
             let password_hashToUse = outdatedUser.password_hash;
