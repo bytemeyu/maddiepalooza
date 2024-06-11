@@ -15,10 +15,19 @@ export const usersController = {
                 );
             }
 
+            const mappedUsers = allUsers.map(user => {
+                return {
+                    user_id: user.user_id,
+                    email: user.email,
+                    username: user.username,
+                    role: user.role
+                }
+            });
+
             res.status(200).json(
                 {
                     'success': true, 	
-                    'data': allUsers,
+                    'data': mappedUsers,
                 }
             );
         } catch(err) {
