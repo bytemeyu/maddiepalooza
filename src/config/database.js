@@ -19,3 +19,8 @@ pool.on('error', (err, client) => {
 });
 
 export const query = (text, params) => pool.query(text, params);
+//Isso, acima, nada mais é do que a exportação da seguinte função:
+//function query(text, params) {
+//    return pool.query(text, params);
+//}
+//Lembrando que pool é um conjunto de conexões pré-estabelecidas e mantidas para uso futuro. Já query é o método utilizado para enviar consultas SQL ao banco de dados, esse método aceita dois parâmetros: o texto da consulta e um array (opcional) de valores que são usados para substituir placeholders na consulta SQL.

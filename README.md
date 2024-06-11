@@ -114,7 +114,6 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 **performance (artist_id, stage_id, start_time, end_time, date)**  
 - Não deve haver duas performances ao mesmo tempo no mesmo palco.
 - O mesmo artista não pode estar em duas performances ao mesmo tempo.
-- A data deve ser uma das três datas definidas para ocorrer o festival.
 
 ### Validações na Camada de Controle:
 **artist (name, biography, photo_url)**  
