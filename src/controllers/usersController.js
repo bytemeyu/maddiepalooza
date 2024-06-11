@@ -66,6 +66,15 @@ export const usersController = {
     createUser: async(req, res) => {
         const { email, username, password, role } = req.body;
 
+        if (role !== 'webadmin' && role !== 'producer' && role !== 'assistant') {
+            return res.status(400).json(
+                {
+                    'success': false,
+                    'error': 'Não é possível criar um tipo de usuário diferente de webadmin, producer ou assistant'
+                }
+            );
+        }
+
         if(req.user.role === 'producer' && role !== 'assistant') {
             return res.status(403).json(
                 {
