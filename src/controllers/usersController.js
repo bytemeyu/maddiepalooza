@@ -58,7 +58,12 @@ export const usersController = {
             res.status(200).json(
                 {
                     'success': true,
-                    'data': userById,
+                    'data': {
+                        user_id: userById.user_id,
+                        email: userById.email,
+                        username: userById.username,
+                        role: userById.role
+                    }
                 }
             );
         } catch(err) {
@@ -100,7 +105,12 @@ export const usersController = {
             res.status(200).json(
                 {
                     'success': true,
-                    'data': createdUser,
+                    'data': {
+                        user_id: createdUser.user_id,
+                        email: createdUser.email,
+                        username: createdUser.username,
+                        role: createdUser.role
+                    }
                 }
             );
         } catch(err) {
@@ -166,7 +176,12 @@ export const usersController = {
             res.status(200).json(
                 {
                     'success': true,
-                    'data': updatedUser,
+                    'data': {
+                        user_id: updatedUser.user_id,
+                        email: updatedUser.email,
+                        username: updatedUser.username,
+                        role: updatedUser.role
+                    }
                 }
             );   
         } catch(err) {
@@ -209,7 +224,12 @@ export const usersController = {
             res.status(200).json(
                 {
                     'success': true,
-                    'data': deletedUser,
+                    'data': {
+                        user_id: deletedUser.user_id,
+                        email: deletedUser.email,
+                        username: deletedUser.username,
+                        role: deletedUser.role
+                    },
                 }
             ); 
         } catch {
