@@ -66,6 +66,26 @@ export const performanceController = {
         const { artist_id, stage_id, start_time, end_time, date } = req.body;
 
         try {
+            const checkArtistUnavailability = await performanceService.artistUnavailability(artist_id, start_time, end_time, date);
+            if(checkArtistUnavailability) {
+                return res.status(409).json(
+                    {
+                        'success': false,
+                        'error': 'Este artista já está agendado para outra performance no mesmo horário'
+                    }
+                );
+            }
+
+            const checkStageUnavailability = await performanceService.stageUnavailability(stage_id, start_time, end_time, date);
+            if(checkStageUnavailability) {
+                return res.status(409).json(
+                    {
+                        'success': false,
+                        'error': 'Já existe uma performance agendada neste palco para o horário especificado'
+                    }
+                );
+            }
+
             const createdPerformance = await performanceService.createPerformance(artist_id, stage_id, start_time, end_time, date);
             res.status(200).json(
                 {
@@ -109,6 +129,26 @@ export const performanceController = {
             const end_timeToUse = end_time || outdatedPerformance.end_time;
             const { date } = req.body;
             const dateToUse = date || outdatedPerformance.date;
+
+            const checkArtistUnavailability = await performanceService.artistUnavailability(artist_idToUse, start_timeToUse, end_timeToUse, dateToUse, id);
+            if(checkArtistUnavailability) {
+                return res.status(409).json(
+                    {
+                        'success': false,
+                        'error': 'Este artista já está agendado para outra performance no mesmo horário'
+                    }
+                );
+            }
+
+            const checkStageUnavailability = await performanceService.stageUnavailability(stage_idToUse, start_timeToUse, end_timeToUse, dateToUse, id);
+            if(checkStageUnavailability) {
+                return res.status(409).json(
+                    {
+                        'success': false,
+                        'error': 'Já existe uma performance agendada neste palco para o horário especificado'
+                    }
+                );
+            }
 
             const updatedPerformance = await performanceService.updatePerformance(id, artist_idToUse, stage_idToUse, start_timeToUse, end_timeToUse, dateToUse);
             res.status(200).json(

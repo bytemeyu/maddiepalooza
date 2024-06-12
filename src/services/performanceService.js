@@ -44,5 +44,23 @@ export const performanceService = {
             console.error(`Erro ao deletar performance com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
+    },
+
+    artistUnavailability: async(artist_id, start_time, end_time, date, current_performance_id = null) => {
+        try {
+            return await performanceRepository.artistUnavailability(artist_id, start_time, end_time, date, current_performance_id);
+        } catch(err) {
+            console.error(`Erro ao verificar indisponibilidade do artista com id ${artist_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
+
+    stageUnavailability: async(stage_id, start_time, end_time, date, current_performance_id = null) => {
+        try {
+            return await performanceRepository.stageUnavailability(stage_id, start_time, end_time, date, current_performance_id);
+        } catch(err) {
+            console.error(`Erro ao verificar indisponibilidade do palco com id ${stage_id} no banco de dados: ${err.message}`);
+            throw err;
+        }
     }
 };
