@@ -63,5 +63,32 @@ export const artistRepository = {
             console.error(`Erro ao deletar artista com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
+    },
+
+    existenceOfTheSameArtistName: async(name, current_artist_id = null) => {
+        const text = 'SELECT EXISTS (SELECT 1 FROM artist WHERE name = $1 AND ($2::int IS NULL OR artist_id != $2)) AS name_exists;';
+    
+        const params = [name, current_artist_id];
+
+        try {
+            const res = await query(text, params);
+            return res.rows[0].name_exists;
+        } catch(err) {
+            console.error(`Erro ao verificar a existência de artista com mesmo nome no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
+
+    existenceOfTheSamePhotoUrl: async(photo_url, current_artist_id = null) => {
+        const text = 'SELECT EXISTS (SELECT 1 FROM artist WHERE photo_url = $1 AND ($2::int IS NULL OR artist_id != $2)) AS photo_url_exists;';
+        const params = [photo_url, current_artist_id];
+
+        try {
+            const res = await query(text, params);
+            return res.rows[0].photo_url_exists;
+        } catch(err) {
+            console.error(`Erro ao verificar a existência de URL de foto igual no banco de dados: ${err.message}`);
+            throw err;
+        }
     }
 };

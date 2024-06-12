@@ -1,4 +1,5 @@
 import { artistService } from '../services/artistService.js';
+import { validationResult } from 'express-validator';
 
 export const artistController = {
     getAllArtists: async(req, res) => {
@@ -65,6 +66,13 @@ export const artistController = {
     },
     
     createArtist: async(req, res) => {
+        const errors = validationResult(req);
+        //validationResult(req): Esta função é parte do pacote express-validator. Ela é utilizada para coletar os resultados das validações que foram aplicadas aos dados da requisição (req). Essa função pega o objeto da requisição (req) como argumento e retorna um objeto que pode ser usado para verificar se houve erros de validação.
+        if (!errors.isEmpty()) {
+            //O objeto retornado por validationResult() contém vários métodos úteis, mas o mais comum é o método isEmpty(). Este método retorna true se não houver erros de validação e false caso contrário. Como está sendo usada uma negação (!), se errors não estiver vazio, ou seja, contiver erros, ele retorna a resposta abaixo.
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
         const { name, biography, photo_url } = req.body;
 
         try {
@@ -87,6 +95,11 @@ export const artistController = {
     },
 
     updateArtist: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { id } = req.params;
 
         try {
