@@ -85,7 +85,7 @@ export const performanceRepository = {
 
         try {
             const res = await query(text, params);
-            return res.rows[0].exists;
+            return res.rows[0].is_unavailable;
         } catch(err) {
             console.error(`Erro ao verificar indisponibilidade do artista com id ${artist_id} no banco de dados: ${err.message}`);
             throw err;
@@ -98,7 +98,7 @@ export const performanceRepository = {
 
         try {
             const res = await query(text, params);
-            return res.rows[0].exists;
+            return res.rows[0].is_unavailable;
         } catch(err) {
             console.error(`Erro ao verificar indisponibilidade do palco com id ${stage_id} no banco de dados: ${err.message}`);
             throw err;
