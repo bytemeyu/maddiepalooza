@@ -10,7 +10,7 @@ router.get('/', artistController.getAllArtists);
 //curl -X GET http://localhost:3000/api/artist
 router.get('/:id', artistController.getArtistById);
 //curl -X GET http://localhost:3000/api/artist/1
-router.post('/', validationMiddleware.validateArtistCreation, authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.createArtist);
+router.post('/', validationMiddleware.validateArtistCreationAndUpdate, authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.createArtist);
 //curl -b cookies.txt -X POST http://localhost:3000/api/artist \
 //-H "Content-Type: application/json" \
 //-d '{
@@ -18,7 +18,7 @@ router.post('/', validationMiddleware.validateArtistCreation, authMiddleware, au
 //"biography": "Biografia da Madonna",
 //"photo_url": "http://exemplo.com/foto.jpg"
 //}'
-router.put('/:id', validationMiddleware.validateArtistCreation, authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.updateArtist);
+router.put('/:id', validationMiddleware.validateArtistCreationAndUpdate, authMiddleware, authRolesMiddleware(['webadmin', 'producer']), artistController.updateArtist);
 //curl -b cookies.txt -X PUT http://localhost:3000/api/artist/1 \
 //-H "Content-Type: application/json" \
 //-d '{
