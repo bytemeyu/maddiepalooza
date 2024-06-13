@@ -28,10 +28,10 @@ Apoio:
 - DB Designer;
 - Postman;
 
-Back-end:  
+Back-end: 
+- PostgreSQL; 
 - Node.js;
 - Express;
-- PostgreSQL;
 
 ## Design Arquitetônico:
 Software em três camadas:
@@ -190,6 +190,7 @@ Formato JSON.
 ## Futuras Melhorias/Implementações:
 - Método HTTP PATCH para atualizações parciais.
 - Usar UUID para id's (principalmente as de usuários).
+- Fazer uso de branches e pull requests.
 
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**
