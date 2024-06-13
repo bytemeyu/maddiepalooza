@@ -123,7 +123,7 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 
 **stage (name, location, capacity)**  
 - O nome do palco deve ser único e válido.
-- A localização do palco deve ser única e válida (formato de coordenadas - regex).
+- A localização do palco deve ser única e válida.
 - A capacidade do palco deve ser válida (number).
 
 **performance (artist_id, stage_id, start_time, end_time, date)**  
@@ -191,6 +191,7 @@ Formato JSON.
 - Método HTTP PATCH para atualizações parciais.
 - Usar UUID para id's (principalmente as de usuários).
 - Fazer uso de branches e pull requests.
+- Corrigir: transferir a lógica das regras de negócios da camada de controle para a camada de serviço.
 
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**
