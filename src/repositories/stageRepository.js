@@ -62,5 +62,33 @@ export const stageRepository = {
             console.error(`Erro ao deletar palco com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
-    }
+    },
+
+    existenceOfTheSameStageName: async(name, current_stage_id = null) => {
+        const text = 'SELECT EXISTS (SELECT 1 FROM stage WHERE name = $1 AND ($2::int IS NULL OR stage_id != $2)) AS name_exists;';
+    
+        const params = [name, current_stage_id];
+
+        try {
+            const res = await query(text, params);
+            return res.rows[0].name_exists;
+        } catch(err) {
+            console.error(`Erro ao verificar a existência de palco com mesmo nome no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
+
+    existenceOfTheSameStageLocation: async(location, current_stage_id = null) => {
+        const text = 'SELECT EXISTS (SELECT 1 FROM stage WHERE location = $1 AND ($2::int IS NULL OR artist_id != $2)) AS name_exists;';
+    
+        const params = [location, current_stage_id];
+
+        try {
+            const res = await query(text, params);
+            return res.rows[0].name_exists;
+        } catch(err) {
+            console.error(`Erro ao verificar a existência de mesma localizaçao de palco no banco de dados: ${err.message}`);
+            throw err;
+        }
+    },
 };

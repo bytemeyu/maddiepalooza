@@ -64,6 +64,11 @@ export const stageController = {
     },
 
     createStage: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { name, location, capacity } = req.body;
 
         try {
@@ -86,6 +91,11 @@ export const stageController = {
     },
 
     updateStage: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
         const { id } = req.params;
 
         try {

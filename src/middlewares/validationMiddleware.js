@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import { artistService } from '../services/artistService.js';
+import { stageService } from '../services/stageService.js';
 
 export const validationMiddleware = {
     validateArtistCreationAndUpdate: [
@@ -16,8 +17,11 @@ export const validationMiddleware = {
                 const nameExists = await artistService.existenceOfTheSameArtistName(name,req.params.id);
                 if (nameExists) {
                     throw new Error('Já existe um artista com esse nome no banco de dados');
+                    //Se essa validação falhar é lançado um erro com uma mensagem específica. Esse lançamento de erro interrompe a execução da função e sinaliza ao express-validator que houve uma falha na validação.
                 }
-                return true;}),
+                return true;
+                //Caso nenhuma exceção for lançada o código alcança o ponto de return true;, então o campo é considerado válido.Isso indica ao express-validator que o valor fornecido para o campo passou na validação personalizada sem erros.
+            }),
 
         body('biography')
             .optional()
@@ -37,6 +41,37 @@ export const validationMiddleware = {
                 }
                 return true;}),
     ],
+
+    validateStageCreationAndUpdate: [
+        body('name')
+            .optional()
+            .trim()
+            .isString().withMessage('O nome do palco deve ser uma string')
+            .isLength({ max: 50 }).withMessage('O nome do palco não pode exceder 50 caracteres')
+            .custom(async(name, { req }) => {
+                const nameExists = await stageService.existenceOfTheSameStageName(name, req.params.id);
+                if (nameExists) {
+                    throw new Error('Já existe um palco com esse nome no banco de dados');
+                }
+                return true;}),
+        
+        body('location')
+            .trim()
+            .notEmpty().withMessage('A localização do palco é obrigatória')
+            .isString().withMessage('A localização do palco deve ser uma string')
+            .isLength({ max: 50 }).withMessage('A localização do palco não pode exceder 50 caracteres')
+            .custom(async(location, { req }) => {
+                const locationExists = await stageService.existenceOfTheSameStageLocation(location, req.params.id);
+                if(locationExists) {
+                    throw new Error('A localização de palco já está em uso');
+                }
+                return true;}),
+
+        body('capacity')
+            .trim()
+            .notEmpty().withMessage('A capacidade do palco é obrigatória')
+            .isInt().withMessage('A capacidade do palco deve ser um número inteiro'),
+    ]
 }
 
 //Funcionamento Interno
