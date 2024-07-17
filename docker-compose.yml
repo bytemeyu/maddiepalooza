@@ -33,4 +33,4 @@ networks:
     driver: bridge
 
 volumes:
-  - maddiepalooza_database
+  maddiepalooza_database:
