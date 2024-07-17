@@ -16,6 +16,8 @@ services:
       - network
     depends_on:
       - database
+    command: ["npm", "start"]  
+    #inicia a aplicação
     
   database:
     image: postgres:16.3
