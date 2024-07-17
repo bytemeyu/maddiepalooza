@@ -1,0 +1,36 @@
+version: '2.28.1'
+
+services:
+
+  api:
+    image: node:18-alpine
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    env_file:
+      - ./backend/api/.env
+    volumes:
+      - ./backend/api:/app
+      #indica um mapeamento de volumes entre o host e o (:) container. usamos /app no container pois muitas imagens Docker já predefinem /app como o diretório de trabalho.
+    networks:
+      - maddiepalooza_network
+    depends_on:
+      - database
+    
+  database:
+    image: postgres:16.3
+    restart: unless-stopped
+    env_file:
+      - ./backend/api/.env
+    volumes:
+      - maddiepalooza_database:/var/lib/postgresql/data
+      #indica o nome do volume a ser criado e gerenciado pelo Docker e o (:) caminho dentro do container onde o volume será montado. essa configuração garante a persistência de dados.
+    networks:
+      - maddiepalooza_network
+
+networks:
+  maddiepalooza_network:
+    driver: bridge
+
+volumes:
+  - maddiepalooza_database
