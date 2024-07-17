@@ -3,7 +3,8 @@ version: '2.28.1'
 services:
 
   api:
-    image: node:18-alpine
+    build: ./backend/api
+    #constrói uma imagem a partir do Dockerfile no diretório especificado 
     ports:
       - "3000:3000"
     restart: unless-stopped
@@ -16,8 +17,6 @@ services:
       - network
     depends_on:
       - database
-    command: ["npm", "start"]  
-    #inicia a aplicação
     
   database:
     image: postgres:16.3
