@@ -2,6 +2,7 @@ import express from 'express';
 import { performanceController } from '../controllers/performanceController.js';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { authRolesMiddleware } from '../middlewares/authRolesMiddleware.js';
+import { validationMiddleware } from '../middlewares/validationMiddleware.js';
 
 const router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/', performanceController.getAllPerformances);
 //curl -X GET http://localhost:3000/api/performance
 router.get('/:id', performanceController.getPerformanceById);
 //curl -X GET http://localhost:3000/api/performance/1
-router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.createPerformance);
+router.post('/', validationMiddleware.validatePerformanceCreationAndUpdate, authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.createPerformance);
 //curl -b cookies.txt -X POST http://localhost:3000/api/performance \
 //-H "Content-Type: application/json" \
 //-d '{
@@ -19,7 +20,7 @@ router.post('/', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'a
 //"end_time": "2025-05-15T20:30:00+00:00",
 //"date": "2025-05-15"
 //}'
-router.put('/:id', authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.updatePerformance);
+router.put('/:id', validationMiddleware.validatePerformanceCreationAndUpdate, authMiddleware, authRolesMiddleware(['webadmin', 'producer', 'assistant']), performanceController.updatePerformance);
 //curl -b cookies.txt -X PUT http://localhost:3000/api/performance/1 \
 //-H "Content-Type: application/json" \
 //-d '{

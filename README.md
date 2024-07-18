@@ -127,8 +127,8 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 - A capacidade do palco deve ser válida (number).
 
 **performance (artist_id, stage_id, start_time, end_time, date)**  
-- O id do artista deve ser o id de um artista existente e com todas suas informações fornecidas.
-- O id do palco deve ser o id de um palco existente e com todas suas informações fornecidas.
+- O id do artista deve ser o id de um artista existente.
+- O id do palco deve ser o id de um palco existente.
 - As horas de início e de término devem ser válidas (timestamp with zone).
 - A hora de início deve ser antes (menor) do que a hora de término.
 - A duração mínima da performance tem de ser de 1 hora (a diferença entre end_time e start_time deve ser de no mínimo 60 minutos).

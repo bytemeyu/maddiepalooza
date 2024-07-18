@@ -1,4 +1,5 @@
 import { performanceService } from "../services/performanceService.js";
+import { validationResult } from "express-validator";
 
 export const performanceController = {
     getAllPerformances: async(req, res) => {
@@ -63,6 +64,11 @@ export const performanceController = {
     },
 
     createPerformance: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { artist_id, stage_id, start_time, end_time, date } = req.body;
 
         try {
@@ -105,6 +111,11 @@ export const performanceController = {
     },
 
     updatePerformance: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
         const { id } = req.params;
 
         try {

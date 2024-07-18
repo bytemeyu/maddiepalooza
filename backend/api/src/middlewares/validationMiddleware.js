@@ -71,6 +71,66 @@ export const validationMiddleware = {
             .trim()
             .notEmpty().withMessage('A capacidade do palco é obrigatória')
             .isInt().withMessage('A capacidade do palco deve ser um número inteiro'),
+    ],
+
+    validatePerformanceCreationAndUpdate: [
+        body('artist_id')
+            .trim()
+            .notEmpty().withMessage('Um id válido de artista é obrigatório')
+            .isInt().withMessage('O id do artista deve ser um número inteiro')
+            .custom(async (artist_id, { req }) => {
+                const id = req.body.artist_id;
+                const artistExists = await artistService.getArtistById(id);
+                if (!artistExists) {
+                    throw new Error('Não existe um artista com esse id');
+                }
+                return true;
+            }),
+
+        body('stage_id')
+            .trim()
+            .notEmpty().withMessage('Um id válido de palco é obrigatório')
+            .isInt().withMessage('O id do palco deve ser um número inteiro')
+            .custom(async (stage_id, { req }) => {
+                const id = req.body.stage_id;
+                const stageExists = await stageService.getStageById(id);
+                if (!stageExists) {
+                    throw new Error('Não existe um palco com esse id');
+                }
+                return true;
+            }),
+        
+        body('start_time')
+            .isISO8601().withMessage('O horário de início não é um timestamp válido')
+            .toDate(),
+        
+        body('end_time')
+            .isISO8601().withMessage('O horário de término não é um timestamp válido')
+            .toDate(),
+
+        body().custom((value, { req }) => {
+            const startTime = new Date(req.body.start_time);
+            const endTime = new Date(req.body.end_time);
+            if (startTime >= endTime) {
+                throw new Error('O horário de início deve ser anterior ao horário de término');
+            }
+            return true;
+        }),
+        //O uso de body().custom(...) sem um value específico é apropriado quando você precisa validar interações ou regras que envolvem múltiplos campos no corpo da requisição HTTP. Você usa req.body diretamente para acessar e comparar os valores dos campos relevantes para sua lógica de validação.
+
+        body().custom((value, { req }) => {
+            const startTime = new Date(req.body.start_time);
+            const endTime = new Date(req.body.end_time);
+            const differenceInMinutes = (endTime - startTime) / (1000 * 60);
+            if (differenceInMinutes < 60) {
+                throw new Error('A duração mínima da performance deve ser de 1 hora');
+            }
+            return true;
+        }),
+
+        body('date')
+            .isISO8601().withMessage('A data não é válida')
+            .toDate(),
     ]
 }
 
