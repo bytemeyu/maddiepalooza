@@ -52,5 +52,13 @@ export const usersService = {
             console.error(`Erro ao deletar usuário com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
+    },
+
+    getUserByEmail: async(email) => {
+        try {
+            return await usersRepository.getUserByEmail(email);
+        } catch(err) {
+            console.error(`Erro ao recuperar usuário com e-mail ${email}: ${err.message}`);
+        }
     }
 };

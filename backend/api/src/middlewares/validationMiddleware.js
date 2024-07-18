@@ -1,6 +1,7 @@
 import { body } from 'express-validator';
 import { artistService } from '../services/artistService.js';
 import { stageService } from '../services/stageService.js';
+import { usersService } from "../services/usersService.js";
 
 export const validationMiddleware = {
     validateArtistCreationAndUpdate: [
@@ -20,7 +21,7 @@ export const validationMiddleware = {
                     //Se essa validação falhar é lançado um erro com uma mensagem específica. Esse lançamento de erro interrompe a execução da função e sinaliza ao express-validator que houve uma falha na validação.
                 }
                 return true;
-                //Caso nenhuma exceção for lançada o código alcança o ponto de return true;, então o campo é considerado válido.Isso indica ao express-validator que o valor fornecido para o campo passou na validação personalizada sem erros.
+                //Caso nenhuma exceção for lançada o código alcança o ponto de return true;, então o campo é considerado válido. Isso indica ao express-validator que o valor fornecido para o campo passou na validação personalizada sem erros.
             }),
 
         body('biography')
@@ -131,6 +132,68 @@ export const validationMiddleware = {
         body('date')
             .isISO8601().withMessage('A data não é válida')
             .toDate(),
+    ],
+
+    validateUsersCreationAndUpdate: [
+        body('email')
+            .trim()
+            .notEmpty().withMessage('O e-mail do usuário é obrigatório')
+            .isEmail().withMessage('O e-mail não está em um formato válido')
+            .custom(async (email, { req }) => {
+                if (req.params.id) {
+                    //se houver um req.params.id, ou seja, for uma atualização acontece o seguinte:
+                    const id = parseInt(req.params.id);
+                    if (!isNaN(id)) {
+                        //se id não for um NaN (ou seja, for um número válido) acontece o seguinte:
+                        const existingEmail = await usersService.getUserByEmail(email);
+                        if (existingEmail && existingEmail.users_id !== id) {
+                            //se já existir esse e-mail no banco de dados e se o users_id atrelado a esse e-mail for diferente do id em questão, ou seja, se eu estiver atualizando um usuário que não é o dono desse e-mail que já existe, é lançado um erro, interrompendo a execução da função e sinalizando ao express-validator que houve uma falha na validação. 
+                            throw new Error('Este e-mail já está cadastrado por outro usuário');
+                        }
+                    }
+                } else {
+                    //senão, se não houver um req.params.id, ou seja, for uma criação acontece o seguinte:
+                    const existingEmail = await usersService.getUserByEmail(email);
+                    if (existingEmail) {
+                        //se já existir esse e-mail no banco de dados, pelo fato de ser uma criação (e não uma atualização) já é lançado um erro, afinal, o e-mail deve ser único.
+                        throw new Error('Já existe um usuário com esse e-mail no banco de dados');
+                    }
+                }
+                return true;
+                //Caso nenhuma exceção for lançada o código alcança o ponto de return true;, então o campo é considerado válido
+            }),
+
+        body('username')
+            .trim()
+            .notEmpty().withMessage('O username do usuário é obrigatório')
+            .isLength({ min: 3, max: 20 }).withMessage('O username deve ter entre 3 e 20 caracteres')
+            .custom(async (username, { req }) => {
+                if (req.params.id) {
+                    const id = parseInt(req.params.id);
+                    if (!isNaN(id)) {
+                        const existingUsername = await usersService.getUserByUsername(username);
+                        if (existingUsername && existingUsername.users_id !== id) {
+                            throw new Error('Este username já está cadastrado por outro usuário');
+                        }
+                    }
+                } else {
+                    const existingUsername = await usersService.getUserByUsername(username);
+                    if (existingUsername) {
+                        throw new Error('Já existe um usuário com esse username no banco de dados');
+                    }
+                }
+                return true;
+            }),
+
+        body('password')
+            .trim()
+            .isLength({ min: 8, max: 20 }).withMessage('A senha deve ter entre 8 e 20 caracteres')
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*/._¨\-,.[]^%$#@&]).{8,20}$/).withMessage('A senha deve conter pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial (desses: */._¨-,.[]^%$#@&.)'),
+
+        body('role')
+            .trim()
+            .notEmpty().withMessage('O tipo de usuário é obrigatório')
+            .isIn(['webadmin', 'producer', 'assistant']).withMessage('O tipo de usuário deve ser "webadmin", "producer" ou "assistant"'),
     ]
 }
 

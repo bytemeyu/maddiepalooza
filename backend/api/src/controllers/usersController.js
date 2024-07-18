@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { usersService } from "../services/usersService.js";
+import { validationResult } from 'express-validator';
 
 export const usersController = {
     getAllUsers: async(req, res) => {
@@ -78,6 +79,11 @@ export const usersController = {
     },
 
     createUser: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         const { email, username, password, role } = req.body;
 
         if (role !== 'webadmin' && role !== 'producer' && role !== 'assistant') {
@@ -125,6 +131,11 @@ export const usersController = {
     },
 
     updateUser: async(req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        
         const { id } = req.params;
         const { email, username, password, role } = req.body;
 

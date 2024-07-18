@@ -75,5 +75,18 @@ export const usersRepository = {
             console.error(`Erro ao deletar usuário com id ${id} no banco de dados: ${err.message}`);
             throw err;
         }
+    },
+
+    getUserByEmail: async(email) => {
+        const text = 'SELECT * FROM users WHERE email = $1';
+        const params = [email];
+
+        try {
+            const { rows } = await query(text, params);
+            return rows[0];
+        } catch(err) {
+            console.error(`Erro ao recuperar usuário com e-mail ${email}: ${err.message}`);
+            throw err;
+        }
     }
 };

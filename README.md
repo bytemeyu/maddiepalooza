@@ -138,6 +138,7 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 - O e-mail do usuário deve ser único e válido (formato de e-mail - regex).
 - O username do usuário deve ser único e válido.
 - A senha (password) deve ter no mínimo 8 e no máximo 20 caracteres, além de ter ao menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial desses: */._¨-,.[]^%$#@&. Lembrando que a password é diferente da password_hash (e seus limites são diferentes - e, inclusive, aplicados em lugares diferentes (a password_hash no Banco de Dados e a password na Camada de Controle)).
+- O role deve ser um desses três: 'webadmin', 'producer', 'assistant'.
 
 ### Entrada e Saída de Payloads: 
 Formato JSON.
