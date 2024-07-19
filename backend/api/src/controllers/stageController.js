@@ -1,4 +1,5 @@
 import { stageService } from "../services/stageService.js";
+import { validationResult } from "express-validator";
 
 export const stageController = {
     getAllStages: async(req, res) => {

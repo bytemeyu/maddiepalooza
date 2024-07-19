@@ -79,7 +79,7 @@ export const stageRepository = {
     },
 
     existenceOfTheSameStageLocation: async(location, current_stage_id = null) => {
-        const text = 'SELECT EXISTS (SELECT 1 FROM stage WHERE location = $1 AND ($2::int IS NULL OR artist_id != $2)) AS name_exists;';
+        const text = 'SELECT EXISTS (SELECT 1 FROM stage WHERE location = $1 AND ($2::int IS NULL OR stage_id != $2)) AS name_exists;';
     
         const params = [location, current_stage_id];
 
