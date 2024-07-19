@@ -188,7 +188,7 @@ export const validationMiddleware = {
         body('password')
             .trim()
             .isLength({ min: 8, max: 20 }).withMessage('A senha deve ter entre 8 e 20 caracteres')
-            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[*/._¨\-,.[]^%$#@&]).{8,20}$/).withMessage('A senha deve conter pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial (desses: */._¨-,.[]^%$#@&.)'),
+            .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\*._,^%$#@&]).{8,20}$/).withMessage('A senha deve conter pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial (desses: *._,^%$#@&)'),
 
         body('role')
             .trim()
