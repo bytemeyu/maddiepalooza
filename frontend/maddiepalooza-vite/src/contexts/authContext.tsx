@@ -9,12 +9,15 @@ export const AuthProvider = (props: AuthProviderProps) => {
 
     const login = async (username: string, password: string) => {
         try {
-            const response = await fetch('http://localhost:5000/api/auth/login', {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ 
+                    username, 
+                    password 
+                })
             });
     
             if (response.ok) {
@@ -33,7 +36,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 
     const logout = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/auth/logout', {
+            const response = await fetch('http://localhost:3000/api/auth/logout', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
