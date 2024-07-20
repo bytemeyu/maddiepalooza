@@ -9,9 +9,10 @@ export const ArtistsList = (props: ArtistsListProps) => {
   useEffect(() => {
     async function fetchArtists() {
       try {
-        const response = await fetch('http://localhost:5000/artists');
-        const data = await response.json() as Artist[];
-        setArtists(data);
+        const response = await fetch('http://localhost:3000/api/artist');
+        const jsonResponse = await response.json();
+        setArtists(jsonResponse.data as Artist[]);
+        //afinal o array com os artistas está dentro do objeto 'data' na resposta do fetch
       } catch (error) {
         console.error('Error fetching artists:', error);
       }
@@ -30,7 +31,7 @@ export const ArtistsList = (props: ArtistsListProps) => {
     <div {...props} className={twMerge(artistsListClasses, props.className)}>
       <ul>
         {artists.map(artist => (
-            <li key={artist.id} className={twMerge(liClasses, props.liClassName)}>
+            <li key={artist.artist_id} className={twMerge(liClasses, props.liClassName)}>
                 <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, props.imgClassName)}/>
                 <div>
                   <p className={pClasses}>
