@@ -31,7 +31,12 @@ Apoio:
 Back-end: 
 - PostgreSQL; 
 - Node.js;
-- Express;
+- Express.js;
+
+Front-end:
+- Vite;
+- React;
+- Tailwind CSS;
 
 ## Design Arquitetônico:
 Software em três camadas:
@@ -183,6 +188,7 @@ Formato JSON.
 ```  
 
 ## Front-end:
+[Vite, React, Typescript, Tailwind CSS]
 
 ## Testes:
 
