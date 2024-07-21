@@ -9,6 +9,7 @@ import { AuthProvider } from "./contexts/authContext";
 import { ProtectedRoute } from "./components/protectedRoute";
 import { Login } from "./views/login";
 import { AdminPanel } from "./views/adminPanel";
+import { AdminPanelArtists } from "./views/adminPanelArtists";
 
 export const AppRoutes = () => {
     return (
@@ -24,6 +25,10 @@ export const AppRoutes = () => {
                     <Route 
                         path="/adminpanel" 
                         element={<ProtectedRoute component={AdminPanel} />} 
+                    />
+                    <Route 
+                        path="/adminpanel/artists" 
+                        element={<ProtectedRoute component={AdminPanelArtists} />} 
                     />
                 </Routes>
             </AuthProvider>
