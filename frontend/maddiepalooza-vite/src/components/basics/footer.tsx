@@ -2,7 +2,7 @@ import React from "react";
 import { FooterProps } from "../../types/footer";
 import { twMerge } from "tailwind-merge";
 
-export const Footer = ({ liClassName, pClassName, companyName, currentYear, ...rest }: FooterProps) => {
+export const Footer = ({ liClassName, pClassName, companyName, currentYear, className, children, ...rest }: FooterProps) => {
     const footerClasses = "py-6";
     // py-6: Aplica um preenchimento vertical de 1.5rem (24px) no topo e na base do footer.
 
@@ -18,9 +18,9 @@ export const Footer = ({ liClassName, pClassName, companyName, currentYear, ...r
     const pClasses = "text-center mt-4";
 
     return (
-        <footer {...rest} className={twMerge(footerClasses, rest.className)}>
+        <footer {...rest} className={twMerge(footerClasses, className)}>
             <ul className={twMerge(ulClasses)}>
-                {React.Children.map(rest.children, (child, index) => (
+                {React.Children.map(children, (child, index) => (
                     <li key={index} className={twMerge(liClasses, liClassName)}>
                         {child}
                     </li>

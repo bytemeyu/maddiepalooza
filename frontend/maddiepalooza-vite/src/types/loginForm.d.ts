@@ -9,4 +9,6 @@ export interface LoginFormProps extends ComponentProps<'form'> {
     passwordInputClassName?: string;
     submitDivClassName?: string; 
     submitButtonClassName?: string;
+    usernameLabel: string;
+    passwordLabel: string;
 }

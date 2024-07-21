@@ -3,7 +3,7 @@ import { Artist } from '../types/artist';
 import { ArtistsListProps } from '../types/artistsList';
 import { twMerge } from 'tailwind-merge';
 
-export const ArtistsList = (props: ArtistsListProps) => {
+export const ArtistsList = ({ liClassName, imgClassName, className, children, ...rest }: ArtistsListProps) => {
   const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
@@ -28,11 +28,11 @@ export const ArtistsList = (props: ArtistsListProps) => {
   const pClasses = 'text-left';
 
   return (
-    <div {...props} className={twMerge(artistsListClasses, props.className)}>
+    <div {...rest} className={twMerge(artistsListClasses, className)}>
       <ul>
         {artists.map(artist => (
-            <li key={artist.artist_id} className={twMerge(liClasses, props.liClassName)}>
-                <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, props.imgClassName)}/>
+            <li key={artist.artist_id} className={twMerge(liClasses, liClassName)}>
+                <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, imgClassName)}/>
                 <div>
                   <p className={pClasses}>
                     {artist.name}
