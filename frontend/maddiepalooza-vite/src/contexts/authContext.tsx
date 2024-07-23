@@ -6,6 +6,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = (props: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [authError, setAuthError] = useState<string | null>(null);
 
     const login = async (username: string, password: string) => {
         try {
@@ -17,19 +18,25 @@ export const AuthProvider = (props: AuthProviderProps) => {
                 body: JSON.stringify({ 
                     username, 
                     password 
-                })
+                }),
+                credentials: 'include' 
+                //inclui cookies na resposta (?)
             });
     
+            const data = await response.json();
+
             if (response.ok) {
                 setIsAuthenticated(true);
+                setAuthError(null);
                 console.log('Login bem-sucedido');
             } else {
                 setIsAuthenticated(false);
-                const data = await response.json();
+                setAuthError(data.message || 'Credenciais inválidas');
                 console.log('Credenciais inválidas:', data.message);
             }
         } catch (error) {
             setIsAuthenticated(false);
+            setAuthError('Erro de autenticação');
             console.error('Erro de autenticação:', error);
         }
     };
@@ -39,12 +46,15 @@ export const AuthProvider = (props: AuthProviderProps) => {
             const response = await fetch('http://localhost:3000/api/auth/logout', {
                 method: 'DELETE',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include' 
+                //inclui cookies na requisição
             });
 
             if (response.ok) {
                 setIsAuthenticated(false);
+                setAuthError(null);
                 console.log('Logout bem-sucedido');
             } else {
                 console.error('Erro ao fazer logout');
