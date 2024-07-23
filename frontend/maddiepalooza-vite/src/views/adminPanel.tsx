@@ -5,6 +5,7 @@ import { Section } from "../components/basics/section";
 import { Footer } from "../components/basics/footer";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
+import { LogoutButton } from "../components/basics/logoutButton";
 
 export const AdminPanel = () => {
     const { isAuthenticated } = useAuth();
@@ -12,12 +13,19 @@ export const AdminPanel = () => {
 
     useEffect(() => {
         document.body.style.backgroundColor = isAuthenticated ? '#696969' : '';
-        //se o usuário estiver autenticado, a cor do body fica diferente. ao desmontar o componente ou deslogar desfaz a modificação.
+        //se o usuário estiver autenticado, a cor do body fica diferente.
+
+        return () => {
+            document.body.style.backgroundColor = '';
+            //ao desmontar o componente ou deslogar desfaz a modificação.
+        };
     }, [isAuthenticated]);
 
     return (
         <>
             <Header className="" h1ClassName="font-honk">Maddiepalooza</Header>
+
+            <LogoutButton className="font-beiruti-english text-amber-50 bg-pink-500">Sair</LogoutButton>
             
             <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-pink-500">
                 <Link to="/performances" className=""><span>shows</span></Link>
