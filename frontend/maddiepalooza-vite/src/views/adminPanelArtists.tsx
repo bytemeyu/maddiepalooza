@@ -25,10 +25,10 @@ export const AdminPanelArtists = () => {
             <LogoutButton className="font-beiruti-english text-amber-50 bg-pink-500">Sair</LogoutButton>
             
             <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-pink-500">
-                <Link to="/performances" className=""><span>shows</span></Link>
+                <Link to="/adminpanel/performances" className=""><span>shows</span></Link>
                 <Link to="/adminpanel/artists"><span>artistas</span></Link>
                 <Link to="/adminpanel/stages"><span>palcos</span></Link>
-                <Link to="/adminpanel/home"><span>contato</span></Link>
+                <Link to="/home"><span>contato</span></Link>
             </Nav>
 
             <Section className="">
