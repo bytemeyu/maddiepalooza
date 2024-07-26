@@ -6,6 +6,7 @@ import { Footer } from "../components/basics/footer";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
 import { LogoutButton } from "../components/basics/logoutButton";
+import { ArtistsEditionList } from "../components/artistsEditionList.tsx";
 
 export const AdminPanelArtists = () => {
     const { isAuthenticated } = useAuth();
@@ -21,8 +22,6 @@ export const AdminPanelArtists = () => {
     return (
         <>
             <Header className="" h1ClassName="font-honk">Maddiepalooza</Header>
-
-            <LogoutButton className="font-beiruti-english text-amber-50 bg-pink-500">Sair</LogoutButton>
             
             <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-pink-500">
                 <Link to="/adminpanel/performances" className=""><span>shows</span></Link>
@@ -32,8 +31,10 @@ export const AdminPanelArtists = () => {
             </Nav>
 
             <Section className="">
-                <p className="font-beiruti-english text-3xl text-amber-50">Bem-vindo ao painel de administração!</p>
+                <ArtistsEditionList/>
             </Section>
+
+            <LogoutButton className="font-beiruti-english text-amber-50 bg-pink-500">Sair</LogoutButton>
 
             <Footer className="" liClassName="font-beiruti-english text-amber-50" pClassName="font-beiruti-english text-lg text-amber-50" companyName='bytemeyu' currentYear='2024'>
                 <Link to="/home"><span className="text-xl">Sobre nós</span></Link>
