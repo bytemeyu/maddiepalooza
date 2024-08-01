@@ -25,7 +25,7 @@ export const AdminPanel = () => {
         <>
             <Header className="" h1ClassName="font-honk">Maddiepalooza</Header>
             
-            <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-pink-500">
+            <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-orange-500">
                 <Link to="/adminpanel/performances" className=""><span>shows</span></Link>
                 <Link to="/adminpanel/artists"><span>artistas</span></Link>
                 <Link to="/adminpanel/stages"><span>palcos</span></Link>
@@ -38,7 +38,7 @@ export const AdminPanel = () => {
                 <p className="font-beiruti-english text-3xl text-amber-50">A saber: Shows, Artistas, Palcos.</p>
             </Section>
 
-            <LogoutButton className="font-beiruti-english text-amber-50 bg-pink-500">Sair</LogoutButton>
+            <LogoutButton className="font-beiruti-english text-amber-50 bg-orange-500">Sair</LogoutButton>
 
             <Footer className="" liClassName="font-beiruti-english text-amber-50" pClassName="font-beiruti-english text-lg text-amber-50" companyName='bytemeyu' currentYear='2024'>
                 <Link to="/home"><span className="text-xl">Sobre nós</span></Link>
