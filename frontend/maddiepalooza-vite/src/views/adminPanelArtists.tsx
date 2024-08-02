@@ -23,7 +23,7 @@ export const AdminPanelArtists = () => {
         <>
             <Header className="" h1ClassName="font-honk">Maddiepalooza</Header>
             
-            <Nav className="" liClassName="font-anton-sc-regular text-amber-50 hover:bg-orange-500">
+            <Nav className="" liClassName="font-anton-sc-regular hover:bg-orange-500">
                 <Link to="/adminpanel/performances" className=""><span>shows</span></Link>
                 <Link to="/adminpanel/artists"><span>artistas</span></Link>
                 <Link to="/adminpanel/stages"><span>palcos</span></Link>
@@ -31,14 +31,17 @@ export const AdminPanelArtists = () => {
             </Nav>
 
             <Section className="">
-                <ArtistsEditionList 
-                divAddArtistClassName="bg-orange-500 "
-                //h2AddArtistClassName="font-anton-sc-regular text-xl md:text-2xl px-3 py-2"
+                <ArtistsEditionList
+                className="font-beiruti-english text-2xl" 
+                divAddArtistClassName="bg-orange-500"
+                labelAddArtistClassName=""
                 inputAddArtistClassName=""
                 textareaAddArtistClassName=""
                 inputUrlAddArtistClassName=""
-                buttonAddArtistClassName=""
-                liClassName="font-beiruti-english text-2xl"/>
+                buttonAddArtistClassName="font-anton-sc-regular text-xl md:text-xl px-6 py-4 bg-orange-700"
+                liClassName="font-beiruti-english text-2xl"
+                buttonEditArtistClassName="font-anton-sc-regular bg-orange-500 px-2 py-1"
+                buttonRemoveArtistClassName="font-anton-sc-regular bg-orange-500 px-2 py-1"/>
             </Section>
 
             <LogoutButton className="font-beiruti-english text-amber-50 bg-orange-500">Sair</LogoutButton>

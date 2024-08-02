@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import { ArtistsEditionListProps } from '../types/artistsEditionList';
 import { Modal } from './basics/modal';
 
-export const ArtistsEditionList = ({ divAddArtistClassName, h2AddArtistClassName, inputAddArtistClassName, textareaAddArtistClassName, inputUrlAddArtistClassName, buttonAddArtistClassName, liClassName, imgClassName, className, children, ...rest }: ArtistsEditionListProps) => {
+export const ArtistsEditionList = ({ divAddArtistClassName, labelAddArtistClassName, inputAddArtistClassName, textareaAddArtistClassName, inputUrlAddArtistClassName, buttonAddArtistClassName, liClassName, imgClassName, buttonEditArtistClassName, buttonRemoveArtistClassName, className, children, ...rest }: ArtistsEditionListProps) => {
   const [artists, setArtists] = useState<Artist[]>([]);
   //Define um estado chamado artists que é um array de objetos do tipo Artist. Inicialmente, artists é um array vazio. setArtists é a função usada para atualizar o estado artists.
   const [newArtist, setNewArtist] = useState<Partial<Artist>>({
@@ -138,91 +138,128 @@ export const ArtistsEditionList = ({ divAddArtistClassName, h2AddArtistClassName
   //estilização padrão (a estilização mais personalizada vai ser feita na view, ao chamar esse componente, através do className específico):
   const artistsEditionListClasses = '';
   const divAddArtistClasses = 'w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4';
-  const h2AddArtistClasses = 'text-center w-full text-xl md:text-2xl h-auto';
+  const labelAddArtistClasses = 'inline-flex';
   const inputAddArtistClasses = 'h-10 w-2/5';
   const textareaAddArtistClasses = 'h-40 w-3/5';
   const inputUrlAddArtistClasses = 'h-10 w-4/5';
-  const buttonAddArtistClasses = 'text-xl md:text-xl px-3 py-2 mx-auto ml-auto';
-
+  const buttonAddArtistClasses = 'text-xl md:text-xl px-3 py-2 mx-auto ml-auto shadow';
   const liClasses = 'flex items-center my-4';
   const imgClasses = 'w-24 h-24 mr-4 rounded-full';
   const pClasses = 'text-left';
+  const buttonEditArtistClasses='text-xl md:text-xl px-3 py-2 mx-3 shadow mt-5 mb-5';
+  const buttonRemoveArtistClasses='text-xl md:text-xl px-3 py-2 mx-3 shadow mt-5 mb-5';
+  const divButtonsClasses='flex justify-end w-full';
+  const inputEditArtistClasses = 'h-10 w-2/5';
+  const textareaEditArtistClasses = 'h-40 w-3/5';
+  const inputUrlEditArtistClasses = 'h-10 w-4/5';
+  const buttonSaveEditArtistClasses = 'font-anton-sc-regular text-xl md:text-xl px-6 py-4 mx-auto ml-auto bg-orange-700';
 
   return (
     <div {...rest} className={twMerge(artistsEditionListClasses, className)}>
       <div className={twMerge(divAddArtistClasses, divAddArtistClassName)}>
-        <h2 className={twMerge(h2AddArtistClasses, h2AddArtistClassName)}>
-          Novo Artista
-        </h2>
+        <label htmlFor="name" className={twMerge(labelAddArtistClasses, labelAddArtistClassName)}>
+          Nome do Artista:
+        </label>
         <input
+          id="name"
           type="text"
           name="name"
           value={newArtist.name}
           onChange={handleAddArtistChange}
-          placeholder="Nome do Artista"
           className={twMerge(inputAddArtistClasses, inputAddArtistClassName)}
         />
+        <label htmlFor="biography" className={twMerge(labelAddArtistClasses, labelAddArtistClassName)}>
+          Biografia:
+        </label>
         <textarea
           name="biography"
           value={newArtist.biography}
           onChange={handleAddArtistChange}
-          placeholder="Biografia"
           className={twMerge(textareaAddArtistClasses, textareaAddArtistClassName)}
         />
+        <label htmlFor="photo_url" className={twMerge(labelAddArtistClasses, labelAddArtistClassName)}>
+          URL da Foto:
+        </label>
         <input
           type="text"
           name="photo_url"
           value={newArtist.photo_url}
           onChange={handleAddArtistChange}
-          placeholder="URL da Foto"
           className={twMerge(inputUrlAddArtistClasses, inputUrlAddArtistClassName)}
         />
         <button onClick={addArtist} className={twMerge(buttonAddArtistClasses, buttonAddArtistClassName)}>
-          Adicionar Artista
+          adicionar
         </button>
       </div>
 
       <ul>
         {artists.map(artist => (
           <li key={artist.artist_id} className={twMerge(liClasses, liClassName)}>
-            <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, imgClassName)} />
+            <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, imgClassName)}/>
             <div>
-              <p className={pClasses}>{artist.name}</p>
-              <p className={pClasses}>{artist.biography}</p>
-              <button onClick={() => openEditModal(artist)} className="btn-edit">Editar</button>
-              <button onClick={() => deleteArtist(artist.artist_id)} className="btn-delete">Remover</button>
+              <p className={pClasses}>
+                {artist.name}
+              </p>
+              <p className={pClasses}>
+                {artist.biography}
+              </p>
+              <div className={divButtonsClasses}>
+                <button onClick={() => openEditModal(artist)} className={twMerge(buttonEditArtistClasses, buttonEditArtistClassName)}>
+                  <svg
+                    className='w-6 h-6'
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z"
+                    />
+                  </svg>
+                </button>
+                <button onClick={() => deleteArtist(artist.artist_id)} className={twMerge(buttonRemoveArtistClasses, buttonRemoveArtistClassName)}>
+                  <svg
+                    className='w-6 h-6'
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </li>
         ))}
       </ul>
 
-      <Modal isOpen={isModalOpen} onClose={closeEditModal}>
-        <h2>Editar Artista</h2>
+      <Modal isOpen={isModalOpen} onClose={closeEditModal} innerDivClassName='w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-orange-500'>
         <input
           type="text"
           name="name"
           value={editedArtist.name || ''}
           onChange={handleEditArtistChange}
-          placeholder="Nome do Artista"
-          className={pClasses}
+          className={inputEditArtistClasses}
         />
         <textarea
           name="biography"
           value={editedArtist.biography || ''}
           onChange={handleEditArtistChange}
-          placeholder="Biografia"
-          className={pClasses}
+          className={textareaEditArtistClasses}
         />
         <input
           type="text"
           name="photo_url"
           value={editedArtist.photo_url || ''}
           onChange={handleEditArtistChange}
-          placeholder="URL da Foto"
-          className={pClasses}
+          className={inputUrlEditArtistClasses}
         />
-        <button onClick={updateArtist} className="btn-save">Salvar</button>
-        <button onClick={closeEditModal} className="btn-close">Fechar</button>
+        <button onClick={updateArtist} className={buttonSaveEditArtistClasses}>
+          Salvar
+        </button>
       </Modal>
     </div>
   );
