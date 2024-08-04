@@ -38,13 +38,13 @@ export const AdminPanelArtists = () => {
                 inputAddArtistClassName=""
                 textareaAddArtistClassName=""
                 inputUrlAddArtistClassName=""
-                buttonAddArtistClassName="font-anton-sc-regular text-xl md:text-xl px-6 py-4 bg-orange-700"
+                buttonAddArtistClassName="font-beiruti-english text-xl md:text-2xl px-6 py-4 bg-orange-700"
                 liClassName="font-beiruti-english text-2xl"
                 buttonEditArtistClassName="font-anton-sc-regular bg-orange-500 px-2 py-1"
                 buttonRemoveArtistClassName="font-anton-sc-regular bg-orange-500 px-2 py-1"/>
             </Section>
 
-            <LogoutButton className="font-beiruti-english text-amber-50 bg-orange-500">Sair</LogoutButton>
+            <LogoutButton className="font-beiruti-english bg-orange-500">Sair</LogoutButton>
 
             <Footer className="" liClassName="font-beiruti-english text-amber-50" pClassName="font-beiruti-english text-lg text-amber-50" companyName='bytemeyu' currentYear='2024'>
                 <Link to="/home"><span className="text-xl">Sobre nós</span></Link>

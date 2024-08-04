@@ -199,6 +199,7 @@ Formato JSON.
 - Usar UUID para id's (principalmente as de usuários).
 - Fazer uso de branches e pull requests.
 - Corrigir: transferir a lógica das regras de negócios da camada de controle para a camada de serviço.
+- [Observação para mim mesma: ir aperfeiçoando as estruturas, o código e etc, a cada novo projeto. Ir aplicando novas tecnologias/aprendizados a cada novo projeto. Senão ficarei eternamente nesse mesmo projeto e perderei a oportunidade de finalizá-los e treinar mais.]
 
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**

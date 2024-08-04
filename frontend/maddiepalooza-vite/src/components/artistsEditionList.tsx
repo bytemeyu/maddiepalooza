@@ -188,7 +188,7 @@ export const ArtistsEditionList = ({ divAddArtistClassName, labelAddArtistClassN
           className={twMerge(inputUrlAddArtistClasses, inputUrlAddArtistClassName)}
         />
         <button onClick={addArtist} className={twMerge(buttonAddArtistClasses, buttonAddArtistClassName)}>
-          adicionar
+          Adicionar
         </button>
       </div>
 

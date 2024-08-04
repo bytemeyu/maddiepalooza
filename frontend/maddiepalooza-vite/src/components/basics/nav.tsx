@@ -1,8 +1,8 @@
+import React from "react";
 import { NavProps } from "../../types/nav";
 import { twMerge } from "tailwind-merge";
-import React from "react";
 
-export const Nav = ({ liClassName, className, children, ...rest }: NavProps) => {
+export const Nav = ({ ulClassName, liClassName, className, children, ...rest }: NavProps) => {
     const navClasses = "flex justify-center mx-60 my-5";
     //flex: Aplica o layout flexbox ao elemento, transformando-o em um contêiner flexível que permite alinhar e distribuir seus filhos de acordo com as propriedades flex.
     //justify-center: Centraliza os itens filhos horizontalmente dentro do contêiner flex.
@@ -18,7 +18,7 @@ export const Nav = ({ liClassName, className, children, ...rest }: NavProps) => 
  
     return (
         <nav {...rest} className={twMerge(navClasses, className)}>
-            <ul className={twMerge(ulClasses, className)}>
+            <ul className={twMerge(ulClasses, ulClassName)}>
                 {React.Children.map(children, (child, index) => (
                     <li key={index} className={twMerge(liClasses, liClassName)}>
                         {child}
