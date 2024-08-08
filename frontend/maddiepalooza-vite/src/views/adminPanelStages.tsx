@@ -20,7 +20,7 @@ export const AdminPanelStages = () => {
 
     return (
         <>
-            <HeaderMaddie />
+            <HeaderMaddie isAuthenticated={isAuthenticated} />
             
             <NavAdminPanelMaddie />
 
@@ -30,7 +30,7 @@ export const AdminPanelStages = () => {
 
             <LogoutButton className="font-beiruti-english bg-orange-500">Sair</LogoutButton>
 
-           <FooterMaddie />
+           <FooterMaddie isAuthenticated={isAuthenticated} />
         </>
     )
 };

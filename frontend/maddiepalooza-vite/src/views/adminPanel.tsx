@@ -22,7 +22,7 @@ export const AdminPanel = () => {
 
     return (
         <>
-            <HeaderMaddie />
+            <HeaderMaddie isAuthenticated={isAuthenticated} />
             
             <NavAdminPanelMaddie />
 
@@ -34,7 +34,7 @@ export const AdminPanel = () => {
 
             <LogoutButton className="font-beiruti-english bg-orange-500">Sair</LogoutButton>
 
-           <FooterMaddie />
+           <FooterMaddie isAuthenticated={isAuthenticated} />
         </>
     )
 };
