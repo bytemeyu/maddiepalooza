@@ -10,12 +10,7 @@ export const NavAdminPanelMaddie = () => {
                 <Link to="/adminpanel/performances" className=""><span>shows</span></Link>
                 <Link to="/adminpanel/artists"><span>artistas</span></Link>
                 <Link to="/adminpanel/stages"><span>palcos</span></Link>
-                <Link 
-                    to="/contact"
-                    className="pointer-events-none cursor-default"
-                >
-                    <span>contato</span>
-                </Link>
+                <Link to="/users"><span>usuários</span></Link>
             </Nav>
         </>
     )

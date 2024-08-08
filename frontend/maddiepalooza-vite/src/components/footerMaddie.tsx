@@ -28,7 +28,6 @@ export const FooterMaddie = ({ isAuthenticated = false, className, children, ...
                 </Link>
                 <Link 
                     to="/adminpanel"
-                    className={` ${isAuthenticated ? "pointer-events-none cursor-default" : ""}`}
                 >
                     <span className="text-xl">Painel de Administração</span>
                 </Link>

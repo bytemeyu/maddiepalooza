@@ -29,7 +29,8 @@ export const AdminPanel = () => {
             <Section className="">
                 <p className="font-beiruti-english text-3xl text-amber-50">Bem-vindo ao painel de administração!</p>
                 <p className="font-beiruti-english text-3xl text-amber-50">Clique, no menu de navegação, na área que deseja editar.</p>
-                <p className="font-beiruti-english text-3xl text-amber-50">A saber: Shows, Artistas, Palcos.</p>
+                <p className="font-beiruti-english text-3xl text-amber-50">A saber: "Shows", "Artistas", "Palcos".</p>
+                <p className="font-beiruti-english text-3xl text-amber-50">Clique em "Usuários" para visualizar e editar os usuários do sistema.</p>
             </Section>
 
             <LogoutButton className="font-beiruti-english bg-orange-500">Sair</LogoutButton>
