@@ -3,6 +3,7 @@ import { HeaderMaddie } from "../components/headerMaddie";
 import { NavMaddie } from "../components/navMaddie";
 import { Section } from "../components/basics/section";
 import { FooterMaddie } from "../components/footerMaddie";
+import { StagesList } from "../components/stagesList";
 import { Link } from "react-router-dom";
 
 export const Stages = () => {
@@ -13,7 +14,7 @@ export const Stages = () => {
             <NavMaddie />
 
             <Section className="">
-                <p className="font-beiruti-english text-3xl text-amber-50">[Palcos]</p>
+                <StagesList className="" liClassName="font-beiruti-english text-2xl text-amber-50" />
             </Section>
 
            <FooterMaddie />
