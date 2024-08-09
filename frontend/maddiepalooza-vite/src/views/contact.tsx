@@ -2,6 +2,7 @@ import React from "react";
 import { HeaderMaddie } from "../components/headerMaddie";
 import { NavMaddie } from "../components/navMaddie";
 import { Section } from "../components/basics/section";
+import { ContactFormMaddie } from "../components/contactFormMaddie";
 import { FooterMaddie } from "../components/footerMaddie";
 
 export const Contact = () => {
@@ -12,7 +13,7 @@ export const Contact = () => {
             <NavMaddie />
 
             <Section className="">
-                <p className="font-beiruti-english text-3xl text-amber-50">[Contato]</p>
+                <ContactFormMaddie />
             </Section>
 
            <FooterMaddie />
