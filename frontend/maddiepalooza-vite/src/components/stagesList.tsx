@@ -22,7 +22,8 @@ export const StagesList = ({liClassName, className, children, ...rest }: StagesL
 
     const stagesListClasses = 'flex justify-center items-center';
     const ulClasses = 'text-center';
-    const liClasses = 'flex justify-center items-center my-4';
+    const liClasses = 'flex justify-center items-center my-6';
+    const pStageNameClasses = 'text-center font-extrabold';
     const pClasses = 'text-center';
 
     return (
@@ -31,7 +32,7 @@ export const StagesList = ({liClassName, className, children, ...rest }: StagesL
                 {stages.map(stage => (
                     <li key={stage.stage_id} className={twMerge(liClasses, liClassName)}>
                         <div>
-                            <p className={pClasses}>
+                            <p className={pStageNameClasses}>
                                 {stage.name}
                             </p>
                             <p className={pClasses}>

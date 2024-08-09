@@ -23,8 +23,9 @@ export const ArtistsList = ({ liClassName, imgClassName, className, children, ..
   //Usar useState e useEffect para gerenciar a lista de artistas dá ao componente controle total sobre os dados e sua apresentação, permitindo que ele responda a mudanças de estado de forma eficiente e mantenha a interface do usuário sincronizada com as atualizações de dados. Ao armazenar dados como a lista de artistas no estado local, você não apenas melhora a eficiência e a resposta da interface do usuário, mas também pode ajudar a economizar largura de banda e reduzir o payload, resultando em menos tráfego de rede e potencialmente menor carga nos servidores backend.
 
   const artistsListClasses = '';
-  const liClasses = 'flex items-center my-4';
+  const liClasses = 'flex items-center my-6';
   const imgClasses = 'w-24 h-24 mr-4 rounded-full';
+  const pArtistNameClasses = 'text-left font-extrabold';
   const pClasses = 'text-left';
 
   return (
@@ -34,7 +35,7 @@ export const ArtistsList = ({ liClassName, imgClassName, className, children, ..
             <li key={artist.artist_id} className={twMerge(liClasses, liClassName)}>
                 <img src={artist.photo_url} alt={artist.name} className={twMerge(imgClasses, imgClassName)}/>
                 <div>
-                  <p className={pClasses}>
+                  <p className={pArtistNameClasses}>
                     {artist.name}
                   </p>
                   <p className={pClasses}>

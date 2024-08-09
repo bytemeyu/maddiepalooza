@@ -72,8 +72,9 @@ export const PerformancesList = ({liClassName, className, children, ...rest }: P
     };
 
     const performancesListClasses = 'flex justify-center items-center';
-    const ulClasses = 'text-center';
-    const liClasses = 'flex justify-center items-center my-4';
+    const ulClasses = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5';
+    const liClasses = 'flex justify-center items-center my-3';
+    const pPerformanceDateClasses = 'text-center font-extrabold';
     const pClasses = 'text-center';
 
     return (
@@ -82,11 +83,11 @@ export const PerformancesList = ({liClassName, className, children, ...rest }: P
                 {performances.map(performance => (
                     <li key={performance.performance_id} className={twMerge(liClasses, liClassName)}>
                         <div>
-                            <p className={pClasses}>
+                            <p className={pPerformanceDateClasses}>
                                 {formatDate(performance.date)}
                             </p>
                             <p className={pClasses}>
-                                {performance.stage_id !== undefined ? getStageName(performance.stage_id) : "Palco Indefinido"}
+                                Palco {performance.stage_id !== undefined ? getStageName(performance.stage_id) : "Palco Indefinido"}
                             </p>
                             <p className={pClasses}>
                                 {formatTime(performance.start_time)}
