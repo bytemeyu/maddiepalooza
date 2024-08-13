@@ -14,6 +14,9 @@ export const ContactForm = ({nameDivClassName, nameLabelClassName, nameInputClas
         //se esse preventDefault estiver sendo chamado, o Formsubmit não funciona!
         //console.log('Form submitted:', { name, email, message });
         setIsModalOpen(true);
+        setTimeout(() => {
+            setIsModalOpen(false);
+        }, 2000);
         
         //setName('');
         //setEmail('');
@@ -90,4 +93,4 @@ export const ContactForm = ({nameDivClassName, nameLabelClassName, nameInputClas
 
 
 
-//será que vale mais a pena eu implementar o Formsubmit usando o preventDefault com fetch (ao invés do action)?
+//esse envio de formulário via Formsubmit não está tão liso, mas vai ser assim por enquanto... será que vale mais a pena eu implementar o Formsubmit usando o preventDefault com fetch (ao invés do action)?
