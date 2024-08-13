@@ -1,6 +1,6 @@
 export interface Stage {
-    stage_id: number;
-    name?: string;
-    location: string;
-    capacity: number;
+  stage_id: number;
+  name?: string;
+  location: string;
+  capacity: number | null;
 }
