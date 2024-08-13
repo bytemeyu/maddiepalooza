@@ -1,12 +1,14 @@
 import React, { createContext, useState, useContext } from "react";
 import { AuthContextProps } from "../types/authContext";
 import { AuthProviderProps } from "../types/authProvider";
+import { Modal } from "../components/basics/modal";
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = (props: AuthProviderProps) => {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [authError, setAuthError] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const login = async (username: string, password: string) => {
         try {
@@ -31,14 +33,23 @@ export const AuthProvider = (props: AuthProviderProps) => {
                 console.log('Login bem-sucedido');
             } else {
                 setIsAuthenticated(false);
-                setAuthError(data.message || 'Credenciais inválidas');
-                console.log('Credenciais inválidas:', data.message);
+                setAuthError(data.message || 'Credenciais inválidas');                
+                console.log('Credenciais inválidas:', data.error);
+
+                setIsModalOpen(true);
+                setTimeout(() => {
+                    setIsModalOpen(false);
+                }, 3000);
             }
         } catch (error) {
             setIsAuthenticated(false);
             setAuthError('Erro de autenticação');
             console.error('Erro de autenticação:', error);
         }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
     };
 
     const logout = async () => {
@@ -65,9 +76,15 @@ export const AuthProvider = (props: AuthProviderProps) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {props.children}
-        </AuthContext.Provider>
+        <>
+            <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+                {props.children}
+            </AuthContext.Provider>
+        
+            <Modal isOpen={isModalOpen} onClose={closeModal} innerDivClassName='w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-pink-500'>
+                <p className="font-beiruti-english text-3xl text-amber-50">Usuário e/ou senha inválidos. Tente novamente.</p>
+            </Modal>
+        </>
     );
 
     //nesse return: <AuthContext.Provider> é um componente especial fornecido pelo React quando você cria um contexto com createContext (ele 'tem o nome' que você usou ao definir a constante de createContext). Esse, especificamente, veio do AuthContext que criei anteriormente usando createContext, portanto 'chama-se' AuthContext. value é uma prop do AuthContext.Provider, que define o valor do contexto que será fornecido para os componentes consumidores, ou seja, qualquer componente dentro do provedor pode acessar esse valor usando, nesse caso, useContext(AuthContext). children é uma prop especial que contém todos os componentes filhos que foram passados para este componente. Ele renderiza os componentes filhos dentro do AuthContext.Provider, o que permite que qualquer componente dentro dessa árvore possa acessar o valor do contexto fornecido.

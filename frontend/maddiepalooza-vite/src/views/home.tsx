@@ -12,7 +12,7 @@ export const Home = () => {
             <NavMaddie />
 
             <Section className="">
-                <p className="font-beiruti-english text-3xl text-amber-50">[Home]</p>
+                <img src="../../public/images/pexels-mark-angelo-sampan-738078-1587927.jpg" alt="fotografia de pessoas levantando as mãos em um show"></img>
             </Section>
 
            <FooterMaddie />
