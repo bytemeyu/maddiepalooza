@@ -25,6 +25,8 @@ export const StagesEditionList = ({
   });
   const [editedStage, setEditedStage] = useState<Partial<Stage>>({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchStages() {
@@ -56,6 +58,19 @@ export const StagesEditionList = ({
       if (response.ok) {
         setStages((prev) => [...prev, jsonResponse.data]);
         setNewStage({ name: "", location: "", capacity: null });
+      } else {
+        const errors = jsonResponse.errors;
+        if (Array.isArray(errors)) {
+          setErrorMessage(errors.map((err) => `${err.msg}`).join(", "));
+        } else if (jsonResponse.error) {
+          setErrorMessage(jsonResponse.error);
+        } else {
+          setErrorMessage("Ocorreu um erro inesperado.");
+        }
+        openErrorModal();
+        setTimeout(() => {
+          closeErrorModal();
+        }, 5000);
       }
     } catch (error) {
       console.error("Error adding stage:", error);
@@ -88,6 +103,19 @@ export const StagesEditionList = ({
             )
           );
           closeEditModal();
+        } else {
+          const errors = jsonResponse.errors;
+          if (Array.isArray(errors)) {
+            setErrorMessage(errors.map((err) => `${err.msg}`).join(", "));
+          } else if (jsonResponse.error) {
+            setErrorMessage(jsonResponse.error);
+          } else {
+            setErrorMessage("Ocorreu um erro inesperado.");
+          }
+          openErrorModal();
+          setTimeout(() => {
+            closeErrorModal();
+          }, 5000);
         }
       } catch (error) {
         console.error("Error updating stage:", error);
@@ -109,6 +137,19 @@ export const StagesEditionList = ({
 
       if (response.ok) {
         setStages((prev) => prev.filter((stage) => stage.stage_id !== stageId));
+      } else {
+        const errors = jsonResponse.errors;
+        if (Array.isArray(errors)) {
+          setErrorMessage(errors.map((err) => `${err.msg}`).join(", "));
+        } else if (jsonResponse.error) {
+          setErrorMessage(jsonResponse.error);
+        } else {
+          setErrorMessage("Ocorreu um erro inesperado.");
+        }
+        openErrorModal();
+        setTimeout(() => {
+          closeErrorModal();
+        }, 5000);
       }
     } catch (error) {
       console.error("Error deleting stage:", error);
@@ -137,6 +178,14 @@ export const StagesEditionList = ({
   const closeEditModal = () => {
     setEditedStage({});
     setIsModalOpen(false);
+  };
+
+  const openErrorModal = () => {
+    setIsErrorModalOpen(true);
+  };
+
+  const closeErrorModal = () => {
+    setIsErrorModalOpen(false);
   };
 
   const stagesEditionListClasses = "";
@@ -292,6 +341,16 @@ export const StagesEditionList = ({
         <button onClick={updateStage} className={buttonSaveEditStageClasses}>
           Salvar
         </button>
+      </Modal>
+
+      <Modal
+        isOpen={isErrorModalOpen}
+        onClose={closeErrorModal}
+        innerDivClassName="w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-pink-500"
+      >
+        <p className="font-beiruti-english text-3xl text-amber-50">
+          Erro(s): {errorMessage}
+        </p>
       </Modal>
     </div>
   );
