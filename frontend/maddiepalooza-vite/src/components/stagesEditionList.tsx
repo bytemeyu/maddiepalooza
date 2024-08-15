@@ -346,7 +346,7 @@ export const StagesEditionList = ({
       <Modal
         isOpen={isErrorModalOpen}
         onClose={closeErrorModal}
-        innerDivClassName="w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-pink-500"
+        innerDivClassName="w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-orange-500"
       >
         <p className="font-beiruti-english text-3xl text-amber-50">
           Erro(s): {errorMessage}
