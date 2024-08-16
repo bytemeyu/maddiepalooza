@@ -24,14 +24,15 @@ export const UsersEditionList = ({
   if (!isAuthenticated || !currentUser) {
     return <p>Você não está autenticado.</p>;
   }
-  // Verifica se o currentUser é nulo
+  //se o usuário não estiver autenticado (isAuthenticated é false) ou se o currentUser não estiver definido (null ou undefined), a função UsersEditionList irá renderizar um parágrafo informando que o usuário não está autenticado e não continuará a execução do restante do código abaixo desse if. Não é estritamente necessário um else nesse caso, porque o fluxo de execução naturalmente seguirá para as partes do código que manipulam os usuários (adicionar, editar, deletar, etc.) se o if não for satisfeito.
 
   const [users, setUsers] = useState<User[]>([]);
   const [newUser, setNewUser] = useState<Partial<User>>({
     email: "",
     username: "",
     password: "",
-    role: currentUser.role === "producer" ? "assistant" : "", // Define o papel padrão dependendo do papel do usuário
+    role: currentUser.role === "producer" ? "assistant" : "",
+    //aqui significa: caso o usuário logado seja do tipo producer, ele só poderá criar um novo usuário do tipo assistant. se o usuário logado não for um producer, o papel padrão (role) será uma string vazia, indicando que nenhum papel foi selecionado inicialmente.
   });
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editedUser, setEditedUser] = useState<Partial<User>>({});
@@ -55,142 +56,6 @@ export const UsersEditionList = ({
 
     fetchUsers();
   }, []);
-
-  const addUser = async () => {
-    if (newUser.password !== confirmPassword) {
-      setErrorMessage("As senhas não coincidem.");
-      openErrorModal();
-      return;
-    }
-
-    if (currentUser.role === "producer" && newUser.role !== "assistant") {
-      setErrorMessage("Produtores só podem criar Assistentes.");
-      openErrorModal();
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:3000/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-        credentials: "include",
-      });
-
-      const jsonResponse = await response.json();
-
-      if (response.ok) {
-        setUsers((prev: User[]) => [...prev, jsonResponse.data]);
-        setNewUser({
-          email: "",
-          username: "",
-          password: "",
-          role: currentUser.role === "producer" ? "assistant" : "",
-        });
-        setConfirmPassword("");
-      } else {
-        handleErrors(jsonResponse);
-      }
-    } catch (error) {
-      console.error("Error adding user:", error);
-    }
-  };
-
-  const updateUser = async () => {
-    if (editedUser.user_id) {
-      if (currentUser.role === "producer") {
-        if (
-          editedUser.role === "webadmin" ||
-          (editedUser.role === "producer" &&
-            editedUser.user_id !== currentUser.user_id)
-        ) {
-          setErrorMessage(
-            "Produtores só podem alterar seu próprio perfil ou Assistentes."
-          );
-          openErrorModal();
-          return;
-        }
-      } else if (
-        currentUser.role === "assistant" &&
-        editedUser.role !== "assistant"
-      ) {
-        setErrorMessage("Assistentes só podem alterar outros Assistentes.");
-        openErrorModal();
-        return;
-      }
-
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/users/${editedUser.user_id}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(editedUser),
-            credentials: "include",
-          }
-        );
-
-        const jsonResponse = await response.json();
-
-        if (response.ok) {
-          setUsers((prev: User[]) =>
-            prev.map((user) =>
-              user.user_id === jsonResponse.data.user_id
-                ? jsonResponse.data
-                : user
-            )
-          );
-          closeEditModal();
-        } else {
-          handleErrors(jsonResponse);
-        }
-      } catch (error) {
-        console.error("Error updating user:", error);
-      }
-    }
-  };
-
-  const deleteUser = async (userId: number) => {
-    const userToDelete = users.find((user) => user.user_id === userId);
-
-    if (!userToDelete) {
-      setErrorMessage("Usuário não encontrado.");
-      openErrorModal();
-      return;
-    }
-
-    if (currentUser.role === "producer" && userToDelete.role !== "assistant") {
-      setErrorMessage("Produtores só podem deletar Assistentes.");
-      openErrorModal();
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/users/${userId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
-
-      const jsonResponse = await response.json();
-
-      if (response.ok) {
-        setUsers((prev: User[]) =>
-          prev.filter((user) => user.user_id !== userId)
-        );
-      } else {
-        handleErrors(jsonResponse);
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-    }
-  };
 
   const handleAddUserChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -237,6 +102,192 @@ export const UsersEditionList = ({
     setTimeout(() => {
       closeErrorModal();
     }, 5000);
+  };
+
+  const addUser = async () => {
+    // Verifica se as senhas coincidem
+    if (newUser.password !== confirmPassword) {
+      setErrorMessage("As senhas não coincidem");
+      openErrorModal();
+      return;
+    }
+
+    // Verifica se o usuário atual é um 'assistant'
+    if (currentUser.role === "assistant") {
+      setErrorMessage("Assistentes não têm permissão para criar usuários.");
+      openErrorModal();
+      return;
+    }
+
+    // Verifica se o usuário atual é um 'producer' e tenta criar um usuário que não seja 'assistant'
+    if (currentUser.role === "producer" && newUser.role !== "assistant") {
+      setErrorMessage("Produtores só podem criar Assistentes");
+      openErrorModal();
+      return;
+    }
+
+    // Permite a criação para 'webadmin' e 'producer' (com as restrições acima)
+    try {
+      const response = await fetch("http://localhost:3000/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+        credentials: "include",
+      });
+
+      const jsonResponse = await response.json();
+
+      if (response.ok) {
+        setUsers((prev: User[]) => [...prev, jsonResponse.data]);
+        setNewUser({
+          email: "",
+          username: "",
+          password: "",
+          role: currentUser.role === "producer" ? "assistant" : "",
+        });
+        setConfirmPassword("");
+      } else {
+        handleErrors(jsonResponse);
+      }
+    } catch (error) {
+      console.error("Error adding user:", error);
+    }
+  };
+
+  const updateUser = async () => {
+    if (editedUser.user_id) {
+      if (editedUser.user_id) {
+        if (currentUser.role === "producer") {
+          //se o usuário atual for um producer
+          if (editedUser.role === "producer") {
+            if (editedUser.user_id === currentUser.user_id) {
+              //se ele estiver editando um producer que seja ele mesmo, será permitida a alteração de email, username e senha (do próprio perfil)
+            } else {
+              if (editedUser.password !== undefined) {
+                setErrorMessage(
+                  "Produtores não podem alterar a senha de outros Produtores."
+                );
+                //já se ele não estiver editando um producer que seja ele mesmo, a alteração de senha não será permitida
+                openErrorModal();
+                return;
+              }
+            }
+          } else if (editedUser.role === "assistant") {
+            if (editedUser.password !== undefined) {
+              setErrorMessage(
+                "Produtores não podem alterar a senha de Assistentes."
+              );
+              //se ele (o producer) estiver editando um assistant, a alteração de senha também não será permitida
+              openErrorModal();
+              return;
+            }
+          } else {
+            setErrorMessage("Permissão negada.");
+            //se ele (o producer) estiver tentando editar alguém que não seja nem um producer, nem um assistant, ou seja, que seja um webadmin, dará permissão negada
+            openErrorModal();
+            return;
+          }
+        } else if (currentUser.role === "assistant") {
+          //se o usuário atual for um assistant
+          if (editedUser.role === "assistant") {
+            if (editedUser.user_id === currentUser.user_id) {
+              //se ele estiver editando um assistant que seja ele mesmo, será permitida a alteração de email, username e senha (do próprio perfil)
+            } else {
+              if (editedUser.password !== undefined) {
+                setErrorMessage(
+                  "Assistentes não podem alterar a senha de outros Assistentes."
+                );
+                //já se ele não estiver editando um assistant que seja ele mesmo, a alteração de senha não será permitida
+                openErrorModal();
+                return;
+              }
+            }
+          } else {
+            setErrorMessage("Permissão negada.");
+            //se ele (o assistant) estiver tentando editar alguém que não seja um assistant, ou seja, que seja um producer ou webadmin, dará permissão negada
+            openErrorModal();
+            return;
+          }
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/users/${editedUser.user_id}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(editedUser),
+              credentials: "include",
+            }
+          );
+
+          const jsonResponse = await response.json();
+
+          if (response.ok) {
+            setUsers((prev: User[]) =>
+              prev.map((user) =>
+                user.user_id === jsonResponse.data.user_id
+                  ? jsonResponse.data
+                  : user
+              )
+            );
+            closeEditModal();
+          } else {
+            handleErrors(jsonResponse);
+          }
+        } catch (error) {
+          console.error("Error updating user:", error);
+        }
+      }
+    }
+  };
+
+  const deleteUser = async (userId: number) => {
+    const userToDelete = users.find((user) => user.user_id === userId);
+
+    if (!userToDelete) {
+      setErrorMessage("Usuário não encontrado.");
+      openErrorModal();
+      return;
+    }
+
+    if (currentUser.role === "producer" && userToDelete.role !== "assistant") {
+      setErrorMessage("Produtores só podem deletar Assistentes.");
+      openErrorModal();
+      return;
+    }
+
+    if (currentUser.role === "assistant") {
+      setErrorMessage("Assistentes não têm permissão para deletar usuários.");
+      openErrorModal();
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/users/${userId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const jsonResponse = await response.json();
+
+      if (response.ok) {
+        setUsers((prev: User[]) =>
+          prev.filter((user) => user.user_id !== userId)
+        );
+      } else {
+        handleErrors(jsonResponse);
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
   };
 
   const usersEditionListClasses = "";
@@ -331,10 +382,9 @@ export const UsersEditionList = ({
                 inputRoleAddUserClasses,
                 inputRoleAddUserClassName
               )}
-              disabled={
-                currentUser.role === "producer" && newUser.role !== "assistant"
-              }
+              disabled={currentUser.role === "producer"} // Forçando a seleção para assistente
             >
+              <option value="">Selecione um papel</option>
               {currentUser.role === "webadmin" && (
                 <>
                   <option value="webadmin">Web Admin</option>
@@ -370,9 +420,7 @@ export const UsersEditionList = ({
                     )}
                     disabled={
                       (currentUser.role === "producer" &&
-                        (user.role === "webadmin" ||
-                          (user.role === "producer" &&
-                            user.user_id !== currentUser.user_id))) ||
+                        user.role === "webadmin") ||
                       (currentUser.role === "assistant" &&
                         user.role !== "assistant")
                     }
@@ -386,8 +434,9 @@ export const UsersEditionList = ({
                       buttonRemoveUserClassName
                     )}
                     disabled={
-                      currentUser.role === "producer" &&
-                      user.role !== "assistant"
+                      currentUser.role === "assistant" ||
+                      (currentUser.role === "producer" &&
+                        user.role !== "assistant")
                     }
                   >
                     Remover
@@ -420,6 +469,38 @@ export const UsersEditionList = ({
           onChange={handleEditUserChange}
           className={inputEditUserClasses}
         />
+
+        {currentUser.user_id === editedUser.user_id && (
+          <>
+            <label
+              htmlFor="password"
+              className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+            >
+              Senha:
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={editedUser.password || ""}
+              onChange={handleEditUserChange}
+              className={inputAddUserClasses}
+            />
+            <label
+              htmlFor="confirmPassword"
+              className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+            >
+              Confirmar Senha:
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className={inputAddUserClasses}
+            />
+          </>
+        )}
+
         <select
           name="role"
           value={editedUser.role}
@@ -445,16 +526,6 @@ export const UsersEditionList = ({
         <button onClick={updateUser} className={buttonSaveEditUserClasses}>
           Salvar
         </button>
-      </Modal>
-
-      <Modal
-        isOpen={isErrorModalOpen}
-        onClose={closeErrorModal}
-        innerDivClassName="w-full max-w-4xl p-4 my-5 mx-auto text-center flex flex-col space-y-4 bg-orange-500"
-      >
-        <p className="font-beiruti-english text-3xl text-amber-50">
-          Erro(s): {errorMessage}
-        </p>
       </Modal>
     </div>
   );
