@@ -312,61 +312,61 @@ export const UsersEditionList = ({
 
   return (
     <div {...rest} className={twMerge(usersEditionListClasses, className)}>
-      <div className={twMerge(divAddUserClasses, divAddUserClassName)}>
-        <label
-          htmlFor="email"
-          className={twMerge(labelAddUserClasses, labelAddUserClassName)}
-        >
-          Email:
-        </label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={newUser.email}
-          onChange={handleAddUserChange}
-          className={twMerge(inputAddUserClasses, inputAddUserClassName)}
-        />
-        <label
-          htmlFor="username"
-          className={twMerge(labelAddUserClasses, labelAddUserClassName)}
-        >
-          Username:
-        </label>
-        <input
-          type="text"
-          name="username"
-          value={newUser.username}
-          onChange={handleAddUserChange}
-          className={twMerge(inputAddUserClasses, inputAddUserClassName)}
-        />
-        <label
-          htmlFor="password"
-          className={twMerge(labelAddUserClasses, labelAddUserClassName)}
-        >
-          Senha:
-        </label>
-        <input
-          type="password"
-          name="password"
-          value={newUser.password}
-          onChange={handleAddUserChange}
-          className={twMerge(inputAddUserClasses, inputAddUserClassName)}
-        />
-        <label
-          htmlFor="confirmPassword"
-          className={twMerge(labelAddUserClasses, labelAddUserClassName)}
-        >
-          Confirmar Senha:
-        </label>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className={twMerge(inputAddUserClasses, inputAddUserClassName)}
-        />
-        {currentUser.role !== "assistant" && (
+      {currentUser.role !== "assistant" && (
+        <div className={twMerge(divAddUserClasses, divAddUserClassName)}>
+          <label
+            htmlFor="email"
+            className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+          >
+            Email:
+          </label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            value={newUser.email}
+            onChange={handleAddUserChange}
+            className={twMerge(inputAddUserClasses, inputAddUserClassName)}
+          />
+          <label
+            htmlFor="username"
+            className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+          >
+            Username:
+          </label>
+          <input
+            type="text"
+            name="username"
+            value={newUser.username}
+            onChange={handleAddUserChange}
+            className={twMerge(inputAddUserClasses, inputAddUserClassName)}
+          />
+          <label
+            htmlFor="password"
+            className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+          >
+            Senha:
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={newUser.password}
+            onChange={handleAddUserChange}
+            className={twMerge(inputAddUserClasses, inputAddUserClassName)}
+          />
+          <label
+            htmlFor="confirmPassword"
+            className={twMerge(labelAddUserClasses, labelAddUserClassName)}
+          >
+            Confirmar Senha:
+          </label>
+          <input
+            type="password"
+            name="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className={twMerge(inputAddUserClasses, inputAddUserClassName)}
+          />
           <>
             <label
               htmlFor="role"
@@ -394,14 +394,14 @@ export const UsersEditionList = ({
               <option value="assistant">Assistant</option>
             </select>
           </>
-        )}
-        <button
-          onClick={addUser}
-          className={twMerge(buttonAddUserClasses, buttonAddUserClassName)}
-        >
-          Adicionar
-        </button>
-      </div>
+          <button
+            onClick={addUser}
+            className={twMerge(buttonAddUserClasses, buttonAddUserClassName)}
+          >
+            Adicionar
+          </button>
+        </div>
+      )}
 
       <ul>
         {users && users.length > 0 ? (
