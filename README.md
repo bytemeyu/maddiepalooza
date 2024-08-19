@@ -84,7 +84,7 @@ DELETE /api/users/:id: Deleta o usuário especificado.
 POST /api/auth/login: Loga o usuário, ou seja, autentica sua sessão e fornece um cookie session.  
 DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.  
 
-### Controle de Acesso:
+### Controle de Acesso (implementado nas Rotas):
 - Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
 - Nenhum usuário pode ver senha nenhuma, em qualquer situação.  
 
@@ -108,9 +108,9 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 | deletePerformance | webadmin; producer; assistant;|
 | getAllUsers       | webadmin; producer; assistant;|
 | getUserById       | webadmin; producer; assistant;|
-| createUser        | webadmin; producer [só pode criar assistant];|
-| updateUser        | webadmin; producer [só pode alterar producer (só pode alterar email e username), assistant (só pode alterar email e username) e producer ele mesmo (pode alterar email, username e password)]; assistant [só pode alterar assistant (só pode alterar email e username) e assistant ele mesmo (pode alterar email, username e password)];|
-| deleteUser        | webadmin; producer [só pode deletar assistant];|
+| createUser        | webadmin; producer [especificidades na camada de serviço];|
+| updateUser        | webadmin; producer [especificidades na camada de serviço]; assistant [especificidades na camada de serviço];|
+| deleteUser        | webadmin; producer [especificidades na camada de serviço];|
 | login             | (Não requer autenticação);|
 | logout            | webadmin; producer; assistant;|  
 
@@ -187,6 +187,10 @@ Formato JSON.
 
 **users (email, username, password_hash, role)**  
 - O role deve ser um desses três: 'webadmin', 'producer', 'assistant'.
+- 'producer' só pode criar 'assistant'.
+- 'producer' só pode alterar email e username de 'producer', só pode alterar email e username de 'assistant' e pode alterar email, username e password dele mesmo.
+- 'assistant' só pode alterar email e username de 'assistant' e pode alterar email, username e password dele mesmo.
+- 'producer' só pode deletar 'assistant'.
 
 ## Front-end:
 [Vite, React, Typescript, Tailwind CSS]

@@ -37,12 +37,12 @@ export const AuthProvider = (props: AuthProviderProps) => {
           user_id: data.id,
         });
         setAuthError(null);
-        console.log("Login bem-sucedido");
+        //console.log("Login bem-sucedido");
       } else {
         setIsAuthenticated(false);
         setCurrentUser(null);
         setAuthError(data.message || "Credenciais inválidas");
-        console.log("Credenciais inválidas:", data.error);
+        //console.log("Credenciais inválidas:", data.error);
 
         setIsModalOpen(true);
         setTimeout(() => {
@@ -72,7 +72,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
         setIsAuthenticated(false);
         setCurrentUser(null);
         setAuthError(null);
-        console.log("Logout bem-sucedido");
+        //console.log("Logout bem-sucedido");
       } else {
         console.error("Erro ao fazer logout");
       }
@@ -85,9 +85,9 @@ export const AuthProvider = (props: AuthProviderProps) => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     console.log("CurrentUser atualizado:", currentUser);
-  }, [currentUser]);
+  }, [currentUser]);*/
 
   return (
     <>
