@@ -193,7 +193,7 @@ Formato JSON.
 - 'producer' só pode deletar 'assistant'.
 
 ## Front-end:
-[Vite, React, Typescript, Tailwind CSS]
+Foi desenvolvido por meio do Vite, configurado para React com TypeScript. Para a estilização foi utilizado o Tailwind CSS.
 
 ## Testes:
 
