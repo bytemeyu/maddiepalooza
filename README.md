@@ -84,8 +84,7 @@ DELETE /api/users/:id: Deleta o usuário especificado.
 POST /api/auth/login: Loga o usuário, ou seja, autentica sua sessão e fornece um cookie session.  
 DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.  
 
-### Regras de Negócio na Camada de Serviço:
-**users (email, username, password_hash, role)**  
+### Controle de Acesso:
 - Deve haver somente três tipos de usuários (role): administrador-web (webadmin), produtor (producer), assistente (assistant).
 - Nenhum usuário pode ver senha nenhuma, em qualquer situação.  
 
@@ -115,11 +114,6 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 | login             | (Não requer autenticação);|
 | logout            | webadmin; producer; assistant;|  
 
-
-**performance (artist_id, stage_id, start_time, end_time, date)**  
-- Não deve haver duas performances ao mesmo tempo no mesmo palco.
-- O mesmo artista não pode estar em duas performances ao mesmo tempo.
-
 ### Validações na Camada de Controle:
 **artist (name, biography, photo_url)**  
 - O nome do artista deve ser único e válido (string não vazia).
@@ -135,15 +129,14 @@ DELETE /api/auth/logout: Desloga o usuário, ou seja, apaga o cookie session.
 - O id do artista deve ser o id de um artista existente.
 - O id do palco deve ser o id de um palco existente.
 - As horas de início e de término devem ser válidas (timestamp with zone).
+- A data tem que ser válida (date).
 - A hora de início deve ser antes (menor) do que a hora de término.
 - A duração mínima da performance tem de ser de 1 hora (a diferença entre end_time e start_time deve ser de no mínimo 60 minutos).
-- A data tem que ser válida (date).
 
 **users (email, username, password_hash, role)**  
 - O e-mail do usuário deve ser único e válido (formato de e-mail - regex).
 - O username do usuário deve ser único e válido.
 - A senha (password) deve ter no mínimo 8 e no máximo 20 caracteres, além de ter ao menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial desses: *._,^%$#@&. Lembrando que a password é diferente da password_hash (e seus limites são diferentes - e, inclusive, aplicados em lugares diferentes (a password_hash no Banco de Dados e a password na Camada de Controle)).
-- O role deve ser um desses três: 'webadmin', 'producer', 'assistant'.
 
 ### Entrada e Saída de Payloads: 
 Formato JSON.
@@ -187,20 +180,20 @@ Formato JSON.
 }
 ```  
 
+### Regras de Negócio na Camada de Serviço:
+**performance (artist_id, stage_id, start_time, end_time, date)**  
+- Não deve haver duas performances ao mesmo tempo no mesmo palco.
+- O mesmo artista não pode estar em duas performances ao mesmo tempo.
+
+**users (email, username, password_hash, role)**  
+- O role deve ser um desses três: 'webadmin', 'producer', 'assistant'.
+
 ## Front-end:
 [Vite, React, Typescript, Tailwind CSS]
 
 ## Testes:
 
 ## Deploy:
-
-## Futuras Melhorias/Implementações:
-- Método HTTP PATCH para atualizações parciais.
-- Usar UUID para id's (principalmente as de usuários).
-- Fazer uso de branches e pull requests.
-- Corrigir: transferir a lógica das regras de negócios da camada de controle para a camada de serviço.
-- [Observação para mim mesma: ir aperfeiçoando as estruturas, o código e etc, a cada novo projeto. Ir aplicando novas tecnologias/aprendizados a cada novo projeto. Senão ficarei eternamente nesse mesmo projeto e perderei a oportunidade de finalizá-los e treinar mais.]
-- Implementação de um serviço mais robusto para envio de formulário de contato.
 
 ## Para o Usuário:
 **- O que o software Maddiepalooza faz?**
