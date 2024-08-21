@@ -80,6 +80,7 @@ web_modules/
 .env.local
 .env.db
 .env.api
+#
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
