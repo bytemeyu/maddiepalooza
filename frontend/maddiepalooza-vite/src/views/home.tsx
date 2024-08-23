@@ -5,17 +5,20 @@ import { Section } from "../components/basics/section";
 import { FooterMaddie } from "../components/footerMaddie";
 
 export const Home = () => {
-    return (
-        <>
-            <HeaderMaddie />
-            
-            <NavMaddie />
+  return (
+    <>
+      <HeaderMaddie />
 
-            <Section className="">
-                <img src="../../public/images/pexels-mark-angelo-sampan-738078-1587927.jpg" alt="fotografia de pessoas levantando as mãos em um show"></img>
-            </Section>
+      <NavMaddie />
 
-           <FooterMaddie />
-        </>
-    )
+      <Section className="">
+        <img
+          src="/images/pexels-mark-angelo-sampan-738078-1587927.jpg"
+          alt="fotografia de pessoas levantando as mãos em um show"
+        ></img>
+      </Section>
+
+      <FooterMaddie />
+    </>
+  );
 };

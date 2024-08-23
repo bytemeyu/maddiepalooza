@@ -42,24 +42,42 @@ export const PerformancesEditionList = ({
   useEffect(() => {
     async function fetchData() {
       try {
+        //fetch performances:
         const performancesResponse = await fetch(
           "http://localhost:3000/api/performance"
         );
         const performancesJson = await performancesResponse.json();
-        setPerformances(performancesJson.data as Performance[]);
+        if (Array.isArray(performancesJson.data)) {
+          setPerformances(performancesJson.data as Performance[]);
+        } else {
+          setPerformances([]);
+        }
 
+        //fetch stages:
         const stagesResponse = await fetch("http://localhost:3000/api/stage");
         const stagesJson = await stagesResponse.json();
-        setStages(stagesJson.data as Stage[]);
+        if (Array.isArray(stagesJson.data)) {
+          setStages(stagesJson.data as Stage[]);
+        } else {
+          setStages([]);
+        }
 
+        //fetch artists:
         const artistsResponse = await fetch("http://localhost:3000/api/artist");
         const artistsJson = await artistsResponse.json();
-        setArtists(artistsJson.data as Artist[]);
+        if (Array.isArray(artistsJson.data)) {
+          setArtists(artistsJson.data as Artist[]);
+        } else {
+          setArtists([]);
+        }
       } catch (error) {
         console.error(
           "Error fetching data (performances, stages, and artists):",
           error
         );
+        setPerformances([]);
+        setStages([]);
+        setArtists([]);
       }
     }
 
@@ -434,60 +452,68 @@ export const PerformancesEditionList = ({
       </div>
 
       <ul>
-        {performances.map((performance) => (
-          <li
-            key={performance.performance_id}
-            className={twMerge(liClasses, liClassName)}
-          >
-            <div>
-              <p className={pClasses}>{formatDate(performance.date)}</p>
-              <p className={pClasses}>
-                Palco{" "}
-                {performance.stage_id !== undefined
-                  ? getStageName(performance.stage_id)
-                  : "Palco Indefinido"}
-              </p>
-              <p className={pClasses}>{formatTime(performance.start_time)}</p>
-              <p className={pClasses}>{getArtistName(performance.artist_id)}</p>
-              <div className={divButtonsClasses}>
-                <button
-                  onClick={() => openEditModal(performance)}
-                  className={twMerge(
-                    buttonEditPerformanceClasses,
-                    buttonEditPerformanceClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+        {performances.length > 0 ? (
+          performances.map((performance) => (
+            <li
+              key={performance.performance_id}
+              className={twMerge(liClasses, liClassName)}
+            >
+              <div>
+                <p className={pClasses}>{formatDate(performance.date)}</p>
+                <p className={pClasses}>
+                  Palco{" "}
+                  {performance.stage_id !== undefined
+                    ? getStageName(performance.stage_id)
+                    : "Palco Indefinido"}
+                </p>
+                <p className={pClasses}>{formatTime(performance.start_time)}</p>
+                <p className={pClasses}>
+                  {getArtistName(performance.artist_id)}
+                </p>
+                <div className={divButtonsClasses}>
+                  <button
+                    onClick={() => openEditModal(performance)}
+                    className={twMerge(
+                      buttonEditPerformanceClasses,
+                      buttonEditPerformanceClassName
+                    )}
                   >
-                    <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => deletePerformance(performance.performance_id)}
-                  className={twMerge(
-                    buttonRemovePerformanceClasses,
-                    buttonRemovePerformanceClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() =>
+                      deletePerformance(performance.performance_id)
+                    }
+                    className={twMerge(
+                      buttonRemovePerformanceClasses,
+                      buttonRemovePerformanceClassName
+                    )}
                   >
-                    <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          ))
+        ) : (
+          <p>Nenhuma performance encontrada.</p>
+        )}
       </ul>
 
       <Modal

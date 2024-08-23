@@ -33,9 +33,18 @@ export const StagesEditionList = ({
       try {
         const response = await fetch("http://localhost:3000/api/stage");
         const jsonResponse = await response.json();
-        setStages(jsonResponse.data as Stage[]);
+        if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
+          setStages(jsonResponse.data as Stage[]);
+        } else {
+          console.warn(
+            "No stages found or unexpected data structure:",
+            jsonResponse.data
+          );
+          setStages([]);
+        }
       } catch (error) {
         console.error("Error fetching stages:", error);
+        setStages([]);
       }
     }
 
@@ -266,51 +275,58 @@ export const StagesEditionList = ({
       </div>
 
       <ul>
-        {stages.map((stage) => (
-          <li key={stage.stage_id} className={twMerge(liClasses, liClassName)}>
-            <div>
-              <p className={pClasses}>{stage.name}</p>
-              <p className={pClasses}>{stage.location}</p>
-              <p className={pClasses}>{stage.capacity}</p>
-              <div className={divButtonsClasses}>
-                <button
-                  onClick={() => openEditModal(stage)}
-                  className={twMerge(
-                    buttonEditStageClasses,
-                    buttonEditStageClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+        {stages.length > 0 ? (
+          stages.map((stage) => (
+            <li
+              key={stage.stage_id}
+              className={twMerge(liClasses, liClassName)}
+            >
+              <div>
+                <p className={pClasses}>{stage.name}</p>
+                <p className={pClasses}>{stage.location}</p>
+                <p className={pClasses}>{stage.capacity}</p>
+                <div className={divButtonsClasses}>
+                  <button
+                    onClick={() => openEditModal(stage)}
+                    className={twMerge(
+                      buttonEditStageClasses,
+                      buttonEditStageClassName
+                    )}
                   >
-                    <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => deleteStage(stage.stage_id)}
-                  className={twMerge(
-                    buttonRemoveStageClasses,
-                    buttonRemoveStageClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => deleteStage(stage.stage_id)}
+                    className={twMerge(
+                      buttonRemoveStageClasses,
+                      buttonRemoveStageClassName
+                    )}
                   >
-                    <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          ))
+        ) : (
+          <p>Nenhum palco encontrado.</p>
+        )}
       </ul>
 
       <Modal

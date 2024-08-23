@@ -41,10 +41,19 @@ export const ArtistsEditionList = ({
       try {
         const response = await fetch("http://localhost:3000/api/artist");
         const jsonResponse = await response.json();
-        setArtists(jsonResponse.data as Artist[]);
-        //agora o array artists é populado pelos artistas buscados pela API
+        if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
+          setArtists(jsonResponse.data as Artist[]);
+          //afinal o array com os artistas está dentro do objeto 'data' na resposta do fetch
+        } else {
+          console.warn(
+            "No artists found or unexpected data structure:",
+            jsonResponse.data
+          );
+          setArtists([]); // Define `artists` como um array vazio se não houver artistas
+        }
       } catch (error) {
         console.error("Error fetching artists:", error);
+        setArtists([]); // Define `artists` como um array vazio em caso de erro
       }
     }
 
@@ -295,58 +304,62 @@ export const ArtistsEditionList = ({
       </div>
 
       <ul>
-        {artists.map((artist) => (
-          <li
-            key={artist.artist_id}
-            className={twMerge(liClasses, liClassName)}
-          >
-            <img
-              src={artist.photo_url}
-              alt={artist.name}
-              className={twMerge(imgClasses, imgClassName)}
-            />
-            <div>
-              <p className={pClasses}>{artist.name}</p>
-              <p className={pClasses}>{artist.biography}</p>
-              <div className={divButtonsClasses}>
-                <button
-                  onClick={() => openEditModal(artist)}
-                  className={twMerge(
-                    buttonEditArtistClasses,
-                    buttonEditArtistClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+        {artists.length > 0 ? (
+          artists.map((artist) => (
+            <li
+              key={artist.artist_id}
+              className={twMerge(liClasses, liClassName)}
+            >
+              <img
+                src={artist.photo_url}
+                alt={artist.name}
+                className={twMerge(imgClasses, imgClassName)}
+              />
+              <div>
+                <p className={pClasses}>{artist.name}</p>
+                <p className={pClasses}>{artist.biography}</p>
+                <div className={divButtonsClasses}>
+                  <button
+                    onClick={() => openEditModal(artist)}
+                    className={twMerge(
+                      buttonEditArtistClasses,
+                      buttonEditArtistClassName
+                    )}
                   >
-                    <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => deleteArtist(artist.artist_id)}
-                  className={twMerge(
-                    buttonRemoveArtistClasses,
-                    buttonRemoveArtistClassName
-                  )}
-                >
-                  <svg
-                    className="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M3 17.25V21h3.75l13.44-13.44-3.75-3.75L3 17.25zM20.7 7.7a1.25 1.25 0 0 0 0-1.77L18.07 3.15a1.25 1.25 0 0 0-1.77 0l-2.34 2.34 3.75 3.75 2.34-2.34z" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => deleteArtist(artist.artist_id)}
+                    className={twMerge(
+                      buttonRemoveArtistClasses,
+                      buttonRemoveArtistClassName
+                    )}
                   >
-                    <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-6 h-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 2a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1h5a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1h-1.618l-.58 13.453a2 2 0 0 1-1.99 1.847H5.998a2 2 0 0 1-1.99-1.847L3.428 5H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5V2zm2 0v1h10V2H8zm-6 3h15.278l.536 12.645a1 1 0 0 0 1 .91h.02a1 1 0 0 0 1-.91L21.5 5H5.5L2 5zm7 6a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1 1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
-            </div>
-          </li>
-        ))}
+            </li>
+          ))
+        ) : (
+          <p>Nenhum artista encontrado.</p>
+        )}
       </ul>
 
       <Modal
