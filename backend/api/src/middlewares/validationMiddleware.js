@@ -140,27 +140,12 @@ export const validationMiddleware = {
             .notEmpty().withMessage('O e-mail do usuário é obrigatório')
             .isEmail().withMessage('O e-mail não está em um formato válido')
             .custom(async (email, { req }) => {
-                if (req.params.id) {
-                    //se houver um req.params.id, ou seja, for uma atualização acontece o seguinte:
-                    const id = parseInt(req.params.id);
-                    if (!isNaN(id)) {
-                        //se id não for um NaN (ou seja, for um número válido) acontece o seguinte:
-                        const existingEmail = await usersService.getUserByEmail(email);
-                        if (existingEmail && existingEmail.users_id !== id) {
-                            //se já existir esse e-mail no banco de dados e se o users_id atrelado a esse e-mail for diferente do id em questão, ou seja, se eu estiver atualizando um usuário que não é o dono desse e-mail que já existe, é lançado um erro, interrompendo a execução da função e sinalizando ao express-validator que houve uma falha na validação. 
-                            throw new Error('Este e-mail já está cadastrado por outro usuário');
-                        }
-                    }
-                } else {
-                    //senão, se não houver um req.params.id, ou seja, for uma criação acontece o seguinte:
-                    const existingEmail = await usersService.getUserByEmail(email);
-                    if (existingEmail) {
-                        //se já existir esse e-mail no banco de dados, pelo fato de ser uma criação (e não uma atualização) já é lançado um erro, afinal, o e-mail deve ser único.
-                        throw new Error('Já existe um usuário com esse e-mail no banco de dados');
-                    }
+                const id = req.params.id ? parseInt(req.params.id) : null;
+                const existingEmail = await usersService.getUserByEmail(email);
+                if (existingEmail && (!id || existingEmail.user_id !== id)) {
+                    throw new Error('Este e-mail já está cadastrado por outro usuário');
                 }
                 return true;
-                //Caso nenhuma exceção for lançada o código alcança o ponto de return true;, então o campo é considerado válido
             }),
 
         body('username')
@@ -168,19 +153,10 @@ export const validationMiddleware = {
             .notEmpty().withMessage('O username do usuário é obrigatório')
             .isLength({ min: 3, max: 20 }).withMessage('O username deve ter entre 3 e 20 caracteres')
             .custom(async (username, { req }) => {
-                if (req.params.id) {
-                    const id = parseInt(req.params.id);
-                    if (!isNaN(id)) {
-                        const existingUsername = await usersService.getUserByUsername(username);
-                        if (existingUsername && existingUsername.users_id !== id) {
-                            throw new Error('Este username já está cadastrado por outro usuário');
-                        }
-                    }
-                } else {
-                    const existingUsername = await usersService.getUserByUsername(username);
-                    if (existingUsername) {
-                        throw new Error('Já existe um usuário com esse username no banco de dados');
-                    }
+                const id = req.params.id ? parseInt(req.params.id) : null;
+                const existingUsername = await usersService.getUserByUsername(username);
+                if (existingUsername && (!id || existingUsername.user_id !== id)) {
+                    throw new Error('Este username já está cadastrado por outro usuário');
                 }
                 return true;
             }),

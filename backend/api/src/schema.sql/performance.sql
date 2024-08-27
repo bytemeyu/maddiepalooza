@@ -12,7 +12,7 @@ CREATE TABLE performance (
     CONSTRAINT performance_stage_id_fkey FOREIGN KEY (stage_id)
         REFERENCES stage (stage_id)
 );
-
+-- criar o índice
 CREATE INDEX idx_performance_start_time ON performance(start_time);
 
 -- Inserir uma performance para a Madonna

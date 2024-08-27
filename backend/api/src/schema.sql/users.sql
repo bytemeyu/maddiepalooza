@@ -9,9 +9,3 @@ CREATE TABLE users (
     CONSTRAINT users_username_key UNIQUE (username),
     CONSTRAINT email_format CHECK (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$')
 );
-
--- Inserir um usuário (fictício)
-INSERT INTO users (email, username, password_hash, role)
-VALUES 
-('aanitakawasaki@gmail.com', 'aanitakawasaki', '$2b$10$D3iNUHYWJadmlfnshjpexOqVObrk1SPIaVrw8kaMWJ4uOpJ6LNueG', 'webadmin');
---a senha é: 123Hash*
