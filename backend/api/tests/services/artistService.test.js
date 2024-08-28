@@ -476,3 +476,15 @@ describe("artistService", () => {
     });
   });
 });
+
+//Para suprimir o console.error durante os testes, utilizamos o Jest para "mockar" (substituir temporariamente) o comportamento padrão do console.error. Basicamente, vamos substituir a função console.error por uma função vazia enquanto os testes estão rodando, o que faz com que nada seja impresso no console. Depois que os testes terminarem, restauramos o comportamento normal do console.error. Isso é útil para manter a saída dos testes limpa e focada nos resultados dos testes em si, sem poluição visual causada por mensagens de erro simuladas.
+
+// Antes de cada teste, vamos substituir o console.error por uma função vazia
+beforeEach(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+// Após cada teste, vamos restaurar o comportamento original do console.error
+afterEach(() => {
+  console.error.mockRestore();
+});
