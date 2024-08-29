@@ -30,7 +30,7 @@ export const performanceService = {
   ) => {
     try {
       const artistUnavailable =
-        await performanceRepository.checkArtistUnavailability(
+        await performanceRepository.artistUnavailability(
           artist_id,
           start_time,
           end_time,
@@ -42,13 +42,12 @@ export const performanceService = {
         );
       }
 
-      const stageUnavailable =
-        await performanceRepository.checkStageUnavailability(
-          stage_id,
-          start_time,
-          end_time,
-          date
-        );
+      const stageUnavailable = await performanceRepository.stageUnavailability(
+        stage_id,
+        start_time,
+        end_time,
+        date
+      );
       if (stageUnavailable) {
         throw new Error(
           "Já existe uma performance agendada neste palco para o horário especificado"
@@ -80,7 +79,7 @@ export const performanceService = {
   ) => {
     try {
       const artistUnavailable =
-        await performanceRepository.checkArtistUnavailability(
+        await performanceRepository.artistUnavailability(
           artist_id,
           start_time,
           end_time,
@@ -93,14 +92,13 @@ export const performanceService = {
         );
       }
 
-      const stageUnavailable =
-        await performanceRepository.checkStageUnavailability(
-          stage_id,
-          start_time,
-          end_time,
-          date,
-          id
-        );
+      const stageUnavailable = await performanceRepository.stageUnavailability(
+        stage_id,
+        start_time,
+        end_time,
+        date,
+        id
+      );
       if (stageUnavailable) {
         throw new Error(
           "Já existe uma performance agendada neste palco para o horário especificado"

@@ -98,7 +98,7 @@ export const PerformancesList = ({
 
   const performancesListClasses = "flex justify-center items-center";
   const ulClasses = "text-center";
-  const liClasses = "flex justify-center items-center my-3";
+  const liClasses = "flex justify-center items-center my-6";
   const pPerformanceDateClasses = "text-center font-extrabold";
   const pClasses = "text-center";
 
