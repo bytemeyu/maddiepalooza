@@ -237,6 +237,9 @@ describe("performanceService", () => {
         .fn()
         .mockResolvedValue(true);
 
+      performanceRepository.stageUnavailability = jest.fn(); // Mock vazio, não deve ser chamado
+      performanceRepository.createPerformance = jest.fn(); // Mock vazio, não deve ser chamado
+
       await expect(
         performanceService.createPerformance(
           1,
@@ -420,6 +423,10 @@ describe("performanceService", () => {
       expect(performanceRepository.updatePerformance).toHaveBeenCalledTimes(1);
     });
 
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
     test("deve lançar um erro se o artista não estiver disponível", async () => {
       const performanceToUpdate = {
         id: 1,
@@ -433,6 +440,9 @@ describe("performanceService", () => {
       performanceRepository.artistUnavailability = jest
         .fn()
         .mockResolvedValue(true);
+
+      performanceRepository.stageUnavailability = jest.fn(); // Mock vazio, não deve ser chamado
+      performanceRepository.createPerformance = jest.fn(); // Mock vazio, não deve ser chamado
 
       await expect(
         performanceService.updatePerformance(
