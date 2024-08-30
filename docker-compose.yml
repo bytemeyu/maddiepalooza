@@ -10,6 +10,8 @@ services:
     restart: unless-stopped
     env_file:
       - ./backend/api/.env.api
+      - ./backend/api/.env.test.api  
+      #esta última linha para carregar as variáveis de ambiente específicas para testes
     volumes:
       - ./backend/api:/app
       #indica um mapeamento de volumes entre o host e o (:) container. usamos /app no container pois muitas imagens Docker já predefinem /app como o diretório de trabalho.
@@ -17,6 +19,8 @@ services:
       - network
     depends_on:
       - database
+      - database_test
+      #adicionando o serviço de database de testes
     
   database:
     image: postgres:16.3
@@ -29,6 +33,17 @@ services:
     networks:
       - network
       #indica o nome da rede a ser criada e gerenciada pelo Docker
+
+  #o serviço para banco de dados de teste
+  database_test:
+    image: postgres:16.3
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.db.test
+    volumes:
+      - database_test:/var/lib/postgresql/data
+    networks:
+      - network
 
   frontend:
     build: ./frontend/maddiepalooza-vite
@@ -50,3 +65,5 @@ networks:
 
 volumes:
   database:
+  database_test:
+  #volume para o banco de dados de teste
