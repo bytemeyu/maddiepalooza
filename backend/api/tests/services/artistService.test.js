@@ -3,6 +3,10 @@ import { artistService } from "../../src/services/artistService";
 import { artistRepository } from "../../src/repositories/artistRepository";
 
 describe("artistService", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("getAllArtists", () => {
     test("tem que retornar todos os artistas ao resolver artistRepository.getAllArtists", async () => {
       const mockArtists = [

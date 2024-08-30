@@ -3,6 +3,10 @@ import { stageService } from "../../src/services/stageService";
 import { stageRepository } from "../../src/repositories/stageRepository";
 
 describe("stageService", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("getAllStages", () => {
     test("tem que retornar todos os palcos ao resolver stageRepository.getAllStages", async () => {
       const mockStages = [

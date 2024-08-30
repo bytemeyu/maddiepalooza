@@ -148,6 +148,7 @@ export const usersService = {
       console.error(
         `Erro ao recuperar usuário com e-mail ${email}: ${err.message}`
       );
+      throw err;
     }
   },
 };

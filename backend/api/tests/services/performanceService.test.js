@@ -3,6 +3,10 @@ import { performanceService } from "../../src/services/performanceService";
 import { performanceRepository } from "../../src/repositories/performanceRepository";
 
 describe("performanceService", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("getAllPerformances", () => {
     test("tem que retornar todos as performances ao resolver performanceRepository.getAllPerformances", async () => {
       const mockPerformances = [
@@ -421,10 +425,6 @@ describe("performanceService", () => {
       );
 
       expect(performanceRepository.updatePerformance).toHaveBeenCalledTimes(1);
-    });
-
-    beforeEach(() => {
-      jest.clearAllMocks();
     });
 
     test("deve lançar um erro se o artista não estiver disponível", async () => {
