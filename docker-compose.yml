@@ -10,8 +10,6 @@ services:
     restart: unless-stopped
     env_file:
       - ./backend/api/.env.api
-      - ./backend/api/.env.test.api  
-      #esta última linha para carregar as variáveis de ambiente específicas para testes
     volumes:
       - ./backend/api:/app
       #indica um mapeamento de volumes entre o host e o (:) container. usamos /app no container pois muitas imagens Docker já predefinem /app como o diretório de trabalho.
@@ -19,8 +17,6 @@ services:
       - network
     depends_on:
       - database
-      - database_test
-      #adicionando o serviço de database de testes
     
   database:
     image: postgres:16.3
@@ -34,7 +30,22 @@ services:
       - network
       #indica o nome da rede a ser criada e gerenciada pelo Docker
 
-  #o serviço para banco de dados de teste
+  #o serviço para api que roda banco de dados de teste:
+  api_test:
+    build: ./backend/api
+    command: ["npm", "run", "test"]
+    #o serviço api_test usa o mesmo Dockerfile que o serviço api, mas substitui o comando de início (npm start) pelo comando de teste (npm run test).
+    #O contêiner de teste pode rodar sem expor portas, já que a comunicação dentro do Docker (entre contêineres) não depende do mapeamento de portas externas.
+    env_file:
+      - ./backend/api/.env.api.test  
+    volumes:
+      - ./backend/api:/app_test
+    networks:
+      - network
+    depends_on:
+      - database_test
+      
+  #o serviço para banco de dados de teste:
   database_test:
     image: postgres:16.3
     restart: unless-stopped
