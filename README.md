@@ -196,6 +196,7 @@ Formato JSON.
 Foi desenvolvido por meio do Vite, configurado para React com TypeScript. Para a estilização foi utilizado o Tailwind CSS.
 
 ## Testes:
+Foram desenvolvidos 81 testes unitários, utilizando o Jest, para a camada de serviço, abrangindo artistService.js, stageService.js, performanceService.js, usersService.js e authService.js. 
 
 ## Deploy:
 
