@@ -1,0 +1,49 @@
+services:
+  
+  #o serviço para api que roda banco de dados de teste:
+  api_test:
+    image: maddiepalooza-api
+    ports:
+      - "3000:3000"
+    #o serviço api_test usa o mesmo Dockerfile que o serviço api, mas substitui o comando de início (npm start) pelo comando de teste (npm run test).
+    #O contêiner de teste pode rodar sem expor portas, já que a comunicação dentro do Docker (entre contêineres) não depende do mapeamento de portas externas.
+    env_file:
+      - ./backend/api/.env.api.test  
+    volumes:
+      - ./backend/api:/app
+    networks:
+      - network_test
+    depends_on:
+      - database_test
+      
+  #o serviço para banco de dados de teste:
+  database_test:
+    image: postgres:16.3
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env.db.test
+    volumes:
+      - database_test:/var/lib/postgresql/data
+    networks:
+      - network_test
+
+  frontend_test:
+    image: maddiepalooza-frontend
+    ports:
+      - "5173:5173"
+    restart: unless-stopped
+    volumes:
+      - ./frontend/maddiepalooza-vite:/app
+      - /app/node_modules 
+      #Ao criar um volume anônimo para node_modules, você garante que as instalações ou atualizações de pacotes realizadas dentro do container não afetam o diretório node_modules no seu sistema de arquivos do host. Isso evita conflitos e problemas potenciais caso você também execute comandos npm diretamente no host.
+    networks:
+      - network_test
+    depends_on:
+      - api_test
+ 
+networks:
+  network_test:
+    driver: bridge
+
+volumes:
+  database_test:

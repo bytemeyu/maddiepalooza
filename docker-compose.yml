@@ -1,5 +1,3 @@
-version: '2.28.1'
-
 services:
 
   api:
@@ -29,33 +27,7 @@ services:
     networks:
       - network
       #indica o nome da rede a ser criada e gerenciada pelo Docker
-
-  #o serviço para api que roda banco de dados de teste:
-  api_test:
-    build: ./backend/api
-    command: ["npm", "run", "test"]
-    #o serviço api_test usa o mesmo Dockerfile que o serviço api, mas substitui o comando de início (npm start) pelo comando de teste (npm run test).
-    #O contêiner de teste pode rodar sem expor portas, já que a comunicação dentro do Docker (entre contêineres) não depende do mapeamento de portas externas.
-    env_file:
-      - ./backend/api/.env.api.test  
-    volumes:
-      - ./backend/api:/app_test
-    networks:
-      - network
-    depends_on:
-      - database_test
-      
-  #o serviço para banco de dados de teste:
-  database_test:
-    image: postgres:16.3
-    restart: unless-stopped
-    env_file:
-      - ./backend/.env.db.test
-    volumes:
-      - database_test:/var/lib/postgresql/data
-    networks:
-      - network
-
+  
   frontend:
     build: ./frontend/maddiepalooza-vite
     ports:
@@ -69,12 +41,10 @@ services:
       - network
     depends_on:
       - api
-    
+
 networks:
   network:
     driver: bridge
 
 volumes:
   database:
-  database_test:
-  #volume para o banco de dados de teste
