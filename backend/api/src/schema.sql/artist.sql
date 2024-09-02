@@ -6,6 +6,7 @@ CREATE TABLE artist (
     CONSTRAINT artists_pkey PRIMARY KEY (artist_id)
 );
 
+-- criar o índice
 CREATE INDEX idx_artist_name ON artist(name);
 
 -- Inserir um artista (Madonna)
