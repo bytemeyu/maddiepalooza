@@ -1,6 +1,6 @@
 import { describe, test, jest, expect } from "@jest/globals";
-import { usersService } from "../../src/services/usersService";
-import { usersRepository } from "../../src/repositories/usersRepository";
+import { usersService } from "../../../src/services/usersService";
+import { usersRepository } from "../../../src/repositories/usersRepository";
 
 describe("usersService", () => {
   beforeEach(() => {

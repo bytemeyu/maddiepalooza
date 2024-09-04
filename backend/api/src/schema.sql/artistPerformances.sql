@@ -1,4 +1,4 @@
-CREATE VIEW artist_performances AS
+CREATE OR REPLACE VIEW artist_performances AS
 SELECT 
     p.performance_id,
     a.name AS artist_name,

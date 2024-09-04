@@ -1,6 +1,6 @@
 import { describe, test, jest, expect } from "@jest/globals";
-import { performanceService } from "../../src/services/performanceService";
-import { performanceRepository } from "../../src/repositories/performanceRepository";
+import { performanceService } from "../../../src/services/performanceService";
+import { performanceRepository } from "../../../src/repositories/performanceRepository";
 
 describe("performanceService", () => {
   beforeEach(() => {

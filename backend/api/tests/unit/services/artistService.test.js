@@ -1,6 +1,6 @@
 import { describe, jest } from "@jest/globals";
-import { artistService } from "../../src/services/artistService";
-import { artistRepository } from "../../src/repositories/artistRepository";
+import { artistService } from "../../../src/services/artistService";
+import { artistRepository } from "../../../src/repositories/artistRepository";
 
 describe("artistService", () => {
   beforeEach(() => {

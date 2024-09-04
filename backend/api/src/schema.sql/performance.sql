@@ -17,8 +17,8 @@ CREATE TABLE performance (
 CREATE INDEX idx_performance_start_time ON performance(start_time);
 
 -- Inserir uma performance para a Madonna
-INSERT INTO performance (artist_id, stage_id, start_time, end_time, date)
-VALUES 
-((SELECT artist_id FROM artist WHERE name = 'Madonna'), 
- (SELECT stage_id FROM stage WHERE name = 'Main Stage'),
- '2024-08-30 20:00:00+00', '2024-08-30 22:00:00+00', '2024-08-30');
+-- INSERT INTO performance (artist_id, stage_id, start_time, end_time, date)
+-- VALUES 
+-- ((SELECT artist_id FROM artist WHERE name = 'Madonna'), 
+--  (SELECT stage_id FROM stage WHERE name = 'Main Stage'),
+--  '2024-08-30 20:00:00+00', '2024-08-30 22:00:00+00', '2024-08-30');

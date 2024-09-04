@@ -1,6 +1,6 @@
 import { describe, test, jest, expect } from "@jest/globals";
-import { authService } from "../../src/services/authService";
-import { usersService } from "../../src/services/usersService";
+import { authService } from "../../../src/services/authService";
+import { usersService } from "../../../src/services/usersService";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 

@@ -1,6 +1,6 @@
 import { describe, test, jest, expect } from "@jest/globals";
-import { stageService } from "../../src/services/stageService";
-import { stageRepository } from "../../src/repositories/stageRepository";
+import { stageService } from "../../../src/services/stageService";
+import { stageRepository } from "../../../src/repositories/stageRepository";
 
 describe("stageService", () => {
   beforeEach(() => {

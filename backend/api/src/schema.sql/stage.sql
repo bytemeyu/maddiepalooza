@@ -7,6 +7,6 @@ CREATE TABLE stage (
 );
 
 -- Inserir um palco
-INSERT INTO stage (name, location, capacity)
-VALUES 
-('Main Stage', 'Central Park, NY', 50000);
+-- INSERT INTO stage (name, location, capacity)
+-- VALUES 
+-- ('Main Stage', 'Central Park, NY', 50000);
