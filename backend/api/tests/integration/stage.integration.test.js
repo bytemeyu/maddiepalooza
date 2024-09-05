@@ -1,6 +1,10 @@
 import request from "supertest";
 import app from "../../src/app.js";
+import { query, pool } from "../../src/config/database.js";
+import path from "path";
+import fs from "fs";
 import jwt from "jsonwebtoken";
+const __dirname = path.resolve();
 
 const generateValidToken = () => {
   const payload = {
@@ -16,7 +20,24 @@ const generateValidToken = () => {
   //gera um token válido
 };
 
-//como no teste da primeira entidade (artist) já foram criadas as tabelas e etc, aqui não precisa de beforeAll.
+beforeEach(async () => {
+  await query("BEGIN");
+  const filePath = path.resolve(__dirname, "../app/src/schema.sql/stage.sql");
+  const sql = fs.readFileSync(filePath, "utf8");
+  await query(sql);
+
+  await query("TRUNCATE TABLE stage RESTART IDENTITY CASCADE");
+});
+
+afterEach(async () => {
+  await query("ROLLBACK");
+  //reverte a transação após cada teste
+});
+
+afterAll(async () => {
+  await pool.end();
+  //fecha o pool de conexões do banco
+});
 
 describe("Stage API Endpoints", () => {
   describe("POST /api/stage", () => {

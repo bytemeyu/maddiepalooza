@@ -1,8 +1,7 @@
 services:
-
   api:
     build: ./backend/api
-    #constrói uma imagem a partir do Dockerfile no diretório especificado 
+    #constrói uma imagem a partir do Dockerfile no diretório especificado
     ports:
       - "3000:3000"
     restart: unless-stopped
@@ -15,7 +14,7 @@ services:
       - network
     depends_on:
       - database
-    
+
   database:
     image: postgres:16.3
     restart: unless-stopped
@@ -23,11 +22,11 @@ services:
       - ./backend/.env.db
     volumes:
       - database:/var/lib/postgresql/data
-      #indica o nome (será "nome_do_projeto_web_nome_definido_aqui") do volume a ser criado e gerenciado pelo Docker e o (:) caminho dentro do container onde o volume será montado. essa configuração garante a persistência de dados.
+      #indica o nome (será "nome-do-projeto-web-nome-definido-aqui") do volume a ser criado e gerenciado pelo Docker e o (:) caminho dentro do container onde o volume será montado. essa configuração garante a persistência de dados.
     networks:
       - network
       #indica o nome da rede a ser criada e gerenciada pelo Docker
-  
+
   frontend:
     build: ./frontend/maddiepalooza-vite
     ports:
@@ -35,7 +34,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./frontend/maddiepalooza-vite:/app
-      - /app/node_modules 
+      - /app/node_modules
       #Ao criar um volume anônimo para node_modules, você garante que as instalações ou atualizações de pacotes realizadas dentro do container não afetam o diretório node_modules no seu sistema de arquivos do host. Isso evita conflitos e problemas potenciais caso você também execute comandos npm diretamente no host.
     networks:
       - network

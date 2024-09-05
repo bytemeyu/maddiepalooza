@@ -1,6 +1,6 @@
 import request from "supertest";
 import app from "../../src/app.js";
-import { query } from "../../src/config/database.js";
+import { query, pool } from "../../src/config/database.js";
 import path from "path";
 import fs from "fs";
 import jwt from "jsonwebtoken";
@@ -21,28 +21,27 @@ const generateValidToken = () => {
   //gera um token válido
 };
 
-beforeAll(async () => {
-  const sqlFiles = [
-    "artist.sql",
-    "stage.sql",
-    "performance.sql",
-    "artistPerformances.sql",
-    "users.sql",
-  ];
-
-  for (const file of sqlFiles) {
-    const filePath = path.resolve(__dirname, "../app/src/schema.sql", file);
-    //console.log(file);
-    //console.log(filePath);
-    //cria o caminho de cada um dos arquivos schema.sql
-    const sql = fs.readFileSync(filePath, "utf8");
-    //lê o conteúdo de cada arquivo
-    await query(sql);
-    //executa o sql no banco de dados teste
-  }
+beforeEach(async () => {
+  await query("BEGIN");
+  //inicia uma transação antes de cada teste (envolvendo cada teste em uma transação e, após o teste, fazendo um rollback para garantir que nenhuma alteração no banco de dados persista entre os testes)
+  const filePath = path.resolve(__dirname, "../app/src/schema.sql/artist.sql");
+  const sql = fs.readFileSync(filePath, "utf8");
+  //lê o conteúdo do arquivo
+  await query(sql);
+  //executa o sql no banco de dados teste
 
   await query("TRUNCATE TABLE artist RESTART IDENTITY CASCADE");
-  //limpa as tabelas antes de todos os testes
+  //limpa a tabela em questão antes de todos os testes
+});
+
+afterEach(async () => {
+  await query("ROLLBACK");
+  //reverte a transação após cada teste
+});
+
+afterAll(async () => {
+  await pool.end();
+  //fecha o pool de conexões do banco
 });
 
 describe("Artist API Endpoints", () => {
