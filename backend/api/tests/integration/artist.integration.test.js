@@ -21,41 +21,24 @@ const generateValidToken = () => {
   //gera um token válido
 };
 
-const checkTableExists = async (tableName) => {
-  const result = await query(
-    `SELECT EXISTS (
-      SELECT FROM pg_tables
-      WHERE schemaname = 'public' AND tablename = $1
-    );`,
-    [tableName]
-  );
-  return result.rows[0].exists;
-};
-
 beforeAll(async () => {
   const sqlFiles = [
-    { file: "artist.sql", table: "artist" },
-    { file: "stage.sql", table: "stage" },
-    { file: "performance.sql", table: "performance" },
-    { file: "artistPerformances.sql", table: "artist_performances" },
-    { file: "users.sql", table: "users" },
+    "artist.sql",
+    "stage.sql",
+    "performance.sql",
+    "artistPerformances.sql",
+    "users.sql",
   ];
 
-  for (const { file, table } of sqlFiles) {
-    const tableExists = await checkTableExists(table);
-
-    if (!tableExists) {
-      const filePath = path.resolve(__dirname, "../app/src/schema.sql", file);
-      //cria o caminho de cada um dos arquivos schema.sql, lembrando que esse caminho é relativo ao serviço de api no docker
-      console.log(`Criando tabela ${table}`);
-      console.log(filePath);
-      const sql = fs.readFileSync(filePath, "utf8");
-      //lê o conteúdo de cada arquivo
-      await query(sql);
-      //executa o sql no banco de dados teste
-    } else {
-      console.log(`Tabela ${table} já existe. Pulando criação.`);
-    }
+  for (const file of sqlFiles) {
+    const filePath = path.resolve(__dirname, "../app/src/schema.sql", file);
+    //console.log(file);
+    //console.log(filePath);
+    //cria o caminho de cada um dos arquivos schema.sql
+    const sql = fs.readFileSync(filePath, "utf8");
+    //lê o conteúdo de cada arquivo
+    await query(sql);
+    //executa o sql no banco de dados teste
   }
 
   await query("TRUNCATE TABLE artist RESTART IDENTITY CASCADE");

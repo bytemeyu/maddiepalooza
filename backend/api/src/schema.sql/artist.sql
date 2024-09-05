@@ -1,4 +1,4 @@
-CREATE TABLE artist (
+CREATE TABLE IF NOT EXISTS artist (
     artist_id SERIAL NOT NULL,
     name CHARACTER VARYING(50) NOT NULL,
     biography CHARACTER VARYING(400),
@@ -7,7 +7,12 @@ CREATE TABLE artist (
 );
 
 -- criar o índice
-CREATE INDEX idx_artist_name ON artist(name);
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'idx_artist_name') THEN
+        CREATE INDEX idx_artist_name ON artist(name);
+    END IF;
+END $$;
 
 -- Inserir um artista (Madonna)
 -- INSERT INTO artist (name, biography, photo_url)

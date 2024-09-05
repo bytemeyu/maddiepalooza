@@ -1,4 +1,4 @@
-CREATE TABLE performance (
+CREATE TABLE IF NOT EXISTS performance (
     performance_id SERIAL NOT NULL,
     artist_id INTEGER NOT NULL,
     stage_id INTEGER,
@@ -14,7 +14,12 @@ CREATE TABLE performance (
 );
 
 -- criar o índice
-CREATE INDEX idx_performance_start_time ON performance(start_time);
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'idx_performance_start_time') THEN
+        CREATE INDEX idx_performance_start_time ON performance(start_time);
+    END IF;
+END $$;
 
 -- Inserir uma performance para a Madonna
 -- INSERT INTO performance (artist_id, stage_id, start_time, end_time, date)
