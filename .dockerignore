@@ -6,3 +6,5 @@ npm-debug.log
 .git
 .gitignore
 README.md
+.env.db.test
+.env.api.test
