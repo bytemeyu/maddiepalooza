@@ -41,21 +41,21 @@ services:
     depends_on:
       - api
 
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      #porta para HTTP
-      - "443:443"
-      #porta para HTTPS
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      #mapeamento do arquivo de configuração do Nginx [arquivo que deve ser criado por mim, no mesmo diretório em que está o 'docker-compose.yml']
-    depends_on:
-      - api
-      - frontend
-    networks:
-      - network
+nginx:
+  image: nginx:latest
+  ports:
+    - "80:80"
+    #porta para HTTP
+    - "443:443"
+    #porta para HTTPS
+  volumes:
+    - ./nginx:/etc/nginx
+    #mapeia toda a pasta nginx e seu conteúdo
+  depends_on:
+    - api
+    - frontend
+  networks:
+    - network
 
 networks:
   network:
