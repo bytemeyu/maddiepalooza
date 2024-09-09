@@ -196,15 +196,14 @@ Formato JSON.
 Foi desenvolvido por meio do Vite, configurado para React com TypeScript. Para a estilização foi utilizado o Tailwind CSS.
 
 ## Testes:
-Foram desenvolvidos 81 testes unitários, utilizando o Jest, para a camada de serviço, abrangindo artistService.js, stageService.js, performanceService.js, usersService.js e authService.js. 
+Foram desenvolvidos 81 testes unitários, utilizando o Jest, para a camada de serviço, abrangindo artistService.js, stageService.js, performanceService.js, usersService.js e authService.js. Foram, também, desenvolvidos 26 testes de integração, utilizando Jest e Supertest, verificando integração entre frontend, API e banco de dados, abrangindo artist, stage, performance, users e auth.
 
 ## Deploy:
+Foi realizada a configuração de um servidor virtual rodando Ubuntu 22.04, alugado via Vultr: foi instalado o Docker e executado o docker compose (feito as alterações necessárias), para que o website fosse iniciado em modo de produção.
 
 ## Para o Usuário:
-**- O que o software Maddiepalooza faz?**
+**- O que o software Maddiepalooza faz?**  
+O software Maddiepalooza é uma plataforma de gerenciamento para eventos de música, projetada para facilitar a organização e a administração de artistas, palcos e performances. Ele permite adicionar, editar, remover e visualizar informações sobre artistas e palcos, além de gerenciar a agenda do evento, alocando artistas em horários e locais específicos. O sistema também inclui funcionalidades de autenticação e autorização, com diferentes níveis de acesso para usuários.
 
-**- Por que o software Maddiepalooza é útil?**
-
-**- Como os usuários podem começar a usar o software Maddiepalooza?**
-
-**- Quem mantém e contribui para o software Maddiepalooza?**
+**- Por que o software Maddiepalooza é útil?**  
+O Maddiepalooza é útil porque centraliza e simplifica a gestão de eventos musicais, permitindo uma organização eficiente e bem estruturada. Ele facilita a programação e a alocação de artistas e palcos, garantindo que as performances sejam bem coordenadas e evitando sobreposições ou conflitos de horário. A autenticação e os diferentes níveis de acesso garantem que apenas usuários autorizados possam realizar ações específicas, aumentando a segurança e a integridade dos dados.
