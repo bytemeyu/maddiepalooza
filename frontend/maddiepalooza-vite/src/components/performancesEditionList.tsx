@@ -19,6 +19,7 @@ export const PerformancesEditionList = ({
   children,
   ...rest
 }: PerformancesEditionListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [performances, setPerformances] = useState<Performance[]>([]);
   const [stages, setStages] = useState<Stage[]>([]);
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -43,9 +44,7 @@ export const PerformancesEditionList = ({
     async function fetchData() {
       try {
         //fetch performances:
-        const performancesResponse = await fetch(
-          "http://localhost:3000/api/performance"
-        );
+        const performancesResponse = await fetch(`${apiUrl}/api/performance`);
         const performancesJson = await performancesResponse.json();
         if (Array.isArray(performancesJson.data)) {
           setPerformances(performancesJson.data as Performance[]);
@@ -54,7 +53,7 @@ export const PerformancesEditionList = ({
         }
 
         //fetch stages:
-        const stagesResponse = await fetch("http://localhost:3000/api/stage");
+        const stagesResponse = await fetch(`${apiUrl}/api/stage`);
         const stagesJson = await stagesResponse.json();
         if (Array.isArray(stagesJson.data)) {
           setStages(stagesJson.data as Stage[]);
@@ -63,7 +62,7 @@ export const PerformancesEditionList = ({
         }
 
         //fetch artists:
-        const artistsResponse = await fetch("http://localhost:3000/api/artist");
+        const artistsResponse = await fetch(`${apiUrl}/api/artist`);
         const artistsJson = await artistsResponse.json();
         if (Array.isArray(artistsJson.data)) {
           setArtists(artistsJson.data as Artist[]);
@@ -109,7 +108,7 @@ export const PerformancesEditionList = ({
     };
 
     try {
-      const response = await fetch("http://localhost:3000/api/performance", {
+      const response = await fetch(`${apiUrl}/api/performance`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -161,7 +160,7 @@ export const PerformancesEditionList = ({
 
       try {
         const response = await fetch(
-          `http://localhost:3000/api/performance/${editedPerformance.performance_id}`,
+          `${apiUrl}/api/performance/${editedPerformance.performance_id}`,
           {
             method: "PUT",
             headers: {
@@ -206,7 +205,7 @@ export const PerformancesEditionList = ({
   const deletePerformance = async (performanceId: number) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/performance/${performanceId}`,
+        `${apiUrl}/api/performance/${performanceId}`,
         {
           method: "DELETE",
           credentials: "include",

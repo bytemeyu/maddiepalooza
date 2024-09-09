@@ -9,12 +9,13 @@ export const StagesList = ({
   children,
   ...rest
 }: StagesListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [stages, setStages] = useState<Stage[]>([]);
 
   useEffect(() => {
     async function fetchStages() {
       try {
-        const response = await fetch("http://localhost:3000/api/stage");
+        const response = await fetch(`${apiUrl}/api/stage`);
         const jsonResponse = await response.json();
         if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
           setStages(jsonResponse.data as Stage[]);

@@ -31,6 +31,9 @@ services:
     build: ./frontend/maddiepalooza-vite
     ports:
       - "5173:5173"
+    environment:
+      - VITE_API_URL=http://149.28.42.49:3000
+      - NODE_ENV=production
     restart: unless-stopped
     volumes:
       - ./frontend/maddiepalooza-vite:/app
@@ -41,21 +44,21 @@ services:
     depends_on:
       - api
 
-nginx:
-  image: nginx:latest
-  ports:
-    - "80:80"
-    #porta para HTTP
-    - "443:443"
-    #porta para HTTPS
-  volumes:
-    - ./nginx:/etc/nginx
-    #mapeia toda a pasta nginx e seu conteúdo
-  depends_on:
-    - api
-    - frontend
-  networks:
-    - network
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      #porta para HTTP
+      - "443:443"
+      #porta para HTTPS
+    volumes:
+      - ./nginx:/etc/nginx
+      #mapeia toda a pasta nginx e seu conteúdo
+    depends_on:
+      - api
+      - frontend
+    networks:
+      - network
 
 networks:
   network:

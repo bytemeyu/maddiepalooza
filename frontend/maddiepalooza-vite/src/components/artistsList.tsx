@@ -10,12 +10,13 @@ export const ArtistsList = ({
   children,
   ...rest
 }: ArtistsListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [artists, setArtists] = useState<Artist[]>([]);
 
   useEffect(() => {
     async function fetchArtists() {
       try {
-        const response = await fetch("http://localhost:3000/api/artist");
+        const response = await fetch(`${apiUrl}/api/artist`);
         const jsonResponse = await response.json();
         if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
           setArtists(jsonResponse.data as Artist[]);

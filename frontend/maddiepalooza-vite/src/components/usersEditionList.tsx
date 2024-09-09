@@ -18,6 +18,7 @@ export const UsersEditionList = ({
   children,
   ...rest
 }: UsersEditionListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const { isAuthenticated, currentUser } = useAuth();
   //checa se o usuário está autenticado e obtém o papel do usuário atual do contexto de autenticação
 
@@ -43,7 +44,7 @@ export const UsersEditionList = ({
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch("http://localhost:3000/api/users", {
+        const response = await fetch(`${apiUrl}/api/users`, {
           method: "GET",
           credentials: "include",
         });
@@ -128,7 +129,7 @@ export const UsersEditionList = ({
 
     // Permite a criação para 'webadmin' e 'producer' (com as restrições acima)
     try {
-      const response = await fetch("http://localhost:3000/api/users", {
+      const response = await fetch(`${apiUrl}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -214,7 +215,7 @@ export const UsersEditionList = ({
 
         try {
           const response = await fetch(
-            `http://localhost:3000/api/users/${editedUser.user_id}`,
+            `${apiUrl}/api/users/${editedUser.user_id}`,
             {
               method: "PUT",
               headers: {
@@ -268,13 +269,10 @@ export const UsersEditionList = ({
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/users/${userId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${apiUrl}/api/users/${userId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       const jsonResponse = await response.json();
 

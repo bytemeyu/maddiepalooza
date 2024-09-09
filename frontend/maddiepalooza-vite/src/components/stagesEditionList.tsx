@@ -17,6 +17,7 @@ export const StagesEditionList = ({
   children,
   ...rest
 }: StagesEditionListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [stages, setStages] = useState<Stage[]>([]);
   const [newStage, setNewStage] = useState<Partial<Stage>>({
     name: "",
@@ -31,7 +32,7 @@ export const StagesEditionList = ({
   useEffect(() => {
     async function fetchStages() {
       try {
-        const response = await fetch("http://localhost:3000/api/stage");
+        const response = await fetch(`${apiUrl}/api/stage`);
         const jsonResponse = await response.json();
         if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
           setStages(jsonResponse.data as Stage[]);
@@ -53,7 +54,7 @@ export const StagesEditionList = ({
 
   const addStage = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/stage", {
+      const response = await fetch(`${apiUrl}/api/stage`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +91,7 @@ export const StagesEditionList = ({
     if (editedStage.stage_id) {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/stage/${editedStage.stage_id}`,
+          `${apiUrl}/api/stage/${editedStage.stage_id}`,
           {
             method: "PUT",
             headers: {
@@ -134,13 +135,10 @@ export const StagesEditionList = ({
 
   const deleteStage = async (stageId: number) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/stage/${stageId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${apiUrl}/api/stage/${stageId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       const jsonResponse = await response.json();
 

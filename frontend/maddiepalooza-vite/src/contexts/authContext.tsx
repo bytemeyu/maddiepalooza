@@ -6,6 +6,7 @@ import { Modal } from "../components/basics/modal";
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider = (props: AuthProviderProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [currentUser, setCurrentUser] =
     useState<AuthContextProps["currentUser"]>(null);
@@ -14,7 +15,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${apiUrl}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,7 +60,7 @@ export const AuthProvider = (props: AuthProviderProps) => {
 
   const logout = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/logout", {
+      const response = await fetch(`${apiUrl}/api/auth/logout`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -19,6 +19,7 @@ export const ArtistsEditionList = ({
   children,
   ...rest
 }: ArtistsEditionListProps) => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [artists, setArtists] = useState<Artist[]>([]);
   //Define um estado chamado artists que é um array de objetos do tipo Artist. Inicialmente, artists é um array vazio. setArtists é a função usada para atualizar o estado artists.
   const [newArtist, setNewArtist] = useState<Partial<Artist>>({
@@ -39,7 +40,7 @@ export const ArtistsEditionList = ({
     async function fetchArtists() {
       //função assíncrona para buscar artistas
       try {
-        const response = await fetch("http://localhost:3000/api/artist");
+        const response = await fetch(`${apiUrl}/api/artist`);
         const jsonResponse = await response.json();
         if (jsonResponse.success && Array.isArray(jsonResponse.data)) {
           setArtists(jsonResponse.data as Artist[]);
@@ -63,7 +64,7 @@ export const ArtistsEditionList = ({
 
   const addArtist = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/artist", {
+      const response = await fetch(`${apiUrl}/api/artist`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,7 +104,7 @@ export const ArtistsEditionList = ({
     if (editedArtist.artist_id) {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/artist/${editedArtist.artist_id}`,
+          `${apiUrl}/api/artist/${editedArtist.artist_id}`,
           {
             method: "PUT",
             headers: {
@@ -149,13 +150,10 @@ export const ArtistsEditionList = ({
 
   const deleteArtist = async (artistId: number) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/artist/${artistId}`,
-        {
-          method: "DELETE",
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`${apiUrl}/api/artist/${artistId}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
 
       const jsonResponse = await response.json();
 
